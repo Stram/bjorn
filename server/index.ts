@@ -1,8 +1,10 @@
 import * as express from 'express';
+import {info} from 'winston';
 
 import {host, port} from 'server/config';
 
 class Application {
+
   express: express.Application
 
   constructor() {
@@ -21,7 +23,7 @@ class Application {
 
   private startListening() {
     this.express.listen(port, host, () => {
-
+      info(`Server is ready and listening on http://${host}:${port}`);
     });
   }
 };
