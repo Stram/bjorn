@@ -1,7 +1,8 @@
 import * as express from 'express';
 import {info} from 'winston';
 
-import {host, port} from 'server/config';
+import {host, port} from './config';
+import router from './router';
 
 class Application {
 
@@ -9,16 +10,13 @@ class Application {
 
   constructor() {
     this.express = express()
-    this.init();
-  }
 
-  init() {
-    this.setRoutes();
+    this.setupRouter();
     this.startListening();
   }
 
-  private setRoutes() {
-    // TODO
+  private setupRouter() {
+    this.express.use(router);
   }
 
   private startListening() {

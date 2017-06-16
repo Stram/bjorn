@@ -4,11 +4,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "typeRoots": ["node_modules/@types"],
-    "baseUrl": ".",
-    "paths": {
-      "server/*": ["./server/*"]
-    }
+    "typeRoots": ["node_modules/@types"]
   },
 
   "include": [
