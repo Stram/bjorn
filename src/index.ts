@@ -1,4 +1,6 @@
+import * as path from 'path';
 import * as express from 'express';
+import * as exphbs from 'express-handlebars';
 import {info} from 'winston';
 
 import {host, port} from './config';
@@ -6,26 +8,36 @@ import router from './router';
 
 class Application {
 
-  express: express.Application
+  app: express.Application
 
   constructor() {
-    this.express = express()
+    this.app = express()
 
+    this.setupViewEngine();
     this.setupRouter();
     this.startListening();
   }
 
+  private setupViewEngine() {
+    const hbs = exphbs.create({
+      defaultLayout: 'main',
+      extname: '.hbs'
+    });
+
+    this.app.engine('hbs', hbs.engine);
+    this.app.set('views', path.resolve(__dirname, '../views'));
+    this.app.set('view engine', 'hbs');
+  }
+
   private setupRouter() {
-    this.express.use(router);
+    this.app.use(router);
   }
 
   private startListening() {
-    this.express.listen(port, host, () => {
+    this.app.listen(port, host, () => {
       info(`Server is ready and listening on http://${host}:${port}`);
     });
   }
 };
 
-const app = new Application();
-
-export default app.express;
+export default (new Application()).app;

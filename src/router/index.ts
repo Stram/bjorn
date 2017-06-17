@@ -12,9 +12,7 @@ class Router {
   }
 
   private setRoutes() {
-    const adminRouter = this.getAdminRouter();
-
-    this.router.use('/admin', adminRouter);
+    this.router.use('/admin', this.getAdminRouter());
   }
 
   private getAdminRouter() {
