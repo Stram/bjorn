@@ -4,6 +4,11 @@
   "description": "Dashboard",
   "main": "src/index.ts",
   "scripts": {
+    "install": "npm install",
+    "start": "concurrently --kill-others --prefix \"[{name}]\" --names \"NODE,TYPESCRIPT\" --prefix-colors \"cyan.bold,yellow.bold\" \"npm run server:watch\" \"npm run server:transform-watch\"",
+    "server:watch": "nodemon --watch dist dist/index.js",
+    "server:transform": "tsc",
+    "server:transform-watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
