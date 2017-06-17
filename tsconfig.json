@@ -4,10 +4,13 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "target": "ES2017",
+    "module": "commonjs",
+    "moduleResolution": "Node"
   },
 
   "include": [
-    "server/**/*"
+    "src/**/*"
   ]
 }
