@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "install": "npm install",
-    "start": "concurrently --kill-others --prefix \"[{name}]\" --names \"NODE,TYPESCRIPT\" --prefix-colors \"cyan.bold,yellow.bold\" \"npm run server:watch\" \"npm run server:transform-watch\"",
+    "start": "concurrently --kill-others --prefix \"[{name}]\" --names \"TYPESCRIPT,NODE\" --prefix-colors \"yellow.bold,cyan.bold\" \"npm run server:transform-watch\" \"npm run server:watch\"",
     "server:watch": "nodemon --watch dist dist/index.js",
     "server:transform": "tsc",
     "server:transform-watch": "tsc -w",
