@@ -15,6 +15,7 @@ class Application {
 
     this.setupViewEngine();
     this.setupRouter();
+    this.setupAssetsPaths();
     this.startListening();
   }
 
@@ -31,6 +32,10 @@ class Application {
 
   private setupRouter() {
     this.app.use(router);
+  }
+
+  private setupAssetsPaths() {
+    this.app.use('/bundles', express.static(path.resolve(DISTRIBUTION_FOLDER_NAME, '../bundles')));
   }
 
   private startListening() {
