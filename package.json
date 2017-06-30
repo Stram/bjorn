@@ -5,10 +5,16 @@
   "main": "src/index.ts",
   "scripts": {
     "install": "npm install",
-    "start": "concurrently --kill-others --prefix \"[{name}]\" --names \"TYPESCRIPT,NODE\" --prefix-colors \"yellow.bold,cyan.bold\" \"npm run server:transform-watch\" \"npm run server:watch\"",
-    "server:watch": "nodemon --watch dist dist/index.js",
-    "server:transform": "tsc",
-    "server:transform-watch": "tsc -w",
+
+    "server:bundle:watch": "webpack --config build-config/webpack.server.config.js -w",
+    "server:bundle:build": "webpack --config build-config/webpack.server.config.js",
+    "server:watch": "nodemon --watch dist dist/server.js",
+    "server:start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,NODEMON\" --prefix-colors \"blue.bold,green.bold\" \"npm run server:bundle:watch\" \"sleep 7 && npm run server:watch\"",
+
+    "client:watch": "webpack --config build-config/webpack.client.config.js -w",
+    "client:build": "webpack --config build-config/webpack.client.config.js",
+    "client:start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK\" --prefix-colors \"blue.bold\" \"npm run client:watch\"",
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,6 +22,7 @@
   "dependencies": {
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
+    "vue": "^2.3.4",
     "winston": "^2.3.1"
   },
   "devDependencies": {
@@ -23,6 +30,8 @@
     "@types/express-handlebars": "0.0.29",
     "@types/winston": "^2.3.3",
     "concurrently": "^3.5.0",
-    "typescript": "^2.4.1"
+    "ts-loader": "^2.2.1",
+    "typescript": "^2.4.1",
+    "webpack": "^3.0.0"
   }
 }

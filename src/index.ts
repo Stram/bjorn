@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as exphbs from 'express-handlebars';
 import {info} from 'winston';
 
-import {host, port} from './config';
+import {HOST, PORT, DISTRIBUTION_FOLDER_NAME} from './config';
 import router from './router';
 
 class Application {
@@ -25,7 +25,7 @@ class Application {
     });
 
     this.app.engine('hbs', hbs.engine);
-    this.app.set('views', path.resolve(__dirname, '../views'));
+    this.app.set('views', path.resolve(DISTRIBUTION_FOLDER_NAME, '../views'));
     this.app.set('view engine', 'hbs');
   }
 
@@ -34,8 +34,8 @@ class Application {
   }
 
   private startListening() {
-    this.app.listen(port, host, () => {
-      info(`Server is ready and listening on http://${host}:${port}`);
+    this.app.listen(PORT, HOST, () => {
+      info(`Server is ready and listening on http://${HOST}:${PORT}`);
     });
   }
 };
