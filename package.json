@@ -5,16 +5,13 @@
   "main": "src/index.ts",
   "scripts": {
     "install": "npm install",
-
     "server:bundle:watch": "webpack --config build-config/webpack.server.config.js -w",
     "server:bundle:build": "webpack --config build-config/webpack.server.config.js",
     "server:watch": "nodemon --watch dist dist/server.js",
     "server:start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,NODEMON\" --prefix-colors \"blue.bold,green.bold\" \"npm run server:bundle:watch\" \"sleep 7 && npm run server:watch\"",
-
     "client:watch": "webpack --config build-config/webpack.client.config.js -w",
     "client:build": "webpack --config build-config/webpack.client.config.js",
     "client:start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK\" --prefix-colors \"blue.bold\" \"npm run client:watch\"",
-
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -23,6 +20,7 @@
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
     "vue": "^2.3.4",
+    "vue-class-component": "^5.0.2",
     "winston": "^2.3.1"
   },
   "devDependencies": {
@@ -30,8 +28,15 @@
     "@types/express-handlebars": "0.0.29",
     "@types/winston": "^2.3.3",
     "concurrently": "^3.5.0",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
     "ts-loader": "^2.2.1",
     "typescript": "^2.4.1",
-    "webpack": "^3.0.0"
+    "vue-loader": "^13.0.0",
+    "vue-template-compiler": "^2.3.4",
+    "webpack": "^3.0.0",
+    "webpack-merge": "^4.1.0"
   }
 }

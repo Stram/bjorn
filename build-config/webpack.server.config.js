@@ -1,9 +1,12 @@
 const path = require('path');
+const merge = require('webpack-merge');
+
+const baseConfig = require('./webpack.base.config.js');
 
 const srcFolder = path.resolve(__dirname, '../src');
 const distFolder = path.resolve(__dirname, '../dist');
 
-module.exports = {
+module.exports = merge(baseConfig, {
   entry: {
     server: srcFolder
   },
@@ -13,16 +16,7 @@ module.exports = {
     filename: '[name].js'
   },
 
-  module: {
-    rules: [{
-      test: /\.ts$/,
-      loader: 'ts-loader'
-    }]
-  },
-
   resolve: {
-    extensions: ['.js', '.ts'],
-    modules: ['node_modules'],
     alias: {
       'handlebars': 'handlebars/dist/handlebars.js'
     }
@@ -30,5 +24,5 @@ module.exports = {
 
   devtool: 'source-map',
 
- target: 'node'
-}
+  target: 'node'
+});

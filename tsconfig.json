@@ -5,6 +5,8 @@
     "noImplicitReturns": true,
     "removeComments": true,
     "preserveConstEnums": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "typeRoots": ["node_modules/@types"],
     "target": "ES2017",
