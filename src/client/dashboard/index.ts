@@ -1,6 +1,6 @@
-import createApp from '../../apps/dashboard';
+import {createDashboardApp} from 'apps/dashboard';
 
-const {app} = createApp();
+const {app} = createDashboardApp();
 
 // TODO: if element exists
 app.$mount('#app');
