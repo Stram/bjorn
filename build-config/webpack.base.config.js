@@ -1,6 +1,7 @@
 const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 const srcFolder = path.resolve(__dirname, '../src');
 const bundlesFolder = path.resolve(__dirname, '../bundles');
