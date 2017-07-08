@@ -12,7 +12,7 @@
   export default class App extends Vue {
     property = 'stringer'
   }
-  
+
 </script>
 
 <style lang="scss" module>
