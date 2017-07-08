@@ -40,15 +40,26 @@ module.exports = {
           camelCase: true
         }
       }
+    }, {
+      test: /\.html$/,
+      loader: 'html-loader',
+      options: {
+        removeComments: false,
+        exportAsEs6Default: true
+      }
     }]
   },
 
   resolve: {
     extensions: ['.js', '.ts', '.vue'],
-    modules: ['node_modules']
+    modules: [
+      path.resolve(__dirname, '../src'),
+      'node_modules'
+    ],
   },
 
   plugins: [
     new ExtractTextPlugin('[name].css'),
+    new FriendlyErrorsPlugin()
   ]
 }
