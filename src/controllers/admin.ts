@@ -1,7 +1,7 @@
 import {RequestHandler} from 'express';
 
 class AdminController {
-  index: RequestHandler = (req, res, next) => {
+  public index: RequestHandler = (req, res, next) => {
     res.render('admin');
   }
 }

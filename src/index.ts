@@ -1,17 +1,17 @@
-import * as path from 'path';
 import * as express from 'express';
 import * as exphbs from 'express-handlebars';
+import * as path from 'path';
 import {info} from 'winston';
 
-import {HOST, PORT, DISTRIBUTION_FOLDER_NAME, BUNDLES_FOLDER_NAME} from './config';
+import {BUNDLES_FOLDER_NAME, DISTRIBUTION_FOLDER_NAME, HOST, PORT } from './config';
 import router from './router';
 
 class Application {
 
-  app: express.Application
+  public app: express.Application;
 
   constructor() {
-    this.app = express()
+    this.app = express();
 
     this.setupViewEngine();
     this.setupRouter();
@@ -22,7 +22,7 @@ class Application {
   private setupViewEngine() {
     const hbs = exphbs.create({
       defaultLayout: 'main',
-      extname: '.hbs'
+      extname: '.hbs',
     });
 
     this.app.engine('hbs', hbs.engine);
@@ -43,6 +43,6 @@ class Application {
       info(`Server is ready and listening on http://${HOST}:${PORT}`);
     });
   }
-};
+}
 
 export default (new Application()).app;

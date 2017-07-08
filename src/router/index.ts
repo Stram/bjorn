@@ -5,7 +5,7 @@ import dashboard from '../controllers/dashboard';
 
 class Router {
 
-  router: express.Router
+  public router: express.Router;
 
   constructor() {
     this.router = express.Router();
