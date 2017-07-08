@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as exphbs from 'express-handlebars';
 import {info} from 'winston';
 
-import {HOST, PORT, DISTRIBUTION_FOLDER_NAME} from './config';
+import {HOST, PORT, DISTRIBUTION_FOLDER_NAME, BUNDLES_FOLDER_NAME} from './config';
 import router from './router';
 
 class Application {
@@ -35,7 +35,7 @@ class Application {
   }
 
   private setupAssetsPaths() {
-    this.app.use('/bundles', express.static(path.resolve(DISTRIBUTION_FOLDER_NAME, '../bundles')));
+    this.app.use('/', express.static(path.resolve(DISTRIBUTION_FOLDER_NAME, '../', BUNDLES_FOLDER_NAME)));
   }
 
   private startListening() {
