@@ -5,13 +5,15 @@
   "main": "src/index.ts",
   "scripts": {
     "install": "npm install",
+    "server:renderer:watch": "webpack --config build-config/webpack.server-renderer.config.js -w",
+    "server:renderer:build": "webpack --config build-config/webpack.server-renderer.config.js",
     "server:bundle:watch": "webpack --config build-config/webpack.server.config.js -w",
     "server:bundle:build": "webpack --config build-config/webpack.server.config.js",
-    "server:watch": "nodemon --watch dist dist/server.js",
-    "server:start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,NODEMON\" --prefix-colors \"blue.bold,green.bold\" \"npm run server:bundle:watch\" \"sleep 7 && npm run server:watch\"",
+    "server:watch": "nodemon --watch dist --ignore dist/server-renderer-bundles dist/server.js",
+    "server:dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"RENDERER,WEBPACK,NODEMON\" --prefix-colors \"red.bold,blue.bold,green.bold\" \"npm run server:renderer:watch\" \"npm run server:bundle:watch\" \"sleep 7 && npm run server:watch\"",
     "client:watch": "webpack --config build-config/webpack.client.config.js -w",
     "client:build": "webpack --config build-config/webpack.client.config.js",
-    "client:start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK\" --prefix-colors \"blue.bold\" \"npm run client:watch\"",
+    "client:dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK\" --prefix-colors \"blue.bold\" \"npm run client:watch\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
