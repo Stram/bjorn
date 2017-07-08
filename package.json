@@ -21,6 +21,7 @@
     "express-handlebars": "^3.0.0",
     "vue": "^2.3.4",
     "vue-class-component": "^5.0.2",
+    "vue-server-renderer": "^2.3.4",
     "winston": "^2.3.1"
   },
   "devDependencies": {
@@ -30,13 +31,17 @@
     "concurrently": "^3.5.0",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "html-loader": "^0.4.5",
+    "json-loader": "^0.5.4",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
-    "ts-loader": "^2.2.1",
+    "ts-loader": "^2.2.2",
     "typescript": "^2.4.1",
     "vue-loader": "^13.0.0",
     "vue-template-compiler": "^2.3.4",
-    "webpack": "^3.0.0",
-    "webpack-merge": "^4.1.0"
+    "webpack": "^3.1.0",
+    "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.6.0"
   }
 }
