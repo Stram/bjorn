@@ -1,5 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
+const webpack = require('webpack');
+const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 const baseConfig = require('./webpack.base.config.js');
 
@@ -17,5 +19,13 @@ module.exports = merge(baseConfig, {
     filename: '[name].js'
   },
 
-  devtool: 'source-map'
+  devtool: 'source-map',
+
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity
+    }),
+    new VueSSRClientPlugin()
+  ]
 });
