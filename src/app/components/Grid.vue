@@ -12,8 +12,8 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
 
-  import {widgets} from 'apps/dashboard/components';
-  import TimeWidgetModel from 'apps/dashboard/models/widgets/Time';
+  import {widgets} from 'app/components';
+  import TimeWidgetModel from 'app/models/widgets/Time';
 
   @Component({
     components: widgets

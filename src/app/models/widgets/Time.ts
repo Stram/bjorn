@@ -1,4 +1,4 @@
-import Widget, {widgetModelProps} from 'apps/dashboard/models/Widget';
+import Widget, {widgetModelProps} from 'app/models/Widget';
 
 interface TimeWidgetProps extends widgetModelProps {
   refreshInterval: number

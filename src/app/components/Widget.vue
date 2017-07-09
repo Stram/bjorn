@@ -2,7 +2,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
 
-  import WidgetModel from 'apps/dashboard/models/Widget';
+  import WidgetModel from 'app/models/Widget';
 
   @Component({
     props: {

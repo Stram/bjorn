@@ -9,8 +9,8 @@
   import {Prop} from 'vue-property-decorator'
 
 
-  import Widget from 'apps/dashboard/components/Widget.vue';
-  import TimeWidgetModel from 'apps/dashboard/models/widgets/Time';
+  import Widget from 'app/components/Widget.vue';
+  import TimeWidgetModel from 'app/models/widgets/Time';
 
   @Component({})
   export default class TimeWidget extends Widget {

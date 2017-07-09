@@ -1,7 +1,8 @@
-import {createDashboardApp} from 'apps/dashboard';
-import {APP_ROOT_ID} from 'apps/dashboard/config';
+import {createApp} from 'app';
+import {APP_ROOT_ID} from 'app/config';
 
-const {app} = createDashboardApp();
+const {app, router} = createApp();
 
-// TODO: if element exists
-app.$mount(`#${APP_ROOT_ID}`);
+router.onReady(() => {
+  app.$mount(`#${APP_ROOT_ID}`);
+});
