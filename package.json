@@ -23,6 +23,7 @@
     "express-handlebars": "^3.0.0",
     "vue": "^2.3.4",
     "vue-class-component": "^5.0.2",
+    "vue-property-decorator": "^5.1.0",
     "vue-server-renderer": "^2.3.4",
     "winston": "^2.3.1"
   },
