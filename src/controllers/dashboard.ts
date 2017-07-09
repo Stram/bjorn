@@ -1,6 +1,6 @@
 import {RequestHandler} from 'express';
 import {createBundleRenderer} from 'vue-server-renderer';
-import winston from 'winston';
+import {error} from 'winston';
 
 import dashboardTemplate from 'apps/dashboard/dashboard.template.html';
 import * as clientManifest from '../../bundles/vue-ssr-client-manifest.json';
@@ -8,6 +8,7 @@ import * as serverBundle from '../../dist/server-renderer-bundles/vue-ssr-server
 
 const renderer = createBundleRenderer(serverBundle, {
   clientManifest,
+  runInNewContext: false,
   template: dashboardTemplate,
 });
 
@@ -16,9 +17,9 @@ class DashboardController {
 
     renderer.renderToString({
       title: 'Dashboard',
-    }, (error, html) => {
-      if (error) {
-        winston.error('Error during application render: ', error);
+    }, (renderError, html) => {
+      if (renderError) {
+        error('Error during application render: ', renderError);
         res.status(500).send();
         return;
       }
