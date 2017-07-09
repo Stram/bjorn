@@ -10,8 +10,7 @@ const bundlesFolder = path.resolve(__dirname, '../bundles');
 
 module.exports = merge(baseConfig, {
   entry: {
-    dashboard: path.join(srcFolder, 'client/dashboard'),
-    // admin: path.join(srcFolder, 'client/admin'),
+    app: path.join(srcFolder, 'client-entry'),
   },
 
   output: {

@@ -1,11 +1,10 @@
-import {createApp} from '../app';
+import {createApp} from 'app';
 
 export interface Context {
   url: string
 }
 
 export default (context: Context) => {
-  console.log(context);
   
   return new Promise((resolve, reject) => {
     const {app, router} = createApp();

@@ -10,7 +10,7 @@ const distFolder = path.resolve(__dirname, '../dist/server-renderer-bundles');
 
 module.exports = merge(baseConfig, {
   entry: {
-    dashboard: path.resolve(srcFolder, 'server/dashboard')
+    app: path.resolve(srcFolder, 'server-entry')
   },
 
   output: {
