@@ -1,6 +1,6 @@
 <template lang="html">
   <form
-    @submit="onSubmit"
+    @submit.prevent="onSubmit"
   >
     <slot />
   </form>
