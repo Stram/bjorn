@@ -14,11 +14,11 @@
 
   @Component({})
   export default class TimeWidget extends Widget {
-    @Prop({type:TimeWidgetModel, required: true})
+    @Prop({type: TimeWidgetModel, required: true})
     private widget: TimeWidgetModel
 
     private time: Date = new Date()
-    private interval: NodeJS.Timer = null
+    private interval: number = null
 
     get formattedTime() {
       const hours = this.formatNumber(this.time.getHours());
@@ -32,13 +32,15 @@
     }
 
     mounted() {
-      this.interval = setInterval(() => {
+      this.interval = window.setInterval(() => {
         this.time = new Date();
       }, this.widget.refreshInterval);
     }
 
     beforeDestroy() {
-      clearInterval(this.interval);
+      if (this.interval) {
+        window.clearInterval(this.interval);
+      }
     }
   }
 </script>
