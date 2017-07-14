@@ -3,6 +3,11 @@ import 'firebase/database';
 
 export interface FirebaseConfig {
   apiKey: string;
+  projectId: string,
+  authDomain?: string,
+  databaseURL?: string,
+  storageBucket?: string,
+  messagingSenderId?: string
 }
 
 export default class Firebase {
@@ -14,10 +19,17 @@ export default class Firebase {
     this.config = config;
 
     this.initializeApplication();
-    this.initializeDatabase();
+
+    if (config.databaseURL) {
+      this.initializeDatabase();
+    }
   }
 
   private initializeApplication() {
+    if (firebase.apps.length) {
+      throw new Error('Cannot initialize Firebase Service multiple times!');
+    }
+
     this.app = firebase.initializeApp(this.config);
   }
 
