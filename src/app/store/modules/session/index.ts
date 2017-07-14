@@ -7,14 +7,14 @@ import Actions from './actions';
 
 export default class SessionStoreModule implements Module<State, any> {
 
-    namespaced: boolean = true
+    namespaced: boolean = true;
 
-    state: State
-    mutations = Mutations
-    getters = Getters
-    actions = Actions
+    state: State;
+    mutations = Mutations;
+    getters = Getters;
+    actions = Actions;
 
     constructor() {
-      this.state = new State()
+      this.state = new State();
     }
 }
