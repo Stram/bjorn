@@ -2,15 +2,15 @@
   <div>
     It seems like you are not authorized.
 
-    <LoginForm 
+    <LoginForm
       :form="loginForm"
     />
   </div>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
 
   import LoginFormComponent from 'app/components/forms/LoginForm.vue';
   import LoginForm from 'app/forms/LoginForm';
@@ -20,7 +20,7 @@
       LoginForm: LoginFormComponent
     }
   })
-  export default class Grid extends Vue {
+  export default class LoginPage extends Vue {
     loginForm = new LoginForm({store: this.$store});
   }
 </script>

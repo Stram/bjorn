@@ -1,14 +1,14 @@
-import Widget, {widgetModelProps} from 'app/models/Widget';
+import Widget, {IWidgetModelProps} from 'app/models/Widget';
 
-interface TimeWidgetProps extends widgetModelProps {
-  refreshInterval: number
+interface ITimeWidgetProps extends IWidgetModelProps {
+  refreshInterval: number;
 }
 
 export default class TimeWidget extends Widget {
-  
-  public refreshInterval: number
-  
-  constructor(props: TimeWidgetProps) {
+
+  public refreshInterval: number;
+
+  constructor(props: ITimeWidgetProps) {
     super(props);
     this.refreshInterval = props.refreshInterval;
   }
