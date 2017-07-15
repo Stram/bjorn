@@ -1,20 +1,19 @@
 <template lang="html">
-  <Form :form="form">
+  <form-wrapper :form="form">
     Ovo je login forma
-  </Form>
+  </form-wrapper>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import Component from 'vue-class-component'
-  import {Prop} from 'vue-property-decorator'
+  import {Component, Prop} from 'vue-property-decorator';
 
   import LoginForm from 'app/forms/LoginForm';
-  import Form from 'app/components/forms/Form.vue';
+  import FormWrapper from 'app/components/forms/FormWrapper.vue';
 
   @Component({
     components: {
-      Form
+      FormWrapper
     }
   })
   export default class LoginFormComponent extends Vue {
