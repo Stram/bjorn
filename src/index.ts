@@ -13,21 +13,9 @@ class Application {
   constructor() {
     this.app = express();
 
-    this.setupViewEngine();
     this.setupRouter();
     this.setupAssetsPaths();
     this.startListening();
-  }
-
-  private setupViewEngine() {
-    const hbs = exphbs.create({
-      defaultLayout: 'main',
-      extname: '.hbs',
-    });
-
-    this.app.engine('hbs', hbs.engine);
-    this.app.set('views', path.resolve(DISTRIBUTION_FOLDER_NAME, '../views'));
-    this.app.set('view engine', 'hbs');
   }
 
   private setupRouter() {
