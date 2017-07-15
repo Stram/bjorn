@@ -4,9 +4,11 @@ import MainController from '../controllers/Main';
 
 class Router {
   public router: express.Router;
+  private mainController: MainController;
 
-  constructor() {
+  constructor(app: express.Application) {
     this.router = express.Router();
+    this.mainController = new MainController(app);
     this.setRoutes();
   }
 
@@ -17,10 +19,10 @@ class Router {
   private getIndexRouter() {
     const router = express.Router();
 
-    router.get('/', dashboard.index);
+    router.get('/', this.mainController.index);
 
     return router;
   }
 }
 
-export default (new Router()).router;
+export default Router;
