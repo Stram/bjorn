@@ -5,15 +5,13 @@
 </template>
 
 <script lang="ts">
-  import Component from 'vue-class-component'
-  import {Prop} from 'vue-property-decorator'
+  import Vue from 'vue';
+  import {Component, Prop} from 'vue-property-decorator';
 
-
-  import Widget from 'app/components/Widget.vue';
   import TimeWidgetModel from 'app/models/widgets/Time';
 
   @Component({})
-  export default class TimeWidget extends Widget {
+  export default class TimeWidget extends Vue {
     @Prop({type: TimeWidgetModel, required: true})
     private widget: TimeWidgetModel
 

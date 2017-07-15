@@ -2,14 +2,14 @@
   <div>
     Show widgets here
 
-    <TimeWidget 
+    <TimeWidget
       :widget="timeWidget"
     />
   </div>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+  import Vue from 'vue';
   import Component from 'vue-class-component'
 
   import {widgets} from 'app/components';
