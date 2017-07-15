@@ -26,11 +26,13 @@ export default class Firebase {
   }
 
   private initializeApplication() {
-    if (firebase.apps.length) {
-      throw new Error('Cannot initialize Firebase Service multiple times!');
-    }
 
-    this.app = firebase.initializeApp(this.config);
+    if (firebase.apps.length) {
+      // throw new Error('Cannot initialize Firebase Service multiple times!');
+      // this.app = firebase.app();
+    } else {
+      this.app = firebase.initializeApp(this.config);
+    }
   }
 
   private initializeDatabase() {
