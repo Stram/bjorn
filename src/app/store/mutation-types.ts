@@ -1,1 +1,1 @@
-export const CHANGE_USER = 'CHANGE_USER';
+export const SET_USER = 'SET_USER';
