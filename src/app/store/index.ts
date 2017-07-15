@@ -6,20 +6,18 @@ import SessionStoreModule from 'app/store/modules/session';
 
 Vue.use(Vuex);
 
-export interface storeOptions {
-  firebaseService: firebaseService
+export interface IStoreOptions {
+  firebaseService: firebaseService;
 }
 
-export function createStore({firebaseService}: storeOptions) {
-  console.log(firebaseService);
-  
+export function createStore({firebaseService}: IStoreOptions) {
   return new Vuex.Store({
+    actions: {},
+    getters: {},
     modules: {
       session: new SessionStoreModule(),
     },
-    state: {},
-    actions: {},
     mutations: {},
-    getters: {}
+    state: {},
   });
 }

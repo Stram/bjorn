@@ -5,16 +5,16 @@ import Mutations from './mutations'
 import Getters from './getters'
 import Actions from './actions';
 
-export default class SessionStoreModule implements Module<State, any> {
+export default class SessionStoreModule implements Module<State, {}> {
 
-    namespaced: boolean = true;
+  namespaced: boolean = true;
 
-    state: State;
-    mutations = Mutations;
-    getters = Getters;
-    actions = Actions;
+  state: State;
+  mutations = Mutations;
+  getters = Getters;
+  actions = Actions;
 
-    constructor() {
-      this.state = new State();
-    }
+  constructor() {
+    this.state = new State();
+  }
 }
