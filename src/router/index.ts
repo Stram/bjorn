@@ -1,10 +1,8 @@
 import * as express from 'express';
 
-import admin from '../controllers/admin';
-import dashboard from '../controllers/dashboard';
+import MainController from '../controllers/Main';
 
 class Router {
-
   public router: express.Router;
 
   constructor() {
@@ -14,15 +12,6 @@ class Router {
 
   private setRoutes() {
     this.router.use('/', this.getIndexRouter());
-    this.router.use('/admin', this.getAdminRouter());
-  }
-
-  private getAdminRouter() {
-    const router = express.Router();
-
-    router.get('/', admin.index);
-
-    return router;
   }
 
   private getIndexRouter() {
