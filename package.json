@@ -4,16 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server:renderer:watch": "webpack --config build-config/webpack.server-renderer.config.js -w",
-    "server:renderer:build": "webpack --config build-config/webpack.server-renderer.config.js",
-    "server:bundle:watch": "webpack --config build-config/webpack.server.config.js -w",
-    "server:bundle:build": "webpack --config build-config/webpack.server.config.js",
-    "server:watch": "nodemon --watch dist --ignore dist/server-renderer-bundles dist/server.js",
-    "server:dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"RENDERER,WEBPACK,NODEMON\" --prefix-colors \"red.bold,blue.bold,green.bold\" \"npm run server:renderer:watch\" \"npm run server:bundle:watch\" \"sleep 7 && npm run server:watch\"",
-    "client:watch": "webpack --config build-config/webpack.client.config.js -w",
-    "client:build": "webpack --config build-config/webpack.client.config.js",
-    "client:dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK\" --prefix-colors \"blue.bold\" \"npm run client:watch\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --config build/webpack.node.config.js --progress --hide-modules && node dist/server.js",
+    "start": "NODE_ENV=production node dist/server.js",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules",
+    "build:server": "NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules"
   },
   "author": "",
   "license": "ISC",
@@ -50,6 +46,8 @@
     "vue-loader": "^12.2.2",
     "vue-template-compiler": "^2.4.1",
     "webpack": "^3.2.0",
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0",
     "webpack-node-externals": "^1.6.0"
   }
