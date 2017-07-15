@@ -9,8 +9,8 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "target": "ES2017",
-    "module": "commonjs",
-    "moduleResolution": "Node",
+    "module": "es2015",
+    "moduleResolution": "node",
 
     "baseUrl": ".",
     "paths": {

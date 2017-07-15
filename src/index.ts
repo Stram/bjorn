@@ -1,8 +1,7 @@
 import * as express from 'express';
-import * as path from 'path';
 import {info} from 'winston';
 
-import {BUNDLES_FOLDER_NAME, DISTRIBUTION_FOLDER_NAME, HOST, PORT } from './config';
+import {HOST, PORT} from './config';
 import Router from './router';
 
 class Application {
@@ -14,7 +13,6 @@ class Application {
     this.app = express();
 
     this.setupRouter();
-    this.setupAssetsPaths();
     this.startListening();
   }
 
@@ -22,10 +20,6 @@ class Application {
     const routerClass = new Router(this.app);
     this.router = routerClass.router;
     this.app.use(this.router);
-  }
-
-  private setupAssetsPaths() {
-    // this.app.use('/', express.static(path.resolve(DISTRIBUTION_FOLDER_NAME, '../', BUNDLES_FOLDER_NAME)));
   }
 
   private startListening() {

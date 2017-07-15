@@ -51,21 +51,25 @@ module.exports = {
     }]
   },
 
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/dist/',
+    filename: '[name].[chunkhash].js'
+  },
+
   resolve: {
     extensions: ['.js', '.ts', '.vue'],
     modules: [
       path.resolve(__dirname, '../src'),
       'node_modules'
     ],
+    alias: {
+      app: path.resolve(__dirname, '../src/app')
+    }
   },
 
   plugins: [
     new ExtractTextPlugin('[name].css'),
-    // new FriendlyErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
+    new FriendlyErrorsPlugin(),
   ]
 }

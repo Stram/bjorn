@@ -1,11 +1,10 @@
 import {createApp} from 'app';
 
-export interface Context {
-  url: string
+export interface IContext {
+  url: string;
 }
 
-export default (context: Context) => {
-  
+export default (context: IContext) => {
   return new Promise((resolve, reject) => {
     const {app, router} = createApp();
 

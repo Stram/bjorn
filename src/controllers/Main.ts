@@ -1,14 +1,14 @@
 import {Application, RequestHandler} from 'express';
-import LRU from 'lru-cache';
-import path from 'path';
+import * as LRU from 'lru-cache';
+import * as path from 'path';
 import {BundleRenderer, BundleRendererOptions, createBundleRenderer} from 'vue-server-renderer';
 import {error} from 'winston';
 
 import dashboardTemplate from 'app/dashboard.template.html';
 import setupDevServer from '../../build/setup-dev-server';
-import * as serverBundle from '../../dist/server-renderer-bundles/vue-ssr-server-bundle.json';
+import * as serverBundle from '../../dist/vue-ssr-server-bundle.json';
 
-const isProduction = true;
+const isProduction = false;
 
 class MainController {
   private rendererPromise: Promise<void>;
@@ -47,14 +47,13 @@ class MainController {
 
   private createRenderer(bundle: string|object, options: BundleRendererOptions) {
     return createBundleRenderer(bundle, Object.assign(options, {
-      basedir: path.resolve(__dirname, './dist'),
+      basedir: path.resolve(__dirname, '../dist'),
       cache: LRU({
         max: 1000,
         maxAge: 1000 * 60 * 15,
       }),
       runInNewContext: false,
       template: dashboardTemplate,
-
     }));
   }
 }

@@ -1,7 +1,7 @@
 import {Application} from 'express';
 import MFS from 'memory-fs';
-import path from 'path';
-import webpack from 'webpack';
+import * as path from 'path';
+import * as webpack from 'webpack';
 import {error, warn} from 'winston';
 
 const webpackDevMiddleware = require('webpack-dev-middleware');
