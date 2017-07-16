@@ -1,6 +1,9 @@
 <template lang="html">
   <form-wrapper :form="form">
     Ovo je login forma
+    <button type="submit">
+      CLICK ME
+    </button>
   </form-wrapper>
 </template>
 

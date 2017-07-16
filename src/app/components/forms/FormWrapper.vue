@@ -12,7 +12,7 @@
 
   import {Prop} from 'vue-property-decorator';
 
-  import Form from 'app/forms/Form';
+  import {Form} from 'app/services/form-object';
 
   @Component({})
   export default class FormWrapper extends Vue {

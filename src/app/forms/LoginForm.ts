@@ -1,8 +1,8 @@
 import {Store} from 'vuex';
 
-import Form from 'app/forms/Form';
+import {Form} from 'app/services/form-object';
 
-export interface LoginFormOptions {
+export interface ILoginFormOptions {
   store: Store<any>;
 }
 
@@ -11,13 +11,20 @@ export default class LoginForm extends Form {
   public password: string;
   private store: Store<any>;
 
-  constructor({store}: LoginFormOptions) {
-    super();
+  constructor({store}: ILoginFormOptions) {
+    super({
+      fields: [{
+        name: 'username',
+        type: 'string',
+        validators: [],
+      }],
+    });
     this.store = store;
   }
 
-  onSubmit() {
+  public onSubmit() {
     // this.store.dispatch('');
+    console.log('submit');
     return Promise.resolve();
   }
 }
