@@ -8,9 +8,10 @@
       :field="form.fields.password"
       type="password"
     />
-    <button type="submit">
-      CLICK ME
-    </button>
+    <form-submit
+      :form="form"
+      label="Log in"
+    />
   </form-wrapper>
 </template>
 
@@ -21,11 +22,13 @@
   import LoginForm from 'app/forms/LoginForm';
   import FormWrapper from 'app/components/forms/FormWrapper.vue';
   import FormInput from 'app/components/forms/FormInput.vue';
+  import FormSubmit from 'app/components/forms/FormSubmit.vue';
 
   @Component({
     components: {
       FormWrapper,
-      FormInput
+      FormInput,
+      FormSubmit
     }
   })
   export default class LoginFormComponent extends Vue {
