@@ -13,10 +13,12 @@
 
   import LoginForm from 'app/forms/LoginForm';
   import FormWrapper from 'app/components/forms/FormWrapper.vue';
+  import FormInput from 'app/components/forms/FormInput.vue';
 
   @Component({
     components: {
-      FormWrapper
+      FormWrapper,
+      FormInput
     }
   })
   export default class LoginFormComponent extends Vue {

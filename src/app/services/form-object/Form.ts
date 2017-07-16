@@ -5,14 +5,21 @@ export interface IFormOptions {
 }
 
 export default abstract class Form {
-  private fields: Array<Field>;
+  private fields: {[key: string]: Field};
 
   constructor({fields}: IFormOptions) {
-    this.fields = fields.map((fieldOptions) => new Field(fieldOptions));
+    this.fields = fields.map((fieldOptions) => new Field(fieldOptions)).reduce((accumulator, field) => {
+      accumulator[field.name] = field;
+      return accumulator;
+    }, {} as {[key: string]: Field});
+  }
+
+  get listOfFields() {
+    return Object.values(this.fields);
   }
 
   get isValid() {
-    return this.fields.every((field) => field.isValid);
+    return this.listOfFields.every((field) => field.isValid);
   }
 
   public submit() {

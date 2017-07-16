@@ -2,12 +2,12 @@ import Validator from './validators/Validator';
 
 export interface IFieldOptions {
   name: string;
-  type: string;
+  type?: string;
   validators?: Array<Validator>;
 }
 
 export default class Field {
-  private name: string;
+  public name: string;
   private type: string;
   private validators: Array<Validator>;
   private _value: any;

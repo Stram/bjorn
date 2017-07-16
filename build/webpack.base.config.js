@@ -27,7 +27,7 @@ module.exports = {
       test: /\.ts$/,
       loader: 'ts-loader',
       options: {
-        appendTsSuffixTo: [/\.vue$/]
+        appendTsSuffixTo: [/\.vue$/],
       }
     }, {
       test: /\.vue$/,
@@ -35,7 +35,7 @@ module.exports = {
       options: {
         loaders: {
           scss: ExtractTextPlugin.extract(styleLoader),
-          ts: 'ts-loader'
+          ts: 'ts-loader',
         },
         cssModules: {
           camelCase: true
