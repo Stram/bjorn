@@ -6,7 +6,6 @@ import {error} from 'winston';
 
 import dashboardTemplate from 'app/dashboard.template.html';
 import setupDevServer from '../../build/setup-dev-server';
-import * as serverBundle from '../../dist/vue-ssr-server-bundle.json';
 
 const isProduction = false;
 
@@ -16,6 +15,7 @@ class MainController {
 
   constructor(app: Application) {
     if (isProduction) {
+      const serverBundle = require('../../dist/vue-ssr-server-bundle.json');
       this.rendererPromise = Promise.resolve();
       this.renderer = this.createRenderer(serverBundle, {});
     } else {
