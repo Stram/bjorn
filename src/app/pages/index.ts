@@ -1,7 +1,2 @@
-import Dashboard from './Dashboard.vue';
-import Login from './Login.vue';
-
-export default {
-  Dashboard,
-  Login,
-};
+export { default as Dashboard } from './Dashboard.vue';
+export { default as Login } from './Login.vue';

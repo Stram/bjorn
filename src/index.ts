@@ -5,7 +5,6 @@ import {HOST, PORT} from './config';
 import Router from './router';
 
 class Application {
-
   public app: express.Application;
   private router: express.Router;
 

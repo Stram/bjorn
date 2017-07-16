@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import {Store} from 'vuex';
 
-import pageComponents from 'app/pages';
+import * as pageComponents from 'app/pages';
 
 Vue.use(Router);
 
@@ -38,9 +38,12 @@ export function createRouter({store}: IRouterOptions) {
   });
 
   router.beforeEach((to, from, next) => {
-    if (to.meta.authenticatedRoute && store.getters['session/isAuthenticated']) {
+    if (to.meta.authenticatedRoute && !store.getters['session/isAuthenticated']) {
       if (!store.state.session.isLoaded) {
         // TODO: Check session
+        next({
+          name: pages.LOGIN,
+        });
       } else {
         next({
           name: pages.LOGIN,

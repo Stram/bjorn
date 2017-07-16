@@ -13,15 +13,7 @@ class Router {
   }
 
   private setRoutes() {
-    this.router.use('/', this.getIndexRouter());
-  }
-
-  private getIndexRouter() {
-    const router = express.Router();
-
-    router.get('/', this.mainController.index);
-
-    return router;
+    this.router.use('*', this.mainController.index);
   }
 }
 
