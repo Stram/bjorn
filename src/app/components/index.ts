@@ -1,11 +1,2 @@
-import LoginForm from './forms/LoginForm.vue';
-
-import TimeWidget from './widgets/Time.vue';
-
-export const widgets = {
-  TimeWidget,
-};
-
-export const forms = {
-  LoginForm,
-};
+export { default as LoginForm } from './forms/LoginForm.vue';
+export { default as TimeWidget } from './widgets/Time.vue';
