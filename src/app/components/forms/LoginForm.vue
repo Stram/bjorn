@@ -1,6 +1,13 @@
 <template lang="html">
   <form-wrapper :form="form">
     Ovo je login forma
+    <form-input
+      :field="form.fields.username"
+    />
+    <form-input
+      :field="form.fields.password"
+      type="password"
+    />
     <button type="submit">
       CLICK ME
     </button>
