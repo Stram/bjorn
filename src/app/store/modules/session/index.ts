@@ -1,18 +1,18 @@
-import {Module} from 'vuex'
+import {Module} from 'vuex';
 
-import State from './state';
-import Mutations from './mutations'
-import Getters from './getters'
 import Actions from './actions';
+import Getters from './getters';
+import Mutations from './mutations';
+import State from './state';
 
 export default class SessionStoreModule implements Module<State, {}> {
 
-  namespaced: boolean = true;
+  public namespaced: boolean = true;
 
-  state: State;
-  mutations = Mutations;
-  getters = Getters;
-  actions = Actions;
+  public state: State;
+  public mutations = Mutations;
+  public getters = Getters;
+  public actions = Actions;
 
   constructor() {
     this.state = new State();
