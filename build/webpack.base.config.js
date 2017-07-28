@@ -14,7 +14,8 @@ const styleLoader = {
     loader: 'sass-loader',
     options: {
       includePaths: [
-        path.resolve(__dirname, '../src/apps')
+        path.resolve(__dirname, '../src/apps'),
+        path.resolve(__dirname, '../src/apps/styles')
       ]
     }
   }],
@@ -41,6 +42,9 @@ module.exports = {
           camelCase: true
         }
       }
+    }, {
+      test: /\.scss$/,
+      loader: ExtractTextPlugin.extract(styleLoader)
     }, {
       test: /\.html$/,
       loader: 'html-loader',
