@@ -6,6 +6,8 @@ import {createRouter} from 'app/router';
 import FirebaseService from 'app/services/firebase';
 import {createStore} from 'app/store';
 
+import 'app/styles/index.scss';
+
 export function createApp() {
   const firebaseService = new FirebaseService(firebaseConfig);
 
