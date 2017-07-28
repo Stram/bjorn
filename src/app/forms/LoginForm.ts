@@ -7,8 +7,6 @@ export interface ILoginFormOptions {
 }
 
 export default class LoginForm extends Form {
-  private store: Store<any>;
-
   constructor({store}: ILoginFormOptions) {
     super({
       fields: [{
@@ -18,8 +16,9 @@ export default class LoginForm extends Form {
         name: 'password',
         validators: [Presence],
       }],
+      name: 'login-form',
+      store,
     });
-    this.store = store;
   }
 
   public onSubmit() {
