@@ -15,7 +15,7 @@ export function createStore({firebaseService}: IStoreOptions) {
     actions: {},
     getters: {},
     modules: {
-      session: new SessionStoreModule(),
+      session: new SessionStoreModule({firebaseService}),
     },
     mutations: {},
     state: {},

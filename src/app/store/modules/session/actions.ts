@@ -1,10 +1,38 @@
-import {ActionTree, ActionContext} from 'vuex'
-import State from './state'
+import {ActionContext} from 'vuex';
 
-export function login(store: ActionContext<State, any>) {
-  // TODO: Do login
+import User from 'app/models/User';
+import FirebaseService from 'app/services/firebase';
+import * as mutationTypes from 'app/store/mutation-types';
+
+import State from './state';
+
+interface ISessionModuleActionOptions {
+  firebaseService: FirebaseService;
 }
 
-export default <ActionTree<State, any>> {
-  login
+export default function createActions({firebaseService}: ISessionModuleActionOptions) {
+  return {
+    async login({commit}: ActionContext<State, any>) {
+      let result;
+      try {
+        result = await firebaseService.auth.signInWithPopup(firebaseService.googleAuthProvider);
+      } catch (error) {
+        console.error('Error during authentification', error);
+        return;
+      }
+
+      const token = result.credential.accessToken;
+      // TODO: save token
+      console.log(token);
+
+      const {email, displayName, photoURL, uid} = result.user;
+      const user = new User({
+        email,
+        name: displayName,
+        photoURL,
+        uid,
+      });
+      commit(mutationTypes.SET_USER, user);
+    },
+  };
 }
