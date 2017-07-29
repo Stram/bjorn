@@ -1,5 +1,3 @@
-import {GetterTree} from 'vuex';
-
 import User from 'app/models/User';
 
 import State from './state';
@@ -12,7 +10,7 @@ export function isAuthenticated(state: State): boolean {
   return state.isLoaded && !state.isLoading && Boolean(state.user);
 }
 
-export default <GetterTree<State, any>> {
+export default {
   currentUser,
-  isAuthenticated
-}
+  isAuthenticated,
+};
