@@ -1,23 +1,30 @@
 <template lang="html">
-  <div>
-    It seems like you are not authorized.
-
+  <simple-action-layout>
+    <h1
+      slot="header"
+      :class="$style.title"
+    >
+      Who are you?
+    </h1>
+    
     <LoginForm
+      slot="footer"
       :form="loginForm"
     />
-  </div>
+  </simple-action-layout>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
-  import LoginFormComponent from 'app/components/forms/LoginForm.vue';
+  import {LoginForm as LoginFormComponent, SimpleActionLayout} from 'app/components';
   import LoginForm from 'app/forms/LoginForm';
 
   @Component({
     components: {
-      LoginForm: LoginFormComponent
+      LoginForm: LoginFormComponent,
+      SimpleActionLayout,
     }
   })
   export default class LoginPage extends Vue {
@@ -26,5 +33,7 @@
 </script>
 
 <style lang="scss" module>
-
+  .title {
+    color: var(--color-secondary);
+  }
 </style>
