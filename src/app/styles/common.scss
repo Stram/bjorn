@@ -1,4 +1,18 @@
-h1 {
-  font-size: 72px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  margin: 0;
+  font-family: 'montserrat', sans-serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: 72px;
+}

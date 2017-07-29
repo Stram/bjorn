@@ -1,5 +1,8 @@
-$base-reactive-green: #00DF8F;
+:root {
+  --base-reactive-green: #00DF8F;
+  --base-cobalt-blue: #003867;
 
-$color-primary: $base-reactive-green;
+  --color-primary: var(--base-reactive-green);
+  --color-secondary: var(--base-cobalt-blue);
+}
 
-$color-background-primary: $color-primary;
