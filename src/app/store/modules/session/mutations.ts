@@ -7,4 +7,8 @@ export default {
   [mutationTypes.SET_USER](state: State, user: User) {
     state.user = user;
   },
+
+  [mutationTypes.SET_TOKEN](state: State, token: string) {
+    state.token = token;
+  },
 };
