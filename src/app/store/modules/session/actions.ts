@@ -22,8 +22,7 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
       }
 
       const token = result.credential.accessToken;
-      // TODO: save token
-      console.log(token);
+      commit(mutationTypes.SET_TOKEN, token);
 
       const {email, displayName, photoURL, uid} = result.user;
       const user = new User({
