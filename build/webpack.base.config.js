@@ -16,8 +16,7 @@ const styleLoader = {
     loader: 'sass-loader',
     options: {
       includePaths: [
-        resolve('../src/apps'),
-        resolve('../src/apps/styles')
+        resolve('../src/app/styles')
       ]
     }
   }],
