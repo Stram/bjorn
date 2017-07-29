@@ -1,6 +1,6 @@
 import {Store} from 'vuex';
 
-import {Form, Presence} from 'app/services/form-object';
+import {Form} from 'app/services/form-object';
 
 export interface ILoginFormOptions {
   store: Store<any>;
@@ -9,13 +9,7 @@ export interface ILoginFormOptions {
 export default class LoginForm extends Form {
   constructor({store}: ILoginFormOptions) {
     super({
-      fields: [{
-        name: 'username',
-        validators: [Presence],
-      }, {
-        name: 'password',
-        validators: [Presence],
-      }],
+      fields: [],
       name: 'login-form',
       store,
     });
