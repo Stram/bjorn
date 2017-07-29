@@ -19,7 +19,7 @@ export function createApp() {
     store.commit(`session/${mutationTypes.SET_USER}`, user);
     store.commit(`session/${mutationTypes.AUTHENTIFICATION_SUCCESS}`);
     router.push({
-      name: pages.DASHBOARD,
+      name: pages.ADMIN,
     });
   });
 

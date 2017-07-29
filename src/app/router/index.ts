@@ -15,6 +15,7 @@ export interface IRouterOptions {
 export enum pages {
   LOGIN = 'login',
   DASHBOARD = 'dashboard',
+  ADMIN = 'admin',
   NOT_FOUND = 'notFound',
 }
 
@@ -22,12 +23,20 @@ export function createRouter({store, firebase}: IRouterOptions) {
   const router = new Router({
     mode: 'history',
     routes: [{
+      alias: '/admin',
+      component: pageComponents.Admin,
+      meta: {
+        authenticatedRoute: true,
+      },
+      name: pages.ADMIN,
+      path: '/',
+    }, {
       component: pageComponents.Dashboard,
       meta: {
         authenticatedRoute: true,
       },
       name: pages.DASHBOARD,
-      path: '/',
+      path: '/dashboard',
     }, {
       component: pageComponents.Login,
       name: pages.LOGIN,
