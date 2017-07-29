@@ -4,8 +4,10 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
-const srcFolder = path.resolve(__dirname, '../src');
-const bundlesFolder = path.resolve(__dirname, '../bundles');
+const resolve = (pathName) => path.resolve(__dirname, pathName);
+
+const srcFolder = resolve('../src');
+const bundlesFolder = resolve('../bundles');
 
 const styleLoader = {
   use: [{
@@ -14,8 +16,8 @@ const styleLoader = {
     loader: 'sass-loader',
     options: {
       includePaths: [
-        path.resolve(__dirname, '../src/apps'),
-        path.resolve(__dirname, '../src/apps/styles')
+        resolve('../src/apps'),
+        resolve('../src/apps/styles')
       ]
     }
   }],
@@ -56,7 +58,7 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: resolve('../dist'),
     publicPath: '/dist/',
     filename: '[name].[chunkhash].js'
   },
@@ -64,12 +66,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.vue'],
     modules: [
-      path.resolve(__dirname, '../src'),
+      resolve('../src'),
       'node_modules'
     ],
-    alias: {
-      app: path.resolve(__dirname, '../src/app')
-    }
   },
 
   plugins: [
