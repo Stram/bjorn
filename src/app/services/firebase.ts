@@ -1,27 +1,39 @@
-import firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/database';
 
-export interface FirebaseConfig {
+import {isClient} from 'app/config';
+
+export interface IFirebaseConfig {
   apiKey: string;
-  projectId: string,
-  authDomain?: string,
-  databaseURL?: string,
-  storageBucket?: string,
-  messagingSenderId?: string
+  projectId: string;
+  authDomain?: string;
+  databaseURL?: string;
+  storageBucket?: string;
+  messagingSenderId?: string;
 }
 
 export default class Firebase {
-  private config: FirebaseConfig;
-  private app: firebase.app.App;
-  private database: firebase.database.Database;
+  public database: firebase.database.Database;
+  public auth: firebase.auth.Auth;
+  public googleAuthProvider: firebase.auth.GoogleAuthProvider;
 
-  constructor(config: FirebaseConfig) {
+  private config: IFirebaseConfig;
+  private app: firebase.app.App;
+
+  constructor(config: IFirebaseConfig) {
     this.config = config;
 
-    this.initializeApplication();
+    if (isClient) {
+      this.initializeApplication();
 
-    if (config.databaseURL) {
-      this.initializeDatabase();
+      if (config.databaseURL) {
+        this.initializeDatabase();
+      }
+
+      if (config.authDomain) {
+        this.initializeAuth();
+      }
     }
   }
 
@@ -29,13 +41,18 @@ export default class Firebase {
 
     if (firebase.apps.length) {
       // throw new Error('Cannot initialize Firebase Service multiple times!');
-      // this.app = firebase.app();
+      this.app = firebase.app();
     } else {
       this.app = firebase.initializeApp(this.config);
     }
   }
 
   private initializeDatabase() {
-    this.database = firebase.database();
+    this.database = this.app.database();
+  }
+
+  private initializeAuth() {
+    this.auth = this.app.auth();
+    this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
   }
 }

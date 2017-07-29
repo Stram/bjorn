@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import firebaseService from 'app/services/firebase';
+import FirebaseServiceClass from 'app/services/firebase';
 import SessionStoreModule from 'app/store/modules/session';
 
 Vue.use(Vuex);
 
 export interface IStoreOptions {
-  firebaseService: firebaseService;
+  firebaseService: FirebaseServiceClass;
 }
 
 export function createStore({firebaseService}: IStoreOptions) {
