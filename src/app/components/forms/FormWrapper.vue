@@ -20,8 +20,6 @@
     private form: Form;
 
     onSubmit() {
-      console.log(this.form);
-
       this.form.submit();
     }
   }

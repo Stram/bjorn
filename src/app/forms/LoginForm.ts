@@ -15,10 +15,7 @@ export default class LoginForm extends Form {
     });
   }
 
-  public async onSubmit() {
-    await this.store.dispatch('session/login');
-    // TODO: reroute;
-    console.log('reroute');
-    return Promise.resolve();
+  public onSubmit() {
+    return this.store.dispatch('session/login');
   }
 }

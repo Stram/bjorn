@@ -4,6 +4,9 @@ export interface IContext {
   url: string;
 }
 
+// For ssr Firebase
+(global as any).XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+
 export default (context: IContext) => {
   return new Promise((resolve, reject) => {
     const {app, router} = createApp();

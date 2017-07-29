@@ -4,15 +4,30 @@ import 'app/styles/index.scss';
 
 import App from 'app/components/App.vue';
 import {firebaseConfig} from 'app/config';
-import {createRouter} from 'app/router';
+import {createRouter, pages} from 'app/router';
 import FirebaseService from 'app/services/firebase';
 import {createStore} from 'app/store';
+import * as mutationTypes from 'app/store/mutation-types';
 
 export function createApp() {
   const firebaseService = new FirebaseService(firebaseConfig);
 
   const store = createStore({firebaseService});
-  const router = createRouter({store});
+  const router = createRouter({store, firebase: firebaseService});
+
+  firebaseService.onLogin(async (user) => {
+    store.commit(`session/${mutationTypes.SET_USER}`, user);
+    store.commit(`session/${mutationTypes.AUTHENTIFICATION_SUCCESS}`);
+    router.push({
+      name: pages.DASHBOARD,
+    });
+  });
+
+  firebaseService.onLogout(() => {
+    router.push({
+      name: pages.LOGIN,
+    });
+  });
 
   const app = new Vue({
     render: (h: any) => h(App),

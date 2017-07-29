@@ -3,20 +3,22 @@ import Router from 'vue-router';
 import {Store} from 'vuex';
 
 import * as pageComponents from 'app/pages';
+import firebaseService from 'app/services/firebase';
 
 Vue.use(Router);
 
 export interface IRouterOptions {
   store: Store<any>;
+  firebase: firebaseService;
 }
 
-enum pages {
+export enum pages {
   LOGIN = 'login',
   DASHBOARD = 'dashboard',
   NOT_FOUND = 'notFound',
 }
 
-export function createRouter({store}: IRouterOptions) {
+export function createRouter({store, firebase}: IRouterOptions) {
   const router = new Router({
     mode: 'history',
     routes: [{
@@ -39,16 +41,9 @@ export function createRouter({store}: IRouterOptions) {
 
   router.beforeEach((to, from, next) => {
     if (to.meta.authenticatedRoute && !store.getters['session/isAuthenticated']) {
-      if (!store.state.session.isLoaded) {
-        // TODO: Check session
-        next({
-          name: pages.LOGIN,
-        });
-      } else {
-        next({
-          name: pages.LOGIN,
-        });
-      }
+      next({
+        name: pages.LOGIN,
+      });
     } else {
       next();
     }
