@@ -14,11 +14,14 @@ interface ISessionModuleActionOptions {
 export default function createActions({firebaseService}: ISessionModuleActionOptions) {
   return {
     async login({commit}: ActionContext<State, any>) {
+      commit(mutationTypes.AUTHENTIFICATION_START);
+
       let result;
       try {
         result = await firebaseService.auth.signInWithPopup(firebaseService.googleAuthProvider);
       } catch (error) {
         warn('Error during authentificationo', error);
+        commit(mutationTypes.AUTHENTIFICATION_FAIL, error);
         return;
       }
 
@@ -33,6 +36,8 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
         uid,
       });
       commit(mutationTypes.SET_USER, user);
+
+      commit(mutationTypes.AUTHENTIFICATION_SUCCESS);
     },
   };
 }

@@ -5,4 +5,5 @@ export default class SessionModuleStore {
   public isLoading = false;
   public isLoaded = false;
   public token = '';
+  public errorMessage: string = null;
 }

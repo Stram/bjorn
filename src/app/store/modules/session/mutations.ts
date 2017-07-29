@@ -11,4 +11,20 @@ export default {
   [mutationTypes.SET_TOKEN](state: State, token: string) {
     state.token = token;
   },
+
+  [mutationTypes.AUTHENTIFICATION_FAIL](state: State, error: any) {
+    state.isLoading = false;
+    state.isLoaded = false;
+    state.errorMessage = error;
+  },
+
+  [mutationTypes.AUTHENTIFICATION_SUCCESS](state: State) {
+    state.isLoading = false;
+    state.isLoaded = true;
+  },
+
+  [mutationTypes.AUTHENTIFICATION_START](state: State) {
+    state.isLoading = true;
+    state.errorMessage = null;
+  },
 };
