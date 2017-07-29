@@ -4,7 +4,7 @@
       slot="header"
       :class="$style.title"
     >
-      Who are you?
+      {{title}}
     </h1>
     
     <LoginForm
@@ -21,6 +21,12 @@
   import {LoginForm as LoginFormComponent, SimpleActionLayout} from 'app/components';
   import LoginForm from 'app/forms/LoginForm';
 
+  const titles = [
+    'Who are you?',
+    'Do I know you?',
+    'Knock knock!'
+  ];
+
   @Component({
     components: {
       LoginForm: LoginFormComponent,
@@ -29,6 +35,7 @@
   })
   export default class LoginPage extends Vue {
     loginForm = new LoginForm({store: this.$store});
+    title = titles[Math.floor(Math.random() * titles.length)];
   }
 </script>
 
