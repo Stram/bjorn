@@ -1,8 +1,9 @@
 <template lang="html">
   <form-wrapper :form="form">
     <form-submit
+      :class="$style.submit"
       :form="form"
-      label="Log in"
+      label="Login"
     />
   </form-wrapper>
 </template>
@@ -28,5 +29,15 @@
 </script>
 
 <style lang="scss" module>
+  .submit {
+    background: var(--color-light);
+    border: 5px solid var(--color-secondary);
+    color: var(--color-secondary);
 
+    font-size: 130px;
+    line-height: 150px;
+    padding: 20px 120px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
 </style>
