@@ -2,6 +2,7 @@ import {ActionContext} from 'vuex';
 
 import User from 'app/models/User';
 import FirebaseService from 'app/services/firebase';
+import {warn} from 'app/services/logger';
 import * as mutationTypes from 'app/store/mutation-types';
 
 import State from './state';
@@ -17,7 +18,7 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
       try {
         result = await firebaseService.auth.signInWithPopup(firebaseService.googleAuthProvider);
       } catch (error) {
-        console.error('Error during authentification', error);
+        warn('Error during authentificationo', error);
         return;
       }
 
