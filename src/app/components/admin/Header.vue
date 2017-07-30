@@ -1,6 +1,13 @@
 <template>
   <header :class="$style.container">
-    <div :class="$style.left"></div>
+    <div :class="$style.left">
+      <router-link
+        :class="$style.link"
+        :to="{name: pages.DASHBOARD}"
+      >
+        Open
+      </router-link>
+    </div>
     <div :class="$style.center"></div>
     <div :class="$style.right">
       <div
@@ -22,6 +29,7 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
 import { InlineSVG } from 'app/components';
+import { pages } from 'app/router';
 
 import * as logoutIcon from 'images/sign-out.svg';
 
@@ -38,6 +46,7 @@ import * as logoutIcon from 'images/sign-out.svg';
 })
 export default class AdminHeader extends Vue {
   logoutIcon = logoutIcon
+  pages = pages
 }
 </script>
 
@@ -52,10 +61,25 @@ export default class AdminHeader extends Vue {
     align-items: center;
   }
 
+  .left,
   .right {
     display: flex;
     align-items: center;
     height: 100%;
+  }
+  
+  .link {
+    height: 100%;
+    background-color: var(--color-secondary);
+    text-transform: uppercase;
+    color: var(--color-light);
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
   }
 
   .name {
