@@ -19,7 +19,7 @@
   @Component({
     components: {
       FormWrapper,
-      FormSubmit
+      FormSubmit,
     }
   })
   export default class LoginFormComponent extends Vue {
