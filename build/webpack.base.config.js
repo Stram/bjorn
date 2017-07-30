@@ -53,6 +53,9 @@ module.exports = {
         removeComments: false,
         exportAsEs6Default: true
       }
+    }, {
+      test: /\.svg$/,
+      loader: 'raw-loader'
     }]
   },
 
