@@ -4,6 +4,7 @@ import 'app/styles/index.scss';
 
 import App from 'app/components/App.vue';
 import {firebaseConfig} from 'app/config';
+import User from 'app/models/User';
 import {createRouter, pages} from 'app/router';
 import FirebaseService from 'app/services/firebase';
 import {createStore} from 'app/store';
@@ -16,7 +17,8 @@ export function createApp() {
   const router = createRouter({store, firebase: firebaseService});
 
   firebaseService.onLogin(async (user) => {
-    store.commit(`session/${mutationTypes.SET_USER}`, user);
+    const { email, displayName, photoURL, uid } = user;
+    store.commit(`session/${mutationTypes.SET_USER}`, new User({email, name: displayName, photoURL, uid}));
     store.commit(`session/${mutationTypes.AUTHENTIFICATION_SUCCESS}`);
     router.push({
       name: pages.ADMIN,

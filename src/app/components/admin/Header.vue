@@ -45,19 +45,24 @@ export default class AdminHeader extends Vue {
   .container {
     width: 100%;
     background-color: var(--color-primary);
+    height: 60px;
     min-height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .center {
-    // flex: 1;
-  }
-
   .right {
     display: flex;
     align-items: center;
+    height: 100%;
+  }
+
+  .name {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-light);
+    padding: 0 16px;
   }
 
   .avatar {
@@ -69,5 +74,14 @@ export default class AdminHeader extends Vue {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+
+  .logout {
+    background-color: var(--color-secondary);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
   }
 </style>
