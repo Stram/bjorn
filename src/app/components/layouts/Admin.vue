@@ -1,7 +1,10 @@
 <template>
   <div :class="$style.container">
-    <slot name="header">
-    
+    <slot name="header" />
+      <admin-header
+        :user="currentUser"
+        @logout="onLogout"
+      />
     </slot>
 
     <slot />
@@ -11,11 +14,24 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
-@Component({})
+import { AdminHeader } from 'app/components';
+
+@Component({
+  components: {
+    AdminHeader,
+  }
+})
 export default class AdminLayout extends Vue {
 
+  get currentUser() {
+    return this.$store.getters['session/currentUser'];
+  }
+
+  onLogout() {
+    console.warn('DO LOGOUT!');
+  }
 }
 </script>
 
