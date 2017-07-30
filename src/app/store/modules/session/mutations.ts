@@ -27,4 +27,12 @@ export default {
     state.isLoading = true;
     state.errorMessage = null;
   },
+
+  [mutationTypes.RESET_SESSION](state: State) {
+    state.isLoading = false;
+    state.isLoaded = false;
+    state.errorMessage = null;
+    state.user = null;
+    state.token = null;
+  },
 };

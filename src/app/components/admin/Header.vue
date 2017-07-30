@@ -17,7 +17,10 @@
       <div :class="$style.name">
         {{user.name}}
       </div>
-      <button :class="$style.logout">
+      <button
+        :class="$style.logout"
+        @click="onLogout"
+      >
         <inline-svg :src="logoutIcon" />
       </button>
     </div>
@@ -47,6 +50,10 @@ import * as logoutIcon from 'images/sign-out.svg';
 export default class AdminHeader extends Vue {
   logoutIcon = logoutIcon
   pages = pages
+
+  onLogout() {
+    this.$emit('logout');
+  }
 }
 </script>
 

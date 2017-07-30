@@ -13,7 +13,7 @@ interface ISessionModuleActionOptions {
 
 export default function createActions({firebaseService}: ISessionModuleActionOptions) {
   return {
-    async login({commit}: ActionContext<State, any>) {
+    async login({ commit }: ActionContext<State, any>) {
       commit(mutationTypes.AUTHENTIFICATION_START);
 
       let result;
@@ -38,6 +38,11 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
       commit(mutationTypes.SET_USER, user);
 
       commit(mutationTypes.AUTHENTIFICATION_SUCCESS);
+    },
+
+    async logout({ commit }: ActionContext<State, any>) {
+      await firebaseService.auth.signOut();
+      commit(mutationTypes.RESET_SESSION);
     },
   };
 }

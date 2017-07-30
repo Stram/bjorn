@@ -30,7 +30,7 @@ export default class AdminLayout extends Vue {
   }
 
   onLogout() {
-    console.warn('DO LOGOUT!');
+    this.$store.dispatch('session/logout');
   }
 }
 </script>
