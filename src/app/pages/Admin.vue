@@ -17,6 +17,9 @@
   })
   export default class AdminPage extends Vue {
 
+    mounted() {
+      this.$store.dispatch('admin/startDashboardSync');
+    }
   }
 </script>
 
