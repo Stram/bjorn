@@ -31,6 +31,12 @@ export function createApp() {
     });
   });
 
+  Vue.use({
+    install(vue, options) {
+      vue.prototype.$firebase = firebaseService;
+    },
+  });
+
   const app = new Vue({
     render: (h: any) => h(App),
     router,

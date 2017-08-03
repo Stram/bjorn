@@ -10,12 +10,12 @@ export interface IStoreOptions {
   firebaseService: FirebaseServiceClass;
 }
 
-export function createStore({firebaseService}: IStoreOptions) {
+export function createStore({ firebaseService }: IStoreOptions) {
   return new Vuex.Store({
     actions: {},
     getters: {},
     modules: {
-      session: new SessionStoreModule({firebaseService}),
+      session: new SessionStoreModule({ firebaseService }),
     },
     mutations: {},
     state: {},
