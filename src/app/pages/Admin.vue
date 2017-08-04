@@ -1,6 +1,8 @@
 <template lang="html">
     <admin-layout>
-      <empty-dashboard />
+      <empty-dashboard
+        @dashboard:create="createNewDashboard"
+      />
     </admin-layout>
 </template>
 
@@ -32,6 +34,19 @@
             }
           })
         }
+      });
+    }
+
+    createNewDashboard() {
+      const newDashboard = new Dashboard({});
+      this.$store.dispatch('admin/saveDashboard', newDashboard).then((response: any) => {
+        console.log('response', response);
+        this.$router.push({
+          name: pages.DASHBOARD_INDEX,
+          params: {
+            dashboardId: response.key
+          }
+        });
       });
     }
   }

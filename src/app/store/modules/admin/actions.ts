@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 
-// import Dashboard from 'app/models/Dashboard';
+import Dashboard from 'app/models/Dashboard';
 import FirebaseService from 'app/services/firebase';
 import * as mutationTypes from 'app/store/mutation-types';
 
@@ -23,6 +23,12 @@ export default function createActions({ firebaseService }: ISessionModuleActionO
           });
           resolve();
         });
+      });
+    },
+
+    saveDashboard({ commit }: ActionContext<State, any>, dashboard: Dashboard) {
+      return new Promise((resolve, reject) => {
+        firebaseService.database.ref('dashboards').push(dashboard).then(resolve).catch(reject);
       });
     },
   };
