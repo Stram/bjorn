@@ -15,12 +15,18 @@ export default function createActions({ firebaseService }: ISessionModuleActionO
     startDashboardSync({ commit }: ActionContext<State, any>) {
       commit(mutationTypes.DASHBOARDS_START_LOADING);
       return new Promise((resolve) => {
-        firebaseService.database.ref('dashboards').on('value', (dashboards) => {
+        firebaseService.database.ref('dashboards').on('value', (dashboardsData) => {
           commit(mutationTypes.DASHBOARDS_LOADED);
-          dashboards.forEach((dashboard) => {
-            console.log('dashboard: ', dashboard);
+          const dashboards: Array<Dashboard> = [];
+          dashboardsData.forEach((dashboardData) => {
+            const data: any = dashboardData.toJSON();
+            dashboards.push(new Dashboard({
+              createdAt: data.createdAt,
+              uid: dashboardData.key,
+            }));
             return false;
           });
+          commit(mutationTypes.SET_DASHBAORDS, dashboards);
           resolve();
         });
       });
