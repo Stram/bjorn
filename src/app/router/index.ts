@@ -15,6 +15,7 @@ export interface IRouterOptions {
 export enum pages {
   LOGIN = 'login',
   DASHBOARD = 'dashboard',
+  DASHBOARD_INDEX = 'dashboardIndex',
   ADMIN = 'admin',
   NOT_FOUND = 'notFound',
 }
@@ -37,6 +38,13 @@ export function createRouter({store, firebase}: IRouterOptions) {
       },
       name: pages.DASHBOARD,
       path: '/dashboard',
+    }, {
+      component: pageComponents.AdminDashboard,
+      meta: {
+        authenticatedRoute: true,
+      },
+      name: pages.DASHBOARD_INDEX,
+      path: '/dashboard/:dashboardId',
     }, {
       component: pageComponents.Login,
       name: pages.LOGIN,
