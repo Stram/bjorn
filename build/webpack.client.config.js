@@ -7,7 +7,9 @@ const baseConfig = require('./webpack.base.config.js');
 
 const srcFolder = path.resolve(__dirname, '../src');
 
-module.exports = merge(baseConfig, {
+const isTest = process.env.NODE_ENV === 'test';
+
+const config = merge(baseConfig, {
   entry: {
     app: './src/client-entry.ts',
   },
@@ -15,10 +17,6 @@ module.exports = merge(baseConfig, {
   devtool: 'source-map',
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"client"',
@@ -26,3 +24,12 @@ module.exports = merge(baseConfig, {
     new VueSSRClientPlugin(),
   ]
 });
+
+if (!isTest) {
+  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    name: 'manifest',
+    minChunks: Infinity
+  }));
+}
+
+module.exports = config;
