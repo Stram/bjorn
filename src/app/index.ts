@@ -26,6 +26,7 @@ export function createApp() {
   });
 
   firebaseService.onLogout(() => {
+    store.commit(`session/${mutationTypes.SET_USER}`, null);
     router.push({
       name: pages.LOGIN,
     });
