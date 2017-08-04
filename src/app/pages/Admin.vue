@@ -1,6 +1,6 @@
 <template lang="html">
     <admin-layout>
-      <h1>ADMIN</h1>
+      <empty-dashboard />
     </admin-layout>
 </template>
 
@@ -8,11 +8,15 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
 
-  import { AdminLayout } from 'app/components';
+  import { AdminLayout, EmptyDashboard } from 'app/components';
+
+  import Dashboard from 'app/models/Dashboard';
+  import { pages } from 'app/router';
 
   @Component({
     components: {
-      AdminLayout
+      AdminLayout,
+      EmptyDashboard
     }
   })
   export default class AdminPage extends Vue {
