@@ -35,9 +35,6 @@
     }
 
     get themeClass() {
-      console.log(this.theme);
-      console.log(ButtonThemes);
-      console.log(this.themeClassMap);
       return this.themeClassMap[this.theme];
     }
 
