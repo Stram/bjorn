@@ -22,7 +22,17 @@
   export default class AdminPage extends Vue {
 
     mounted() {
-      this.$store.dispatch('admin/startDashboardSync');
+      this.$store.dispatch('admin/startDashboardSync').then(() => {
+        const dashboards = this.$store.getters['admin/dashboards'] as Array<Dashboard>;
+        if (dashboards.length) {
+          this.$router.push({
+            name: pages.DASHBOARD_INDEX,
+            params: {
+              dashboardId: dashboards[0].uid
+            }
+          })
+        }
+      });
     }
   }
 </script>
