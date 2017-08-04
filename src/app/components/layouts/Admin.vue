@@ -39,5 +39,7 @@ export default class AdminLayout extends Vue {
   .container {
     background-color: var(--color-light);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 </style>

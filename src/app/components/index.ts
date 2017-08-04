@@ -1,4 +1,6 @@
-export { default as InlineSVG } from './InlineSVG.vue';
+// UTILS
+export { default as InlineSVG } from './utils/InlineSVG.vue';
+export { default as AppButton } from './utils/Button.vue';
 
 // FORMS
 export { default as LoginForm } from './forms/LoginForm.vue';
