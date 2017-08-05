@@ -1,6 +1,15 @@
-// import * as mutationTypes from 'app/store/mutation-types';
+import * as mutationTypes from 'app/store/mutation-types';
 
-// import State from './state';
+import State from './state';
+
+interface IWindowSize {
+  width: number;
+  height: number;
+}
 
 export default {
+  [mutationTypes.SET_WINDOW_SIZE](state: State, windowSize: IWindowSize) {
+    state.windowWidth = windowSize.width;
+    state.windowHeight = windowSize.height;
+  },
 };
