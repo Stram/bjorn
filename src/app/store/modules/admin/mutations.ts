@@ -8,6 +8,15 @@ export default {
     state.dashboards.data = dashboards;
   },
 
+  [mutationTypes.SET_DASHBAORD](state: State, dashboard: Dashboard) {
+    const localIndex = state.dashboards.data.findIndex(({ uid }) => uid === dashboard.uid);
+    if (localIndex > -1) {
+      state.dashboards.data.splice(localIndex, 1, dashboard);
+    } else {
+      state.dashboards.data.push(dashboard);
+    }
+  },
+
   [mutationTypes.DASHBOARDS_START_LOADING](state: State) {
     state.dashboards.isLoading = true;
   },

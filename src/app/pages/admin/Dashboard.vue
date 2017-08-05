@@ -18,7 +18,7 @@ import { AdminLayout } from 'app/components';
 export default class AdminDashboardPage extends Vue {
 
   mounted() {
-    this.$store.dispatch('admin/loadDashboard').then(() => {
+    this.$store.dispatch('admin/startDashboardSync', this.$route.params.dashboardId).then(() => {
       
     });
   }

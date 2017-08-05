@@ -24,7 +24,7 @@
   export default class AdminPage extends Vue {
 
     mounted() {
-      this.$store.dispatch('admin/startDashboardSync').then(() => {
+      this.$store.dispatch('admin/startDashboardsSync').then(() => {
         const dashboards = this.$store.getters['admin/dashboards'] as Array<Dashboard>;
         if (dashboards.length) {
           this.$router.push({

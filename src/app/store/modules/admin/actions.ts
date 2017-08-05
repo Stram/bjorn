@@ -12,7 +12,7 @@ interface ISessionModuleActionOptions {
 
 export default function createActions({ firebaseService }: ISessionModuleActionOptions) {
   return {
-    startDashboardSync({ commit }: ActionContext<State, any>) {
+    startDashboardsSync({ commit }: ActionContext<State, any>) {
       commit(mutationTypes.DASHBOARDS_START_LOADING);
       return new Promise((resolve) => {
         firebaseService.database.ref('dashboards').on('value', (dashboardsData) => {
@@ -35,6 +35,20 @@ export default function createActions({ firebaseService }: ISessionModuleActionO
     saveDashboard({ commit }: ActionContext<State, any>, dashboard: Dashboard) {
       return new Promise((resolve, reject) => {
         firebaseService.database.ref('dashboards').push(dashboard).then(resolve).catch(reject);
+      });
+    },
+
+    startDashboardSync({ commit, state, getters }: ActionContext<State, any>, dashboardId: string) {
+      return new Promise((resolve) => {
+        firebaseService.database.ref(`dashboards/${dashboardId}`).on('value', (dashboardData) => {
+          const data: any = dashboardData.toJSON();
+          const newDashboard = new Dashboard({
+            createdAt: data.createdAt,
+            uid: dashboardData.key,
+          });
+          commit(mutationTypes.SET_DASHBAORD, newDashboard);
+          resolve();
+        });
       });
     },
   };
