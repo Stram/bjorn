@@ -1,6 +1,8 @@
 <template lang="html">
     <admin-layout>
-      <h1>ADMIN DASHBOARD</h1>
+      <dashboard-preview
+        :dashboard="dashboard"
+      />
     </admin-layout>
 </template>
 
@@ -8,14 +10,22 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
-import { AdminLayout } from 'app/components';
+import { AdminLayout, DashboardPreview } from 'app/components';
+
+import Dashboard from 'app/models/Dashboard';
 
 @Component({
   components: {
-    AdminLayout
+    AdminLayout,
+    DashboardPreview
   }
 })
 export default class AdminDashboardPage extends Vue {
+
+  get dashboard() {
+    const dashboards: Array<Dashboard> = this.$store.getters['admin/dashboards'];
+    return dashboards.find(({uid}) => uid === this.$route.params.dashboardId);
+  }
 
   mounted() {
     this.$store.dispatch('admin/startDashboardSync', this.$route.params.dashboardId).then(() => {
