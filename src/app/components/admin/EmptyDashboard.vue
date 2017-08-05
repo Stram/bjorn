@@ -24,7 +24,7 @@
       AppButton
     }
   })
-  export default class ActionFooter extends Vue {
+  export default class EmptyDashboard extends Vue {
     ButtonThemes = ButtonThemes;
 
     onCreateClick() {

@@ -8,6 +8,8 @@ interface IUserOptions {
 export default class Dashboard extends Model {
   public createdAt: string;
   public uid: string;
+  public width: number;
+  public height: number;
 
   constructor({ uid, createdAt }: IUserOptions) {
     super();
@@ -16,5 +18,7 @@ export default class Dashboard extends Model {
     }
 
     this.createdAt = createdAt || new Date().toString();
+    this.width = 4;
+    this.height = 3;
   }
 }
