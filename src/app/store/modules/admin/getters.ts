@@ -10,6 +10,11 @@ export function dashboards(state: State): Array<Dashboard> {
   });
 }
 
+export function isLoading(state: State): boolean {
+  return state.dashboards.isLoading;
+}
+
 export default {
   dashboards,
+  isLoading,
 };

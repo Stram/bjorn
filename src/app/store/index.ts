@@ -7,6 +7,9 @@ import SessionStoreModule from 'app/store/modules/session';
 import UIStoreModule from 'app/store/modules/ui';
 import * as mutationTypes from 'app/store/mutation-types';
 
+import getters from './getters';
+import State from './state';
+
 import { isClient } from 'app/config';
 
 Vue.use(Vuex);
@@ -18,14 +21,14 @@ export interface IStoreOptions {
 export function createStore({ firebaseService }: IStoreOptions) {
   const store = new Vuex.Store({
     actions: {},
-    getters: {},
+    getters,
     modules: {
       admin: new AdminStoreModule({ firebaseService }),
       session: new SessionStoreModule({ firebaseService }),
       ui: new UIStoreModule(),
     },
     mutations: {},
-    state: {},
+    state: new State(),
   });
 
   function onResize() {
