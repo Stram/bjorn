@@ -47,35 +47,33 @@
 </script>
 
 <style lang="scss" module>
-  @import 'colors';
+.button {
+  padding: 12px 24px;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .button {
-    padding: 12px 24px;
-    text-transform: uppercase;
-    font-size: 24px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.primary {
+  background-color: var(--color-light);
+  color: var(--color-primary);
+}
 
-  .primary {
-    background-color: var(--color-light);
-    color: var(--color-primary);
-  }
+.secondary {
+  background-color: var(--color-light);
+  color: var(--color-secondary);
+}
 
-  .secondary {
-    background-color: var(--color-light);
-    color: var(--color-secondary);
-  }
+.light {
+  background-color: var(--color-secondary);
+  color: var(--color-light);
+}
 
-  .light {
-    background-color: var(--color-secondary);
-    color: var(--color-light);
-  }
-
-  .outline {
-    background-color: transparent;
-    color: var(--color-light);
-  }
+.outline {
+  background-color: transparent;
+  color: var(--color-light);
+}
 </style>
