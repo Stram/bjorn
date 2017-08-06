@@ -8,11 +8,9 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import Component from 'vue-class-component';
+  import { Component, Prop } from 'vue-property-decorator';
 
-  import {Prop} from 'vue-property-decorator';
-
-  import {Form} from 'app/services/form-object';
+  import { Form } from 'app/services/form-object';
 
   @Component({})
   export default class FormWrapper extends Vue {
