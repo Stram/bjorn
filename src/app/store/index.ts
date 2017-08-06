@@ -37,6 +37,7 @@ export function createStore({ firebaseService }: IStoreOptions) {
 
   if (isClient) {
     onResize();
+    // TODO: Debounce
     window.addEventListener('resize', onResize);
   }
 

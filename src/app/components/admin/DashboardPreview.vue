@@ -30,13 +30,18 @@
     @Prop({type: Object, required: true})
     private dashboard: Dashboard;
 
+    @Prop({type: Object, required: true})
+    private size: {width: number, height: number};
+
     get gridStyle() {
       const dashboard = this.dashboard;
 
-      return `
-        grid-template-columns: repeat(${dashboard.width}, 1fr);
-        grid-template-rows: repeat(${dashboard.height}, 1fr);
-      `;
+      return {
+        gridTemplateColumns: `repeat(${dashboard.width}, 1fr)`,
+        gridTemplateRows: `repeat(${dashboard.height}, 1fr)`,
+        width: `${this.size.width}px`,
+        height: `${this.size.height}px`,
+      }
     }
 
     get widgetsStructure() {
@@ -61,7 +66,6 @@
 
 <style lang="scss" module>
   .container {
-    flex: 1;
     display: grid;
     grid-gap: 10px;
     align-items: stretch;
