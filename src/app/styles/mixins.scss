@@ -1,0 +1,7 @@
+@mixin svg() {
+  svg {
+    path {
+      @content;
+    }
+  }
+}

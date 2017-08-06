@@ -80,6 +80,7 @@
 </script>
 
 <style lang="scss" module>
+  @import 'mixins';
   $transition-speed: 150ms;
 
   .container {
@@ -107,21 +108,17 @@
       border-color: var(--color-primary);
 
       .icon {
-        svg {
-          path {
-            fill: var(--color-primary);
-          }
+        @include svg() {
+          fill: var(--color-primary);
         }
       }
     }
   }
 
   .icon {
-    svg {
-      path {
-        fill: var(--color-secondary);
-        transition: fill $transition-speed;
-      }
+    @include svg() {
+      fill: var(--color-secondary);
+      transition: fill $transition-speed;
     }
   }
 </style>
