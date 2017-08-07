@@ -34,7 +34,7 @@
 
   @Component({
     components: {
-      'inline-svg': InlineSVG
+      'inline-svg': InlineSVG,
     }
   })
   export default class DashboardPreview extends Vue {
