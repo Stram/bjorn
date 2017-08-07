@@ -16,7 +16,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
 
-  import { AppButton } from 'app/components';
+  import AppButton from 'app/components/utils/Button.vue';
   import ButtonThemes from 'app/enums/button-themes';
 
   @Component({

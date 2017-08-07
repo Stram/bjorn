@@ -25,8 +25,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { times } from 'lodash';
 
-  import { InlineSVG } from 'app/components';
-
+  import InlineSVG from 'app/components/utils/InlineSVG.vue';
   import Dashboard from 'app/models/Dashboard';
   import Widget from 'app/models/Widget';
 

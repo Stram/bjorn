@@ -1,24 +1,24 @@
 <template lang="html">
-    <admin-layout>
-      <empty-dashboard
-        @dashboard:create="createNewDashboard"
-      />
-    </admin-layout>
+  <admin-layout>
+    <empty-dashboard
+      @dashboard:create="createNewDashboard"
+    />
+  </admin-layout>  
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
 
-  import { AdminLayout, EmptyDashboard } from 'app/components';
-
+  import AdminLayout from 'app/components/layouts/Admin.vue';
+  import EmptyDashboard from 'app/components/admin/EmptyDashboard.vue';
   import Dashboard from 'app/models/Dashboard';
   import { pages } from 'app/router';
 
   @Component({
     components: {
       AdminLayout,
-      EmptyDashboard
+      EmptyDashboard,
     }
   })
   export default class AdminPage extends Vue {

@@ -11,7 +11,8 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
-import { AdminLayout, DashboardPreview } from 'app/components';
+import AdminLayout from 'app/components/layouts/Admin.vue';
+import DashboardPreview from 'app/components/admin/DashboardPreview.vue';
 
 import Dashboard from 'app/models/Dashboard';
 

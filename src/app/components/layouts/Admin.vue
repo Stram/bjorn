@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <slot name="header" />
-      <admin-header
+      <app-header
         :user="currentUser"
         @logout="onLogout"
       />
@@ -16,11 +16,11 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
-import { AdminHeader } from 'app/components';
+import AppHeader from 'app/components/utils/Header.vue';
 
 @Component({
   components: {
-    AdminHeader,
+    AppHeader,
   }
 })
 export default class AdminLayout extends Vue {

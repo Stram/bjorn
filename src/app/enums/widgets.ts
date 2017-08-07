@@ -1,9 +1,5 @@
-import { TimeWidget } from 'app/components';
-import TimeModel from 'app/models/widgets/Time';
+enum WidgetType {
+  EMPTY = 'empty',
+}
 
-export default {
-  TIME_WIDGET: {
-    component: TimeWidget,
-    model: TimeModel,
-  },
-};
+export default WidgetType;

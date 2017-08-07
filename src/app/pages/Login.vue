@@ -16,9 +16,10 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
 
-  import {LoginForm as LoginFormComponent, SimpleActionLayout} from 'app/components';
+  import LoginFormComponent from 'app/components/forms/LoginForm.vue';
+  import SimpleActionLayout from 'app/components/layouts/SimpleAction.vue';
   import LoginForm from 'app/forms/LoginForm';
 
   const titles = [

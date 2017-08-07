@@ -31,7 +31,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
-import { InlineSVG } from 'app/components';
+import InlineSVG from 'app/components/utils/InlineSVG.vue';
 import { pages } from 'app/router';
 
 import * as logoutIcon from 'images/sign-out.svg';
