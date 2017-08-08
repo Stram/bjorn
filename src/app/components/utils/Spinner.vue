@@ -16,14 +16,41 @@ export default class Spinner extends Vue {
 
 <style lang="scss" module>
 $spinner-size: 50px;
+$animation-time: 3s;
 
 @keyframes spinner-rotating-wrapper {
   0% {
     transform: rotate(0deg)
   }
 
-  100% {
+  25% {
     transform: rotate(180deg)
+  }
+
+  50% {
+    transform: rotate(180deg)
+  }
+
+  75% {
+    transform: rotate(0deg)
+  }
+}
+
+@keyframes spinner-fill {
+  0% {
+    transform: translateY(0%)
+  }
+
+  25% {
+    transform: translateY(0%)
+  }
+
+  50% {
+    transform: translateY(-100%)
+  }
+
+  75% {
+    transform: translateY(-100%)
   }
 }
 
@@ -33,12 +60,19 @@ $spinner-size: 50px;
   border: 5px solid var(--color-light);
   position: relative;
   animation-name: spinner-rotating-wrapper;
-  animation-delay: 0s;
-  animation-duration: 1s;
+  overflow: hidden;
 }
 
 .content {
-  height: 0%;
+  height: 100%;
   width: 100%;
+  background-color: var(--color-primary);
+  animation-name: spinner-fill;
+}
+
+.wrapper,
+.content {
+  animation-duration: $animation-time;
+  animation-iteration-count: infinite;
 }
 </style>
