@@ -1,6 +1,6 @@
 import { mount } from 'avoriaz';
 import { expect } from 'chai';
-import App from 'app/components/App.vue';
+import App from 'components/App.vue';
 
 describe('App', function () {
   it('renders ok', function () {

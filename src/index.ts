@@ -1,31 +1,48 @@
-import * as express from 'express';
-import {info} from 'winston';
+import Vue from 'vue';
 
-import {HOST, PORT} from './config';
-import Router from './router';
+import 'app/styles/index.scss';
 
-class Application {
-  public app: express.Application;
-  private router: express.Router;
+import App from 'components/App.vue';
+import {firebaseConfig} from 'config';
+import User from 'models/User';
+import {createRouter, pages} from 'router';
+import FirebaseService from 'services/firebase';
+import {createStore} from 'store';
+import * as mutationTypes from 'store/mutation-types';
 
-  constructor() {
-    this.app = express();
+const firebaseService = new FirebaseService(firebaseConfig);
 
-    this.setupRouter();
-    this.startListening();
-  }
+const store = createStore({firebaseService});
+const router = createRouter({store, firebase: firebaseService});
 
-  private setupRouter() {
-    const routerClass = new Router(this.app);
-    this.router = routerClass.router;
-    this.app.use(this.router);
-  }
+firebaseService.onLogin(async (user) => {
+  const { email, displayName, photoURL, uid } = user;
+  store.commit(`session/${mutationTypes.SET_USER}`, new User({email, name: displayName, photoURL, uid}));
+  store.commit(`session/${mutationTypes.AUTHENTIFICATION_SUCCESS}`);
+  router.push({
+    name: pages.ADMIN,
+  });
+});
 
-  private startListening() {
-    this.app.listen(PORT, HOST, () => {
-      info(`Server is ready and listening on http://${HOST}:${PORT}`);
-    });
-  }
-}
+firebaseService.onLogout(() => {
+  store.commit(`session/${mutationTypes.SET_USER}`, null);
+  router.push({
+    name: pages.LOGIN,
+  });
+});
 
-export default (new Application()).app;
+Vue.use({
+  install(vue, options) {
+    vue.prototype.$firebase = firebaseService;
+  },
+});
+
+const app = new Vue({
+  render: (h: any) => h(App),
+  router,
+  store,
+});
+
+router.onReady(() => {
+  app.$mount('#app');
+});

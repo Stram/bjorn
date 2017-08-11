@@ -16,7 +16,7 @@ const styleLoader = {
     loader: 'sass-loader',
     options: {
       includePaths: [
-        resolve('../src/app/styles')
+        resolve('../src/styles')
       ]
     }
   }],
@@ -61,8 +61,7 @@ module.exports = {
 
   output: {
     path: resolve('../dist'),
-    publicPath: '/dist/',
-    filename: '[name].[chunkhash].js'
+    filename: '[name].js'
   },
 
   resolve: {
@@ -71,10 +70,16 @@ module.exports = {
       resolve('../src'),
       'node_modules'
     ],
+    alias: {
+      'app': resolve('../src')
+    }
   },
 
   plugins: [
     new ExtractTextPlugin('[name].css'),
     new FriendlyErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+    }),
   ]
 }
