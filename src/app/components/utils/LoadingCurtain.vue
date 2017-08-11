@@ -1,6 +1,6 @@
 <template lang="html">
   <div :class="$style.curtain">
-     <app-spinner /> 
+    <app-spinner />
   </div>
 </template>
 

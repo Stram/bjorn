@@ -1,10 +1,10 @@
 <template lang="html">
-    <admin-layout>
-      <dashboard-preview
-        :dashboard="dashboard"
-        :size="dashboardSize"
-      />
-    </admin-layout>
+  <admin-layout>
+    <dashboard-preview
+      :dashboard="dashboard"
+      :size="dashboardSize"
+    />
+  </admin-layout>
 </template>
 
 <script lang="ts">
