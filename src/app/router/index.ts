@@ -58,6 +58,7 @@ export function createRouter({store, firebase}: IRouterOptions) {
 
   router.beforeEach((to, from, next) => {
     if (to.meta.authenticatedRoute && !store.getters['session/isAuthenticated']) {
+      // FIXME
       next({
         name: pages.LOGIN,
       });
