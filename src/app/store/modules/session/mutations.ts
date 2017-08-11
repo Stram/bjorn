@@ -14,7 +14,7 @@ export default {
 
   [mutationTypes.AUTHENTIFICATION_FAIL](state: State, error: any) {
     state.isLoading = false;
-    state.isLoaded = false;
+    state.isLoaded = true;
     state.errorMessage = error;
   },
 
@@ -30,7 +30,7 @@ export default {
 
   [mutationTypes.RESET_SESSION](state: State) {
     state.isLoading = false;
-    state.isLoaded = false;
+    state.isLoaded = true;
     state.errorMessage = null;
     state.user = null;
     state.token = null;
