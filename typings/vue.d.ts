@@ -3,7 +3,7 @@
  */
 
 import Vue from 'vue';
-import Firebase from 'app/services/firebase';
+import Firebase from 'services/firebase';
 
 declare module 'vue/types/vue' {
   interface Vue {

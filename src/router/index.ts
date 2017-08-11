@@ -1,20 +1,85 @@
-import * as express from 'express';
+import Vue from 'vue';
+import Router from 'vue-router';
+import {Store} from 'vuex';
 
-import MainController from '../controllers/Main';
+import Admin from 'pages/Admin.vue';
+import AdminDashboard from 'pages/admin/Dashboard.vue';
+import AdminWidgetNew from 'pages/admin/widget/New.vue';
+import Dashboard from 'pages/Dashboard.vue';
+import Login from 'pages/Login.vue';
 
-class Router {
-  public router: express.Router;
-  private mainController: MainController;
+import firebaseService from 'services/firebase';
 
-  constructor(app: express.Application) {
-    this.router = express.Router();
-    this.mainController = new MainController(app);
-    this.setRoutes();
-  }
+Vue.use(Router);
 
-  private setRoutes() {
-    this.router.use('*', this.mainController.index);
-  }
+export interface IRouterOptions {
+  store: Store<any>;
+  firebase: firebaseService;
 }
 
-export default Router;
+export enum pages {
+  LOGIN = 'login',
+  DASHBOARD = 'dashboard',
+  DASHBOARD_INDEX = 'dashboardIndex',
+  ADMIN = 'admin',
+  ADMIN_WIDGET_NEW = 'adminWidgetNew',
+  NOT_FOUND = 'notFound',
+}
+
+export function createRouter({store, firebase}: IRouterOptions) {
+  const router = new Router({
+    mode: 'history',
+    routes: [{
+      alias: '/admin',
+      children: [{
+        component: AdminWidgetNew,
+        meta: {
+          authenticatedRoute: true,
+        },
+        name: pages.ADMIN_WIDGET_NEW,
+        path: 'widget/new',
+      }],
+      component: Admin,
+      meta: {
+        authenticatedRoute: true,
+      },
+      name: pages.ADMIN,
+      path: '/',
+    }, {
+      component: Dashboard,
+      meta: {
+        authenticatedRoute: true,
+      },
+      name: pages.DASHBOARD,
+      path: '/dashboard',
+    }, {
+      component: AdminDashboard,
+      meta: {
+        authenticatedRoute: true,
+      },
+      name: pages.DASHBOARD_INDEX,
+      path: '/dashboard/:dashboardId',
+    }, {
+      component: Login,
+      name: pages.LOGIN,
+      path: '/login',
+    }, {
+      component: Dashboard,
+      name: pages.NOT_FOUND,
+      path: '*',
+    }],
+  });
+
+  router.beforeEach((to, from, next) => {
+    if (to.meta.authenticatedRoute && !store.getters['session/isAuthenticated']) {
+      // FIXME
+      next({
+        name: pages.LOGIN,
+      });
+    } else {
+      next();
+    }
+  });
+
+  return router;
+}
