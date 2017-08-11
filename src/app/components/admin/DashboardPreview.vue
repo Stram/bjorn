@@ -62,6 +62,7 @@
       times(dashboard.height, (y) => {
         times(dashboard.width, (x) => {
           widgets.push(new Widget({
+            // FIXME
             x, y, type: 'empty', width: 1, height: 1, uid: `rand-${y * dashboard.width + x}`
           }));
         });
