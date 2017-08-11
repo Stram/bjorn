@@ -1,9 +1,11 @@
 <template lang="html">
   <main :id="config.APP_ROOT_ID">
     <router-view></router-view>  
-    <loading-curtain
-      v-if="showLoadingCurtain"
-    />     
+    <transition name="fade">
+      <loading-curtain
+        v-if="showLoadingCurtain"
+      />
+    </transition>
   </main>
 </template>
 
@@ -30,6 +32,16 @@
   }
 </script>
 
-<style lang="scss" module>
+<style lang="scss">
   
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 300ms
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0
+}
+
 </style>
