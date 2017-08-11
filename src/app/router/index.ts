@@ -2,7 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import {Store} from 'vuex';
 
-import * as pageComponents from 'app/pages';
+import Admin from 'app/pages/Admin.vue';
+import AdminDashboard from 'app/pages/admin/Dashboard.vue';
+import AdminWidgetNew from 'app/pages/admin/widget/New.vue';
+import Dashboard from 'app/pages/Dashboard.vue';
+import Login from 'app/pages/Login.vue';
+
 import firebaseService from 'app/services/firebase';
 
 Vue.use(Router);
@@ -17,6 +22,7 @@ export enum pages {
   DASHBOARD = 'dashboard',
   DASHBOARD_INDEX = 'dashboardIndex',
   ADMIN = 'admin',
+  ADMIN_WIDGET_NEW = 'adminWidgetNew',
   NOT_FOUND = 'notFound',
 }
 
@@ -25,32 +31,40 @@ export function createRouter({store, firebase}: IRouterOptions) {
     mode: 'history',
     routes: [{
       alias: '/admin',
-      component: pageComponents.Admin,
+      children: [{
+        component: AdminWidgetNew,
+        meta: {
+          authenticatedRoute: true,
+        },
+        name: pages.ADMIN_WIDGET_NEW,
+        path: 'widget/new',
+      }],
+      component: Admin,
       meta: {
         authenticatedRoute: true,
       },
       name: pages.ADMIN,
       path: '/',
     }, {
-      component: pageComponents.Dashboard,
+      component: Dashboard,
       meta: {
         authenticatedRoute: true,
       },
       name: pages.DASHBOARD,
       path: '/dashboard',
     }, {
-      component: pageComponents.AdminDashboard,
+      component: AdminDashboard,
       meta: {
         authenticatedRoute: true,
       },
       name: pages.DASHBOARD_INDEX,
       path: '/dashboard/:dashboardId',
     }, {
-      component: pageComponents.Login,
+      component: Login,
       name: pages.LOGIN,
       path: '/login',
     }, {
-      component: pageComponents.Dashboard,
+      component: Dashboard,
       name: pages.NOT_FOUND,
       path: '*',
     }],
