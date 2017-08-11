@@ -28,6 +28,7 @@
   import InlineSVG from 'app/components/utils/InlineSVG.vue';
   import Dashboard from 'app/models/Dashboard';
   import Widget from 'app/models/Widget';
+  import { pages } from 'app/router';
 
   import * as plusIcon from 'images/plus.svg';
 
@@ -73,7 +74,13 @@
 
     onWidgetClick(widget: Widget) {
       if (widget.type === 'empty') {
-
+        this.$router.push({
+          name: pages.ADMIN_WIDGET_NEW,
+          query: {
+            x: widget.x.toString(),
+            y: widget.y.toString(),
+          }
+        });
       }
     }
   }
