@@ -61,11 +61,11 @@ export default {
   },
 
   created() {
-    // document.body.classList.add('');
+    document.body.classList.add('disable-scroll');
   },
 
   beforeDestroy() {
-    // document.body.classList.remove('');
+    document.body.classList.remove('disable-scroll');
   }
 }
 </script>
