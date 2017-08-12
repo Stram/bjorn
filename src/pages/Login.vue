@@ -7,10 +7,15 @@
       {{title}}
     </h1>
     
-    <LoginForm
-      slot="footer"
-      :form="loginForm"
-    />
+    <div slot="footer">
+      <app-button
+        :theme="buttonThemes.SECONDARY"
+        :class="$style.loginButton"
+        @click="onLogin"
+      >
+        Login
+      </app-button>
+    </div>
   </simple-action-layout>
 </template>
 
@@ -18,9 +23,11 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
 
-  import LoginFormComponent from 'components/forms/LoginForm.vue';
+  import AppButton from 'components/utils/Button.vue';
   import SimpleActionLayout from 'components/layouts/SimpleAction.vue';
-  import LoginForm from 'forms/LoginForm';
+  
+  import ButtonThemes from 'enums/button-themes';
+  import { pages } from 'router';
 
   const titles = [
     'Who are you?',
@@ -30,13 +37,21 @@
 
   @Component({
     components: {
-      LoginForm: LoginFormComponent,
       SimpleActionLayout,
+      AppButton,
     }
   })
   export default class LoginPage extends Vue {
-    loginForm = new LoginForm({store: this.$store});
+    buttonThemes = ButtonThemes
     title = titles[Math.floor(Math.random() * titles.length)];
+
+    onLogin() {
+      this.$store.dispatch('session/login').then(() => {
+        this.$router.push({
+          name: pages.ADMIN,
+        })
+      });
+    }
   }
 </script>
 
@@ -44,4 +59,12 @@
   .title {
     color: var(--color-secondary);
   }
+
+  .login-button {
+    border: 5px solid var(--color-secondary);
+    font-size: 130px;
+    line-height: 150px;
+    padding: 20px 120px;
+  }
+
 </style>
