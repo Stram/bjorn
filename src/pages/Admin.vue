@@ -28,7 +28,7 @@
         const dashboards = this.$store.getters['admin/dashboards'] as Array<Dashboard>;
         if (dashboards.length) {
           this.$router.push({
-            name: pages.DASHBOARD_INDEX,
+            name: pages.ADMIN_DASHBOARD_INDEX,
             params: {
               dashboardId: dashboards[0].uid
             }
@@ -42,7 +42,7 @@
       this.$store.dispatch('admin/saveDashboard', newDashboard).then((response: any) => {
         console.log('response', response);
         this.$router.push({
-          name: pages.DASHBOARD_INDEX,
+          name: pages.ADMIN_DASHBOARD_INDEX,
           params: {
             dashboardId: response.key
           }

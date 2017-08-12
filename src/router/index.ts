@@ -20,7 +20,7 @@ export interface IRouterOptions {
 export enum pages {
   LOGIN = 'login',
   DASHBOARD = 'dashboard',
-  DASHBOARD_INDEX = 'dashboardIndex',
+  ADMIN_DASHBOARD_INDEX = 'dashboardIndex',
   ADMIN = 'admin',
   ADMIN_WIDGET_NEW = 'adminWidgetNew',
   NOT_FOUND = 'notFound',
@@ -38,6 +38,13 @@ export function createRouter({store, firebase}: IRouterOptions) {
         },
         name: pages.ADMIN_WIDGET_NEW,
         path: 'widget/new',
+      }, {
+        component: AdminDashboard,
+        meta: {
+          authenticatedRoute: true,
+        },
+        name: pages.ADMIN_DASHBOARD_INDEX,
+        path: '/admin/dashboard/:dashboardId',
       }],
       component: Admin,
       meta: {
@@ -52,13 +59,6 @@ export function createRouter({store, firebase}: IRouterOptions) {
       },
       name: pages.DASHBOARD,
       path: '/dashboard',
-    }, {
-      component: AdminDashboard,
-      meta: {
-        authenticatedRoute: true,
-      },
-      name: pages.DASHBOARD_INDEX,
-      path: '/dashboard/:dashboardId',
     }, {
       component: Login,
       name: pages.LOGIN,
