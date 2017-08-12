@@ -61,10 +61,12 @@ export default {
   },
 
   created() {
+    // TODO Esc press
     document.body.classList.add('disable-scroll');
   },
 
   beforeDestroy() {
+    // TODO Esc press
     document.body.classList.remove('disable-scroll');
   }
 }
