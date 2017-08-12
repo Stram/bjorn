@@ -1,10 +1,10 @@
 <template lang="html">
   <main>
-    <router-view></router-view>
     <transition name="fade">
       <loading-curtain
         v-if="showLoadingCurtain"
       />
+      <router-view v-else></router-view>
     </transition>
   </main>
 </template>
