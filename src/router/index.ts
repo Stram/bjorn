@@ -8,13 +8,10 @@ import AdminWidgetNew from 'pages/admin/widget/New.vue';
 import Dashboard from 'pages/Dashboard.vue';
 import Login from 'pages/Login.vue';
 
-import firebaseService from 'services/firebase';
-
 Vue.use(Router);
 
 export interface IRouterOptions {
   store: Store<any>;
-  firebase: firebaseService;
 }
 
 export enum pages {
@@ -26,11 +23,11 @@ export enum pages {
   NOT_FOUND = 'notFound',
 }
 
-export function createRouter({store, firebase}: IRouterOptions) {
+export function createRouter({store}: IRouterOptions) {
   const router = new Router({
     mode: 'history',
     routes: [{
-      alias: '/admin',
+      alias: '/',
       children: [{
         component: AdminWidgetNew,
         meta: {
@@ -51,7 +48,7 @@ export function createRouter({store, firebase}: IRouterOptions) {
         authenticatedRoute: true,
       },
       name: pages.ADMIN,
-      path: '/',
+      path: '/admin',
     }, {
       component: Dashboard,
       meta: {
@@ -72,9 +69,16 @@ export function createRouter({store, firebase}: IRouterOptions) {
 
   router.beforeEach((to, from, next) => {
     if (to.meta.authenticatedRoute && !store.getters['session/isAuthenticated']) {
-      // FIXME
-      next({
-        name: pages.LOGIN,
+      store.dispatch('session/check').then(() => {
+        next();
+      }).catch((error) => {
+        if (error.user === null) {
+          next({
+            name: pages.LOGIN,
+          });
+        } else {
+          throw error;
+        }
       });
     } else {
       next();
