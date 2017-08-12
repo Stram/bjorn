@@ -2,9 +2,6 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-type loginHandler = (user: any) => void;
-type logoutHandler = () => void;
-
 export interface IFirebaseConfig {
   apiKey: string;
   projectId: string;
@@ -21,9 +18,7 @@ export default class Firebase {
 
   private config: IFirebaseConfig;
   private app: firebase.app.App;
-
-  private onLoginHandlers: Array<loginHandler> = [];
-  private onLogoutHandlers: Array<logoutHandler> = [];
+  private authStatePromise: Promise<any>;
 
   constructor(config: IFirebaseConfig) {
     this.config = config;
@@ -40,12 +35,8 @@ export default class Firebase {
     }
   }
 
-  public onLogin(onLoginHandler: loginHandler) {
-    this.onLoginHandlers.push(onLoginHandler);
-  }
-
-  public onLogout(onLogoutHandler: logoutHandler) {
-    this.onLogoutHandlers.push(onLogoutHandler);
+  public checkSession() {
+    return this.authStatePromise;
   }
 
   private initializeApplication() {
@@ -66,12 +57,14 @@ export default class Firebase {
   }
 
   private setAuthListeners() {
-    this.auth.onAuthStateChanged((user: any) => {
-      if (user) {
-        this.onLoginHandlers.forEach((handler) => handler(user));
-      } else {
-        this.onLogoutHandlers.forEach((handler) => handler());
-      }
+    this.authStatePromise = new Promise((resolve, reject) => {
+      this.auth.onAuthStateChanged((user: any) => {
+        if (user) {
+          resolve({user});
+        } else {
+          reject({user: null});
+        }
+      });
     });
   }
 }
