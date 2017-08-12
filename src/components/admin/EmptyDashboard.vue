@@ -5,7 +5,7 @@
     <app-button
       :class="$style.button"
       :theme="ButtonThemes.LIGHT"
-      @button:click="onCreateClick"
+      @click="onCreateClick"
     >
       Create
     </app-button>

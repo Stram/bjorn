@@ -40,7 +40,7 @@
 
     onClick() {
       if (!this.disabled) {
-        this.$emit('button:click');
+        this.$emit('click');
       }
     }
   }
