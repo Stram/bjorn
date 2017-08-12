@@ -4,6 +4,7 @@
       :dashboard="dashboard"
       :size="dashboardSize"
     />
+    <router-view></router-view>
   </admin-layout>
 </template>
 
@@ -22,7 +23,6 @@ export default {
   computed: {
     dashboard() {
       const dashboards = this.$store.getters['admin/dashboards'];
-      console.log('dashboards ', dashboards, dashboards.find(({ uid }) => { console.log(uid); return uid === this.$route.params.dashboardId }));
       return dashboards.find(({ uid }) => uid === this.$route.params.dashboardId);
     },
 

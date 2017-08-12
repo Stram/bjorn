@@ -1,18 +1,18 @@
-<template lang="html">
-  <div>asudbaifbgifubgiaufglfibgilfdg</div>
+<template>
+  <app-modal
+    title="Select widget type"
+  >
+    <div>List of widget types</div>
+  </app-modal>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+<script>
+import AppModal from 'components/utils/Modal.vue';
 
-@Component({
+export default {
   components: {
-
+    AppModal,
   }
-})
-export default class AdminWidgetNewPage extends Vue {
-
 }
 </script>
 

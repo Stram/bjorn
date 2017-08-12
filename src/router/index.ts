@@ -29,13 +29,14 @@ export function createRouter({store}: IRouterOptions) {
     routes: [{
       alias: '/',
       children: [{
-        component: AdminWidgetNew,
-        meta: {
-          authenticatedRoute: true,
-        },
-        name: pages.ADMIN_WIDGET_NEW,
-        path: 'widget/new',
-      }, {
+        children: [{
+          component: AdminWidgetNew,
+          meta: {
+            authenticatedRoute: true,
+          },
+          name: pages.ADMIN_WIDGET_NEW,
+          path: 'widget/new',
+        }],
         component: AdminDashboard,
         meta: {
           authenticatedRoute: true,
