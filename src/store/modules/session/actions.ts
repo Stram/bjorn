@@ -28,13 +28,7 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
       const token = result.credential.accessToken;
       commit(mutationTypes.SET_TOKEN, token);
 
-      const {email, displayName, photoURL, uid} = result.user;
-      const user = new User({
-        email,
-        name: displayName,
-        photoURL,
-        uid,
-      });
+      const user = User.createFromResponse(result.user);
       commit(mutationTypes.SET_USER, user);
 
       commit(mutationTypes.AUTHENTIFICATION_SUCCESS);
@@ -43,6 +37,16 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
     async logout({ commit }: ActionContext<State, any>) {
       await firebaseService.auth.signOut();
       commit(mutationTypes.RESET_SESSION);
+    },
+
+    check({ commit }: ActionContext<State, any>) {
+      commit(mutationTypes.AUTHENTIFICATION_START);
+      firebaseService.checkSession().then((data) => {
+        const user = User.createFromResponse(data.user);
+        commit(mutationTypes.SET_USER, user);
+        commit(mutationTypes.AUTHENTIFICATION_SUCCESS);
+        return data;
+      });
     },
   };
 }
