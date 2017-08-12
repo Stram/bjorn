@@ -27,6 +27,10 @@ const config = merge(baseConfig, {
     port: 6978,
     hot: true,
     historyApiFallback: true,
+    overlay: {
+      warnings: true,
+      errors: true,
+    },
   }
 });
 
