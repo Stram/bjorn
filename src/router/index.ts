@@ -41,7 +41,7 @@ export function createRouter({store}: IRouterOptions) {
           authenticatedRoute: true,
         },
         name: pages.ADMIN_DASHBOARD_INDEX,
-        path: '/admin/dashboard/:dashboardId',
+        path: 'dashboard/:dashboardId',
       }],
       component: Admin,
       meta: {
@@ -49,6 +49,25 @@ export function createRouter({store}: IRouterOptions) {
       },
       name: pages.ADMIN,
       path: '/admin',
+      beforeEnter(to, from, next) {
+        if (!store.state.admin.dashboards.isLoaded) {
+          store.dispatch('admin/fetchDashboards').then(() => {
+            const dashboards = store.getters['admin/dashboards'];
+            if (dashboards.length) {
+              next({
+                name: pages.ADMIN_DASHBOARD_INDEX,
+                params: {
+                  dashboardId: dashboards[0].uid,
+                },
+              });
+            } else {
+              next();
+            }
+          });
+        } else {
+          next();
+        }
+      },
     }, {
       component: Dashboard,
       meta: {

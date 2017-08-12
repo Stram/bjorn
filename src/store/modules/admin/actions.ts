@@ -12,13 +12,12 @@ interface ISessionModuleActionOptions {
 
 export default function createActions({ firebaseService }: ISessionModuleActionOptions) {
   return {
-    startDashboardsSync({ commit }: ActionContext<State, any>) {
+    fetchDashboards({ commit }: ActionContext<State, any>) {
       commit(mutationTypes.DASHBOARDS_START_LOADING);
-      return new Promise((resolve) => {
-        firebaseService.database.ref('dashboards').on('value', (dashboardsData) => {
-          commit(mutationTypes.DASHBOARDS_LOADED);
+      return new Promise((resolve, reject) => {
+        firebaseService.database.ref('dashboards').once('value').then((dashboardsData) => {
           const dashboards: Array<Dashboard> = [];
-          dashboardsData.forEach((dashboardData) => {
+          dashboardsData.forEach((dashboardData: any) => {
             const data: any = dashboardData.toJSON();
             dashboards.push(new Dashboard({
               createdAt: data.createdAt,
@@ -27,8 +26,9 @@ export default function createActions({ firebaseService }: ISessionModuleActionO
             return false;
           });
           commit(mutationTypes.SET_DASHBAORDS, dashboards);
+          commit(mutationTypes.DASHBOARDS_LOADED);
           resolve();
-        });
+        }).catch(reject);
       });
     },
 
@@ -39,6 +39,7 @@ export default function createActions({ firebaseService }: ISessionModuleActionO
     },
 
     startDashboardSync({ commit, state, getters }: ActionContext<State, any>, dashboardId: string) {
+      commit(mutationTypes.DASHBOARDS_START_LOADING);
       return new Promise((resolve) => {
         firebaseService.database.ref(`dashboards/${dashboardId}`).on('value', (dashboardData) => {
           const data: any = dashboardData.toJSON();
@@ -47,6 +48,7 @@ export default function createActions({ firebaseService }: ISessionModuleActionO
             uid: dashboardData.key,
           });
           commit(mutationTypes.SET_DASHBAORD, newDashboard);
+          commit(mutationTypes.DASHBOARDS_LOADED);
           resolve();
         });
       });
