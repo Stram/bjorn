@@ -26,7 +26,6 @@ const config = merge(baseConfig, {
     compress: true,
     port: 6978,
     hot: true,
-    open: true,
     historyApiFallback: true,
   }
 });
