@@ -11,13 +11,26 @@
       >
         {{title}}
       </div>
+      <button
+        :class="$style.closeButton"
+        @click="onCloseClick"
+      >
+        <inline-svg :src="icons.close" :class="$style.closeIcon"/>
+      </button>
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
+import InlineSVG from 'components/utils/InlineSVG.vue';
+import closeIcon from 'images/close.svg';
+
 export default {
+  components: {
+    'inline-svg': InlineSVG,
+  },
+
   props: {
     title: {
       type: String,
@@ -26,8 +39,24 @@ export default {
   },
 
   methods: {
-    onBackdropClick() {
+    sendCloseSignal() {
       this.$emit('close');
+    },
+
+    onBackdropClick() {
+      this.sendCloseSignal();
+    },
+
+    onCloseClick() {
+      this.sendCloseSignal();
+    }
+  },
+
+  data() {
+    return {
+      icons: {
+        close: closeIcon,
+      }
     }
   },
 
@@ -58,6 +87,8 @@ export default {
     grid-area: container;
     padding: 0 48px 48px;
     background-color: var(--color-secondary);
+    border: 5px solid var(--color-light);
+    position: relative;
   }
 
   .header {
@@ -66,5 +97,27 @@ export default {
     font-weight: bold;
     text-align: center;
     color: var(--color-light);
+  }
+
+  .close-button {
+    $offset: 16px;
+    position: absolute;
+    top: $offset;
+    right: $offset;
+    padding: 8px;
+
+    &:focus, 
+    &:hover {
+      background-color: var(--color-light);
+      @include svg {
+        fill: var(--color-secondary);
+      }
+    }
+  }
+
+  .close-icon {
+    @include svg {
+      fill: var(--color-light);
+    }
   }
 </style>
