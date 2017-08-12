@@ -107,6 +107,7 @@ export default {
     top: $offset;
     right: $offset;
     padding: 8px;
+    transition: background-color 150ms;
 
     &:focus, 
     &:hover {
@@ -120,6 +121,7 @@ export default {
   .close-icon {
     @include svg {
       fill: var(--color-light);
+      transition: fill 150ms;
     }
   }
 </style>
