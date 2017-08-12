@@ -10,8 +10,6 @@ import * as mutationTypes from 'store/mutation-types';
 import getters from './getters';
 import State from './state';
 
-import { isClient } from 'config';
-
 Vue.use(Vuex);
 
 export interface IStoreOptions {
@@ -38,11 +36,9 @@ export function createStore({ firebaseService }: IStoreOptions) {
     });
   }
 
-  if (isClient) {
-    onResize();
-    // TODO: Debounce
-    window.addEventListener('resize', onResize);
-  }
+  onResize();
+  // TODO: Debounce
+  window.addEventListener('resize', onResize);
 
   return store;
 }
