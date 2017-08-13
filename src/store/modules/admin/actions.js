@@ -31,7 +31,7 @@ export default function createActions({firebaseService}) {
     },
 
     async createNewWidget({commit, dispatch}, data) {
-      const {x, y, width, height, type} = data;
+      const {x, y, width, height, dashboard, type} = data;
       const widgetDataToSave = {
         x, y,
         width, height,
@@ -44,7 +44,9 @@ export default function createActions({firebaseService}) {
       }, widgetDataToSave));
 
       commit(mutationTypes.SET_WIDGET, newWidget);
-
+      dashboard.widgets.push(newWidget.id);
+      await dispatch('saveDashboard', dashboard);
+      commit(mutationTypes.SET_DASHBAORD, dashboard);
     },
 
     saveWidget(context, widget) {
