@@ -22,59 +22,64 @@
 </template>
 
 <script>
-import AppModal from 'components/utils/Modal.vue';
-import InlineSVG from 'components/utils/InlineSVG.vue';
+  import AppModal from 'components/utils/Modal.vue';
+  import InlineSVG from 'components/utils/InlineSVG.vue';
 
-import Widget from 'models/Widget';
-import widgetTypes from 'enums/widgets';
-import { pages } from 'router';
+  import widgetTypes from 'enums/widgets';
+  import {pages} from 'router';
 
-export default {
-  components: {
-    AppModal,
-    'inline-svg': InlineSVG,
-  },
-
-  computed: {
-    dashboard() {
-      const dashboards = this.$store.getters['admin/dashboards'];
-      return dashboards.find(({ id }) => id === this.$route.params.dashboardId);
-    }
-  },
-
-  methods: {
-    onModalClose() {
-      this.$router.push({
-        name: pages.ADMIN_DASHBOARD_INDEX
-      })
+  export default {
+    components: {
+      AppModal,
+      'inline-svg': InlineSVG,
     },
 
-    onWidgetTypeClick(widgetTypeId) {
-      const queryParams = this.$route.query;
-      const x = parseInt(queryParams.x, 10);
-      const y = parseInt(queryParams.y, 10);
-
-      if (Number.isNaN(x) || Number.isNaN(y)) {
-        alert('WRONG QUERY PARAMS');
-        return;
+    computed: {
+      dashboard() {
+        const dashboardId = this.$route.params.dashboardId;
+        return this.$store.state.admin.dashboards[dashboardId];
       }
-      
-      this.$store.dispatch('admin/createNewWidget', {
-        x, y,
-        width: 1,
-        height: 1,
-        type: widgetTypeId,
-        dashboard: this.dashboard,
-      });
-    }
-  },
+    },
 
-  data() {
-    return {
-      widgetTypes: Object.values(widgetTypes),
+    methods: {
+      onModalClose() {
+        this.close();
+      },
+
+      close() {
+        this.$router.push({
+          name: pages.ADMIN_DASHBOARD_INDEX
+        });
+      },
+
+      onWidgetTypeClick(widgetTypeId) {
+        const queryParams = this.$route.query;
+        const x = parseInt(queryParams.x, 10);
+        const y = parseInt(queryParams.y, 10);
+
+        if (Number.isNaN(x) || Number.isNaN(y)) {
+          alert('WRONG QUERY PARAMS');
+          return;
+        }
+
+        this.$store.dispatch('admin/createNewWidget', {
+          x, y,
+          width: 1,
+          height: 1,
+          type: widgetTypeId,
+          dashboard: this.dashboard,
+        }).then(() => {
+          this.close();
+        });
+      }
+    },
+
+    data() {
+      return {
+        widgetTypes: Object.values(widgetTypes),
+      };
     }
-  }
-}
+  };
 </script>
 
 <style lang="scss" module>
@@ -103,7 +108,7 @@ export default {
     &:hover {
       background-color: var(--color-light);
 
-      
+
       @include svg {
         fill: var(--color-secondary);
       }
