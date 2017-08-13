@@ -1,14 +1,7 @@
 import Model from 'models/Model';
 
-interface IUserOptions {
-  uid: string;
-  email: string;
-  name: string;
-  photoURL: string;
-}
-
 export default class User extends Model {
-  public static createFromResponse(responseUser: any) {
+  static createFromResponse(responseUser) {
     const { email, displayName, photoURL, uid } = responseUser;
     return new User({
       email,
@@ -18,12 +11,7 @@ export default class User extends Model {
     });
   }
 
-  public uid: string;
-  public name: string;
-  public email: string;
-  public photoURL: string;
-
-  constructor({uid, name, email, photoURL}: IUserOptions) {
+  constructor({uid, name, email, photoURL}) {
     super();
     this.uid = uid;
     this.name = name;
