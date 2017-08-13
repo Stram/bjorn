@@ -8,7 +8,7 @@
         v-for="widgetType in widgetTypes"
         :key="widgetType.id"
         :class="$style.button"
-        @click="onWidgetTypeClick"
+        @click="onWidgetTypeClick(widgetType.id)"
       >
         <div :class="$style.iconWrapper">
           <inline-svg :src="widgetType.icon" />
@@ -25,6 +25,7 @@
 import AppModal from 'components/utils/Modal.vue';
 import InlineSVG from 'components/utils/InlineSVG.vue';
 
+import Widget from 'models/Widget';
 import widgetTypes from 'enums/widgets';
 import { pages } from 'router';
 
@@ -34,6 +35,13 @@ export default {
     'inline-svg': InlineSVG,
   },
 
+  computed: {
+    dashboard() {
+      const dashboards = this.$store.getters['admin/dashboards'];
+      return dashboards.find(({ id }) => id === this.$route.params.dashboardId);
+    }
+  },
+
   methods: {
     onModalClose() {
       this.$router.push({
@@ -41,8 +49,23 @@ export default {
       })
     },
 
-    onWidgetTypeClick() {
-      // TODO
+    onWidgetTypeClick(widgetTypeId) {
+      const queryParams = this.$route.query;
+      const x = parseInt(queryParams.x, 10);
+      const y = parseInt(queryParams.y, 10);
+
+      if (Number.isNaN(x) || Number.isNaN(y)) {
+        alert('WRONG QUERY PARAMS');
+        return;
+      }
+      
+      this.$store.dispatch('admin/createNewWidget', {
+        x, y,
+        width: 1,
+        height: 1,
+        type: widgetTypeId,
+        dashboard: this.dashboard,
+      });
     }
   },
 
