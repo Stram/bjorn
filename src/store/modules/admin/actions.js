@@ -31,12 +31,11 @@ export default function createActions({firebaseService}) {
     },
 
     async createNewWidget({commit, dispatch}, data) {
-      const {x, y, width, height, dashboard, type} = data;
+      const {x, y, width, height, type} = data;
       const widgetDataToSave = {
         x, y,
         width, height,
         type,
-        dashboardId: dashboard.id,
       };
 
       const widgetResponse = await dispatch('saveWidget', widgetDataToSave);
