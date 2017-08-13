@@ -19,4 +19,14 @@ export default {
   [mutationTypes.SET_WIDGET](state, widget) {
     Vue.set(state.widgets.data, widget.id, widget);
   },
+
+  [mutationTypes.WIDGETS_START_LOADING](state) {
+    state.widgets.isLoading = true;
+  },
+
+  [mutationTypes.WIDGETS_LOADED](state) {
+    state.widgets.isLoaded = true;
+    state.widgets.isLoading = false;
+  },
+
 };

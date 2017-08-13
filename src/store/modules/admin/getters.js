@@ -7,7 +7,11 @@ export default {
     });
   },
 
+  widgets(state) {
+    return Object.values(state.widgets.data);
+  },
+
   isLoading(state) {
-    return state.dashboards.isLoading;
+    return state.dashboards.isLoading || state.widgets.isLoading;
   },
 };
