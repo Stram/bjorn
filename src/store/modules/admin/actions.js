@@ -13,7 +13,25 @@ export default function createActions({firebaseService}) {
     });
   }
 
+  function fetchResource(resourceName, resourceId) {
+    return new Promise((resolve, reject) => {
+      firebaseService.database.ref(`${resourceName}/${resourceId}`).once('value').then(resolve).catch(reject);
+    });
+  }
+
   return {
+    fetchDashboard({commit}, dashboardId) {
+      commit(mutationTypes.DASHBOARDS_START_LOADING);
+      return fetchResource('dashboards', dashboardId)
+        .then((response) => {
+          const jsonResponse = response.toJSON();
+          const dashboard = Dashboard.createFromResponse(Object.assign(jsonResponse, {id: response.key}));
+          commit(mutationTypes.SET_DASHBAORD, dashboard);
+          commit(mutationTypes.DASHBOARDS_LOADED);
+          return dashboard;
+        });
+    },
+
     fetchDashboards({commit}) {
       commit(mutationTypes.DASHBOARDS_START_LOADING);
       return new Promise((resolve, reject) => {
@@ -74,5 +92,21 @@ export default function createActions({firebaseService}) {
     saveWidget(context, widget) {
       return saveResource('widgets', widget);
     },
+
+    fetchWidget({commit}, widgetId) {
+      commit(mutationTypes.WIDGETS_START_LOADING);
+      return fetchResource('widgets', widgetId)
+        .then((response) => {
+          const jsonResponse = response.toJSON();
+          const widget = Widget.createFromResponse(Object.assign(jsonResponse, {id: response.key}));
+          commit(mutationTypes.SET_WIDGET, widget);
+          commit(mutationTypes.WIDGETS_LOADED);
+          return widget;
+        });
+    },
+
+    getWidget({state}, widgetId) {
+      return state.widgets.data[widgetId];
+    }
   };
 }
