@@ -1,9 +1,9 @@
 import clockIcon from 'images/clock.svg';
 
 const widgetTypes = {
-  TIME: {
+  clock: {
     icon: clockIcon,
-    id: 'clock-widget',
+    id: 'clock',
     name: 'Clock',
   },
 };

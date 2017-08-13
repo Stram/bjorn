@@ -13,7 +13,7 @@
       :class="[$style.widget]"
       @click="onWidgetClick(widget)"
     >
-      Ovo je widget
+      <inline-svg :src="widgetTypes[widget.type].icon" :class="$style.icon" />
     </button>
 
     <button
@@ -35,7 +35,7 @@
   import InlineSVG from 'components/utils/InlineSVG.vue';
 
   import {pages} from 'router';
-
+  import widgetTypes from 'enums/widgets';
   import * as plusIcon from 'images/plus.svg';
 
   function createArray(n) {
@@ -128,6 +128,7 @@
     data() {
       return {
         plusIcon,
+        widgetTypes,
       };
     }
   };
