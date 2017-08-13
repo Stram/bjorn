@@ -5,7 +5,7 @@
   >
     <button
       v-for="widget in widgetsStructure"
-      :key="widget.uid"
+      :key="widget.id"
       :style="{
         gridColumn: `${widget.x + 1} / span ${widget.width}`,
         gridRow: `${widget.y + 1} / span ${widget.height}`
@@ -64,7 +64,7 @@
         times(dashboard.width, (x) => {
           widgets.push(new Widget({
             // FIXME
-            x, y, type: 'empty', width: 1, height: 1, uid: `rand-${y * dashboard.width + x}`
+            x, y, type: 'empty', width: 1, height: 1, id: `rand-${y * dashboard.width + x}`, dashboard: this.dashboard
           }));
         });
       });
