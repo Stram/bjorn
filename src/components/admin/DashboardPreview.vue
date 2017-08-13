@@ -98,14 +98,13 @@
           });
         });
 
-        return createArray(width).reduce((accumulatorX, currentX, x) => {
-          accumulatorX.push(...createArray(height).reduce((accumulatorY, currentY, y) => {
-            if (slots[x][y] === EMPTY_TYPE) {
-              accumulatorY.push({x, y, id: `empty-${y * width + height}`});
-            }
-            return accumulatorY;
-          }, []));
-          return accumulatorX;
+        return createArray(width * height).reduce((accumulator, current, index) => {
+          const x = index % width;
+          const y = Math.floor(index / width);
+          if (slots[x][y] === EMPTY_TYPE) {
+            accumulator.push({x, y, id: `empty-${y * width + height}`});
+          }
+          return accumulator;
         }, []);
       }
     },
