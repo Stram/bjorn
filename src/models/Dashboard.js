@@ -1,11 +1,20 @@
 import Model from 'models/Model';
 
 export default class Dashboard extends Model {
-  constructor({id, createdAt, widgets}) {
+  static createEmpty() {
+    return {
+      createdAt: new Date().toString(),
+      width: 4,
+      height: 3,
+      widgets: [],
+    };
+  }
+
+  constructor({id, createdAt, width, height, widgets}) {
     super({id});
-    this.createdAt = createdAt || new Date().toString();
-    this.width = 4;
-    this.height = 3;
-    this.widgets = widgets || [];
+    this.createdAt = createdAt;
+    this.width = width;
+    this.height = height;
+    this.widgets = widgets;
   }
 }
