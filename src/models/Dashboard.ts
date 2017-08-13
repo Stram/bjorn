@@ -1,22 +1,18 @@
 import Model from './Model';
 
 interface IUserOptions {
-  uid?: string;
+  id?: string;
   createdAt?: string;
 }
 
 export default class Dashboard extends Model {
   public createdAt: string;
-  public uid: string;
+  public id: string;
   public width: number;
   public height: number;
 
-  constructor({ uid, createdAt }: IUserOptions) {
-    super();
-    if (uid) {
-      this.uid = uid;
-    }
-
+  constructor({ id, createdAt }: IUserOptions) {
+    super({id});
     this.createdAt = createdAt || new Date().toString();
     this.width = 4;
     this.height = 3;

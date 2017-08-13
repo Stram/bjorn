@@ -23,7 +23,7 @@ export default {
   computed: {
     dashboard() {
       const dashboards = this.$store.getters['admin/dashboards'];
-      return dashboards.find(({ uid }) => uid === this.$route.params.dashboardId);
+      return dashboards.find(({ id }) => id === this.$route.params.dashboardId);
     },
 
     dashboardSize() {

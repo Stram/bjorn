@@ -58,7 +58,7 @@ export function createRouter({store}: IRouterOptions) {
               next({
                 name: pages.ADMIN_DASHBOARD_INDEX,
                 params: {
-                  dashboardId: dashboards[0].uid,
+                  dashboardId: dashboards[0].id,
                 },
               });
             } else {
