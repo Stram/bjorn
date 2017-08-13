@@ -7,13 +7,12 @@ export default class User extends Model {
       email,
       name: displayName,
       photoURL,
-      uid,
+      id: uid,
     });
   }
 
-  constructor({uid, name, email, photoURL}) {
-    super();
-    this.uid = uid;
+  constructor({id, name, email, photoURL}) {
+    super({id});
     this.name = name;
     this.email = email;
     this.photoURL = photoURL;
