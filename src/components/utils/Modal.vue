@@ -1,25 +1,28 @@
 <template>
-  <div :class="$style.backdrop"
-    @click="onBackdropClick"
-  >
-    <div :class="$style.container"
-      @click.stop
+
+  <transition name="fade">
+    <div :class="$style.backdrop"
+      @click="onBackdropClick"
     >
-      <div
-        v-if="title"
-        :class="$style.header"
+      <div :class="$style.container"
+        @click.stop
       >
-        {{title}}
+        <div
+          v-if="title"
+          :class="$style.header"
+        >
+          {{title}}
+        </div>
+        <button
+          :class="$style.closeButton"
+          @click="onCloseClick"
+        >
+          <inline-svg :src="icons.close" :class="$style.closeIcon"/>
+        </button>
+        <slot></slot>
       </div>
-      <button
-        :class="$style.closeButton"
-        @click="onCloseClick"
-      >
-        <inline-svg :src="icons.close" :class="$style.closeIcon"/>
-      </button>
-      <slot></slot>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
