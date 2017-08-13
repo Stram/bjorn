@@ -1,40 +1,37 @@
 <template lang="html">
-  <router-view>
-    <admin-layout>
-      <empty-dashboard
-        @dashboard:create="createNewDashboard"
-      />
-    </admin-layout>  
-  </router-view>
+  <admin-layout>
+    <empty-dashboard
+      @dashboard:create="createNewDashboard"
+    />
+  </admin-layout>
 </template>
 
 <script>
-import AdminLayout from 'components/layouts/Admin.vue';
-import EmptyDashboard from 'components/admin/EmptyDashboard.vue';
-import Dashboard from 'models/Dashboard';
-import { pages } from 'router';
+  import AdminLayout from 'components/layouts/Admin.vue';
+  import EmptyDashboard from 'components/admin/EmptyDashboard.vue';
 
-export default {
-  components: {
-    AdminLayout,
-    EmptyDashboard,
-  },
+  import Dashboard from 'models/Dashboard';
+  import {pages} from 'router';
 
-  methods: {
-    createNewDashboard() {
-      const newDashboard = new Dashboard({});
-      this.$store.dispatch('admin/saveDashboard', newDashboard).then((response) => {
-        console.log('response', response);
-        this.$router.push({
-          name: pages.ADMIN_DASHBOARD_INDEX,
-          params: {
-            dashboardId: response.key
-          }
+  export default {
+    components: {
+      AdminLayout,
+      EmptyDashboard,
+    },
+
+    methods: {
+      createNewDashboard() {
+        this.$store.dispatch('admin/createNewDashboard', Dashboard.createEmpty()).then((dashboard) => {
+          this.$router.push({
+            name: pages.ADMIN_DASHBOARD_INDEX,
+            params: {
+              dashboardId: dashboard.id
+            }
+          });
         });
-      });
+      }
     }
-  }
-}
+  };
 </script>
 
 <style lang="scss" module>

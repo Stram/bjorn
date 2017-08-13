@@ -3,6 +3,16 @@ import Widget from 'models/Widget';
 import * as mutationTypes from 'store/mutation-types';
 
 export default function createActions({firebaseService}) {
+  function saveResource(resourceName, resource) {
+    return new Promise((resolve, reject) => {
+      if (resource.id) {
+        firebaseService.database.ref(`${resourceName}/${resource.id}`).set(resource).then(resolve).catch(reject);
+      } else {
+        firebaseService.database.ref(resourceName).push(resource).then(resolve).catch(reject);
+      }
+    });
+  }
+
   return {
     fetchDashboards({commit}) {
       commit(mutationTypes.DASHBOARDS_START_LOADING);
@@ -23,11 +33,22 @@ export default function createActions({firebaseService}) {
     },
 
     saveDashboard(context, dashboard) {
-      return new Promise((resolve, reject) => {
-        firebaseService.database.ref('dashboards').push(dashboard).then((dashboardData) => {
-          return dashboardData;
-        }).catch(reject);
-      });
+      return saveResource('dashboards', dashboard);
+    },
+
+    async createNewDashboard({commit, dispatch}, data) {
+      const {createdAt, width, height} = data;
+      const dashboardDataToSave = {
+        createdAt,
+        width, height
+      };
+      const dashboardResponse = await dispatch('saveDashboard', dashboardDataToSave);
+      const dashboard = new Dashboard(Object.assign({
+        id: dashboardResponse.key,
+      }, dashboardDataToSave));
+
+      commit(mutationTypes.SET_DASHBAORD, dashboard);
+      return dashboard;
     },
 
     async createNewWidget({commit, dispatch}, data) {
@@ -39,20 +60,19 @@ export default function createActions({firebaseService}) {
       };
 
       const widgetResponse = await dispatch('saveWidget', widgetDataToSave);
-      const newWidget = new Widget(Object.assign({
+      const widget = new Widget(Object.assign({
         id: widgetResponse.key,
       }, widgetDataToSave));
 
-      commit(mutationTypes.SET_WIDGET, newWidget);
-      dashboard.widgets.push(newWidget.id);
+      commit(mutationTypes.SET_WIDGET, widget);
+      dashboard.widgets.push(widget.id);
       await dispatch('saveDashboard', dashboard);
       commit(mutationTypes.SET_DASHBAORD, dashboard);
+      return widget;
     },
 
     saveWidget(context, widget) {
-      return new Promise((resolve, reject) => {
-        firebaseService.database.ref('widgets').push(widget).then(resolve).catch(reject);
-      });
+      return saveResource('widgets', widget);
     },
   };
 }
