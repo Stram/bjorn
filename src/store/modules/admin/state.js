@@ -1,6 +1,3 @@
-import Dashboard from 'models/Dashboard';
-import Widget from 'models/Widget';
-
 function setInitialData() {
   return {
     data: {},
@@ -12,4 +9,4 @@ function setInitialData() {
 export default {
   dashboards: setInitialData(),
   widgets: setInitialData(),
-}
+};

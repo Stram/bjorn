@@ -10,5 +10,5 @@ export default function createAdminStoreModule({firebaseService}) {
     getters,
     mutations,
     state,
-  }
+  };
 }

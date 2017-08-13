@@ -2,11 +2,9 @@ import Dashboard from 'models/Dashboard';
 import Widget from 'models/Widget';
 import * as mutationTypes from 'store/mutation-types';
 
-import State from './state';
-
-export default function createActions({ firebaseService }) {
+export default function createActions({firebaseService}) {
   return {
-    fetchDashboards({ commit }) {
+    fetchDashboards({commit}) {
       commit(mutationTypes.DASHBOARDS_START_LOADING);
       return new Promise((resolve, reject) => {
         firebaseService.database.ref('dashboards').once('value').then((dashboardsData) => {
@@ -24,7 +22,7 @@ export default function createActions({ firebaseService }) {
       });
     },
 
-    saveDashboard({ commit }, dashboard) {
+    saveDashboard(context, dashboard) {
       return new Promise((resolve, reject) => {
         firebaseService.database.ref('dashboards').push(dashboard).then((dashboardData) => {
           return dashboardData;
@@ -32,13 +30,14 @@ export default function createActions({ firebaseService }) {
       });
     },
 
-    async createNewWidget({ commit, dispatch }, data) {
-      const { x, y, width, height, dashboard, type } = data;
+    async createNewWidget({commit, dispatch}, data) {
+      const {x, y, width, height, dashboard, type} = data;
       const widgetDataToSave = {
         x, y,
         width, height,
         type,
-      }
+        dashboardId: dashboard.id,
+      };
 
       const widgetResponse = await dispatch('saveWidget', widgetDataToSave);
       const newWidget = new Widget(Object.assign({
@@ -46,9 +45,10 @@ export default function createActions({ firebaseService }) {
       }, widgetDataToSave));
 
       commit(mutationTypes.SET_WIDGET, newWidget);
+
     },
 
-    saveWidget({ commit }, widget) {
+    saveWidget(context, widget) {
       return new Promise((resolve, reject) => {
         firebaseService.database.ref('widgets').push(widget).then(resolve).catch(reject);
       });
