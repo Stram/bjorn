@@ -10,11 +10,18 @@ export default class Dashboard extends Model {
     };
   }
 
+  static createFromResponse(response) {
+    const {id, createdAt, width, height, widgets} = response;
+    return new Dashboard({
+      id, createdAt, width, height, widgets
+    });
+  }
+
   constructor({id, createdAt, width, height, widgets}) {
     super({id});
     this.createdAt = createdAt;
     this.width = width;
     this.height = height;
-    this.widgets = widgets;
+    this.widgets = widgets && !Array.isArray(widgets) ? Object.values(widgets) : widgets;
   }
 }
