@@ -20,26 +20,6 @@ export const pages = {
 
 export function createRouter({store}) {
 
-  function loadDashboardBeforeEnter(to, from, next) {
-    if (!store.state.admin.dashboards.isLoaded) {
-      store.dispatch('admin/fetchDashboards').then(() => {
-        const dashboards = store.getters['admin/dashboards'];
-        if (dashboards.length) {
-          next({
-            name: pages.ADMIN_DASHBOARD_INDEX,
-            params: {
-              dashboardId: dashboards[0].id,
-            },
-          });
-        } else {
-          next();
-        }
-      });
-    } else {
-      next();
-    }
-  }
-
   const router = new Router({
     mode: 'history',
     routes: [{
@@ -48,13 +28,38 @@ export function createRouter({store}) {
       name: pages.ADMIN,
       component: Admin,
       meta: {authenticatedRoute: true},
-      beforeEnter: loadDashboardBeforeEnter,
+      beforeEnter(to, from, next) {
+        if (!store.state.admin.dashboards.isLoaded) {
+          store.dispatch('admin/fetchDashboards').then(() => {
+            const dashboards = store.getters['admin/dashboards'];
+            if (dashboards.length) {
+              next({
+                name: pages.ADMIN_DASHBOARD_INDEX,
+                params: {
+                  dashboardId: dashboards[0].id,
+                },
+              });
+            } else {
+              next();
+            }
+          });
+        } else {
+          next();
+        }
+      },
     }, {
       path: '/admin/dashboard/:dashboardId',
       name: pages.ADMIN_DASHBOARD_INDEX,
       component: AdminDashboard,
       meta: {authenticatedRoute: true},
-      beforeEnter: loadDashboardBeforeEnter,
+      beforeEnter(to, from, next) {
+        store.dispatch('admin/fetchDashboard', to.params.dashboardId).then((dashboard) => {
+          const promises = dashboard.widgets.map((widgetId) => store.dispatch('admin/fetchWidget', widgetId));
+          return Promise.all(promises);
+        }).then(() => {
+          next();
+        });
+      },
       children: [{
         path: 'widget/new',
         name: pages.ADMIN_WIDGET_NEW,

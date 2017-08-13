@@ -2,6 +2,7 @@
   <admin-layout>
     <dashboard-preview
       :dashboard="dashboard"
+      :widgets="widgets"
       :size="dashboardSize"
     />
     <router-view></router-view>
@@ -9,36 +10,39 @@
 </template>
 
 <script>
-import AdminLayout from 'components/layouts/Admin.vue';
-import DashboardPreview from 'components/admin/DashboardPreview.vue';
+  import AdminLayout from 'components/layouts/Admin.vue';
+  import DashboardPreview from 'components/admin/DashboardPreview.vue';
 
-import Dashboard from 'models/Dashboard';
-
-export default {
-  components: {
-    AdminLayout,
-    DashboardPreview
-  },
-
-  computed: {
-    dashboard() {
-      const dashboards = this.$store.getters['admin/dashboards'];
-      return dashboards.find(({ id }) => id === this.$route.params.dashboardId);
+  export default {
+    components: {
+      AdminLayout,
+      DashboardPreview
     },
 
-    dashboardSize() {
-      const windowWidth = this.$store.state.ui.windowWidth;
-      const sideMargin = 64;
-      const width = windowWidth - 2 * sideMargin;
-      const aspectRation = 1024 / 1920;
-      const height = aspectRation * width;
-      return {
-        width: Math.round(width),
-        height: Math.round(height),
-      };
-    }
-  },
-}
+    computed: {
+      dashboard() {
+        const dashboardId = this.$route.params.dashboardId;
+        return this.$store.state.admin.dashboards.data[dashboardId];
+      },
+
+      dashboardSize() {
+        const windowWidth = this.$store.state.ui.windowWidth;
+        const sideMargin = 64;
+        const width = windowWidth - 2 * sideMargin;
+        const aspectRation = 1024 / 1920;
+        const height = aspectRation * width;
+        return {
+          width: Math.round(width),
+          height: Math.round(height),
+        };
+      },
+
+      widgets() {
+        const dashboardWidgets = this.dashboard.widgets;
+        return dashboardWidgets.map((widgetId) => this.$store.state.admin.widgets.data[widgetId]);
+      },
+    },
+  };
 </script>
 
 <style lang="scss" module>

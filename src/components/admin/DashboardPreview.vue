@@ -4,76 +4,118 @@
     :style="gridStyle"
   >
     <button
-      v-for="widget in widgetsStructure"
+      v-for="widget in widgets"
       :key="widget.id"
       :style="{
         gridColumn: `${widget.x + 1} / span ${widget.width}`,
         gridRow: `${widget.y + 1} / span ${widget.height}`
       }"
-      :class="[$style.widget, {
-        [$style.empty]: widget.type === 'empty'
-      }]"
+      :class="[$style.widget]"
       @click="onWidgetClick(widget)"
+    >
+      Ovo je widget
+    </button>
+
+    <button
+      v-for="widget in emptyWidgets"
+      :key="widget.id"
+      :style="{
+        gridColumn: `${widget.x + 1} / span 1`,
+        gridRow: `${widget.y + 1} / span 1`
+      }"
+      :class="[$style.widget, $style.empty]"
+      @click="onEmptyWidgetClick(widget)"
     >
       <inline-svg :src="plusIcon" :class="$style.icon" />
     </button>
   </section>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { times } from 'lodash';
-
+<script>
   import InlineSVG from 'components/utils/InlineSVG.vue';
-  import Dashboard from 'models/Dashboard';
-  import Widget from 'models/Widget';
-  import { pages } from 'router';
+
+  import {pages} from 'router';
 
   import * as plusIcon from 'images/plus.svg';
 
-  @Component({
+  function createArray(n) {
+    return Array.from({length: n});
+  }
+
+  export default {
     components: {
       'inline-svg': InlineSVG,
-    }
-  })
-  export default class DashboardPreview extends Vue {
-    plusIcon = plusIcon
+    },
 
-    @Prop({type: Object, required: true})
-    private dashboard: Dashboard;
+    props: {
+      dashboard: {
+        type: Object,
+        required: true,
+      },
 
-    @Prop({type: Object, required: true})
-    private size: {width: number, height: number};
+      widgets: {
+        type: Array,
+        required: true,
+      },
 
-    get gridStyle() {
-      const dashboard = this.dashboard;
-
-      return {
-        gridTemplateColumns: `repeat(${dashboard.width}, 1fr)`,
-        gridTemplateRows: `repeat(${dashboard.height}, 1fr)`,
-        width: `${this.size.width}px`,
-        height: `${this.size.height}px`,
+      size: {
+        type: Object,
+        required: true,
       }
-    }
+    },
 
-    get widgetsStructure() {
-      const dashboard = this.dashboard;
-      const widgets: Array<Widget> = [];
-      times(dashboard.height, (y) => {
-        times(dashboard.width, (x) => {
-          widgets.push(new Widget({
-            // FIXME
-            x, y, type: 'empty', width: 1, height: 1, id: `rand-${y * dashboard.width + x}`, dashboard: this.dashboard
-          }));
+    computed: {
+      gridStyle() {
+        const dashboard = this.dashboard;
+
+        return {
+          gridTemplateColumns: `repeat(${dashboard.width}, 1fr)`,
+          gridTemplateRows: `repeat(${dashboard.height}, 1fr)`,
+          width: `${this.size.width}px`,
+          height: `${this.size.height}px`,
+        };
+      },
+
+      emptyWidgets() {
+        const EMPTY_TYPE = 'empty';
+        const dashboard = this.dashboard;
+        const {height, width} = dashboard;
+
+        const slots = createArray(width).reduce((accumulatorX, currentX, x) => {
+          accumulatorX[x] = createArray(height).reduce((accumulatorY, currentY, y) => {
+            accumulatorY[y] = EMPTY_TYPE;
+            return accumulatorY;
+          }, {});
+          return accumulatorX;
+        }, {});
+
+        this.widgets.forEach((widget) => {
+          const {x, y, type} = widget;
+          createArray(widget.width).forEach((valueX, offsetX) => {
+            createArray(widget.height).forEach((valueY, offsetY) => {
+              slots[x + offsetX][y + offsetY] = type;
+            });
+          });
         });
-      });
 
-      return widgets;
-    }
+        return createArray(width).reduce((accumulatorX, currentX, x) => {
+          accumulatorX.push(...createArray(height).reduce((accumulatorY, currentY, y) => {
+            if (slots[x][y] === EMPTY_TYPE) {
+              accumulatorY.push({x, y, id: `empty-${y * width + height}`});
+            }
+            return accumulatorY;
+          }, []));
+          return accumulatorX;
+        }, []);
+      }
+    },
 
-    onWidgetClick(widget: Widget) {
-      if (widget.type === 'empty') {
+    methods: {
+      onWidgetClick(widget) {
+        // TODO
+      },
+
+      onEmptyWidgetClick(widget) {
         this.$router.push({
           name: pages.ADMIN_WIDGET_NEW,
           query: {
@@ -82,8 +124,14 @@
           }
         });
       }
+    },
+
+    data() {
+      return {
+        plusIcon,
+      };
     }
-  }
+  };
 </script>
 
 <style lang="scss" module>
@@ -115,7 +163,7 @@
       border-color: var(--color-primary);
 
       .icon {
-        @include svg() {
+        @include svg {
           fill: var(--color-primary);
         }
       }
@@ -123,7 +171,7 @@
   }
 
   .icon {
-    @include svg() {
+    @include svg {
       fill: var(--color-secondary);
       transition: fill $transition-speed;
     }
