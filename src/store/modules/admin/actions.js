@@ -41,10 +41,9 @@ export default function createActions({ firebaseService }) {
       }
 
       const widgetResponse = await dispatch('saveWidget', widgetDataToSave);
-      const newWidget = new Widget({
+      const newWidget = new Widget(Object.assign({
         id: widgetResponse.key,
-        ...widgetDataToSave,
-      });
+      }, widgetDataToSave));
 
       commit(mutationTypes.SET_WIDGET, newWidget);
     },

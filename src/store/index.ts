@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import FirebaseServiceClass from 'services/firebase';
-import AdminStoreModule from 'store/modules/admin';
+import createAdminStoreModule from 'store/modules/admin';
 import SessionStoreModule from 'store/modules/session';
 import UIStoreModule from 'store/modules/ui';
 import * as mutationTypes from 'store/mutation-types';
@@ -21,7 +21,7 @@ export function createStore({ firebaseService }: IStoreOptions) {
     actions: {},
     getters,
     modules: {
-      admin: new AdminStoreModule({ firebaseService }),
+      admin: createAdminStoreModule({ firebaseService }),
       session: new SessionStoreModule({ firebaseService }),
       ui: new UIStoreModule(),
     },
