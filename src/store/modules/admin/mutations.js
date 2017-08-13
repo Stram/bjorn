@@ -1,8 +1,10 @@
+import Vue from 'vue';
+
 import * as mutationTypes from 'store/mutation-types';
 
 export default {
   [mutationTypes.SET_DASHBAORD](state, dashboard) {
-    state.dashboards.data[dashboard.id] = dashboard;
+    Vue.set(state.dashboards.data, dashboard.id, dashboard);
   },
 
   [mutationTypes.DASHBOARDS_START_LOADING](state) {
@@ -15,6 +17,6 @@ export default {
   },
 
   [mutationTypes.SET_WIDGET](state, widget) {
-    state.widgets.data[widget.id] = widget;
+    Vue.set(state.widgets.data, widget.id, widget);
   },
 };
