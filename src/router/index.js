@@ -13,6 +13,7 @@ export const pages = {
   LOGIN: 'login',
   DASHBOARD: 'dashboard',
   ADMIN_DASHBOARD_INDEX: 'dashboardIndex',
+  ADMIN_DASHBOARD_WIDGET_INDEX: 'dashboardWidgetIndex',
   ADMIN: 'admin',
   ADMIN_WIDGET_NEW: 'adminWidgetNew',
   NOT_FOUND: 'notFound',
@@ -64,6 +65,10 @@ export function createRouter({store}) {
         path: 'widget/new',
         name: pages.ADMIN_WIDGET_NEW,
         component: AdminWidgetNew,
+        meta: {authenticatedRoute: true},
+      }, {
+        path: 'widget/:widgetId',
+        name: pages.ADMIN_DASHBOARD_WIDGET_INDEX,
         meta: {authenticatedRoute: true},
       }],
     }, {

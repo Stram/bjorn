@@ -111,7 +111,12 @@
 
     methods: {
       onWidgetClick(widget) {
-        // TODO
+        this.$router.push({
+          name: pages.ADMIN_DASHBOARD_WIDGET_INDEX,
+          params: {
+            widgetId: widget.id
+          }
+        });
       },
 
       onEmptyWidgetClick(widget) {
