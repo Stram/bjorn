@@ -9,3 +9,7 @@ export function log(...args: Array<any>) {
 export function warn(...args: Array<any>) {
   consoleAction('warn', ...args);
 }
+
+export function error(...args: Array<any>) {
+  consoleAction('warn', ...args);
+}
