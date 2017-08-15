@@ -4,33 +4,24 @@
   </div>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-
+<script>
   import AppSpinner from 'components/utils/Spinner.vue';
 
-  @Component({
+  export default {
     components: {
-      AppSpinner,
+      AppSpinner
     }
-  })
-  export default class LoadingCurtain extends Vue {
-
-  }
+  };
 </script>
 
 <style lang="scss" module>
+  @import 'mixins';
 
-.curtain {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-secondary);
-}
+  .curtain {
+    @include strech();
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+  }
 </style>
