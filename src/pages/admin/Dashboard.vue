@@ -18,7 +18,9 @@
     <action-footer
       :dashboard="dashboard"
       :widget="activeWidget"
+      @widget:showOptions="onWidgetShowOptions"
     />
+    <router-view></router-view>
   </admin-layout>
 </template>
 
@@ -27,6 +29,8 @@
   import ActionFooter from 'components/admin/ActionFooter.vue';
   import DashboardPreview from 'components/admin/DashboardPreview.vue';
   import DashboardResizer from 'components/admin/DashboardResizer.vue';
+
+  import {pages} from 'router';
 
   export default {
     components: {
@@ -84,6 +88,12 @@
         const {width, height} = this.$refs.content.getBoundingClientRect();
         this.width = width;
         this.height = height;
+      },
+
+      onWidgetShowOptions() {
+        this.$router.push({
+          name: pages.ADMIN_DASHBOARD_WIDGET_OPTIONS
+        });
       }
     },
 

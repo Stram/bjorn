@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Admin from 'pages/Admin.vue';
-import AdminDashboard from 'pages/admin/Dashboard.vue';
-import AdminWidgetNew from 'pages/admin/widget/New.vue';
-import Dashboard from 'pages/Dashboard.vue';
-import Login from 'pages/Login.vue';
+import Admin from 'pages/Admin';
+import AdminDashboard from 'pages/admin/Dashboard';
+import AdminWidgetNew from 'pages/admin/widget/New';
+import AdminWidgetOptions from 'pages/admin/widget/Options';
+import Dashboard from 'pages/Dashboard';
+import Login from 'pages/Login';
+
+import RouterViewProxy from 'pages/RouterViewProxy';
 
 Vue.use(Router);
 
@@ -14,6 +17,7 @@ export const pages = {
   DASHBOARD: 'dashboard',
   ADMIN_DASHBOARD_INDEX: 'dashboardIndex',
   ADMIN_DASHBOARD_WIDGET_INDEX: 'dashboardWidgetIndex',
+  ADMIN_DASHBOARD_WIDGET_OPTIONS: 'dashboardWidgetOptions',
   ADMIN: 'admin',
   ADMIN_WIDGET_NEW: 'adminWidgetNew',
   NOT_FOUND: 'notFound',
@@ -69,7 +73,14 @@ export function createRouter({store}) {
       }, {
         path: 'widget/:widgetId',
         name: pages.ADMIN_DASHBOARD_WIDGET_INDEX,
+        component: RouterViewProxy,
         meta: {authenticatedRoute: true},
+        children: [{
+          path: 'options',
+          name: pages.ADMIN_DASHBOARD_WIDGET_OPTIONS,
+          component: AdminWidgetOptions,
+          meta: {authenticatedRoute: true},
+        }]
       }],
     }, {
       path: '/dashboard',

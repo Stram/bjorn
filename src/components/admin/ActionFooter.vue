@@ -69,7 +69,7 @@
 
     methods: {
       onWidgetChangeOptionsClick() {
-
+        this.$emit('widget:showOptions');
       },
 
       onWidgetChangeDataClick() {
