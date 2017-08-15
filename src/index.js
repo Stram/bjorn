@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import PortalVue from 'portal-vue';
 
 import 'app/styles/index.scss';
 
@@ -13,14 +14,10 @@ const firebaseService = new FirebaseService(firebaseConfig);
 const store = createStore({firebaseService});
 const router = createRouter({store});
 
-Vue.use({
-  install(vue, options) {
-    vue.prototype.$firebase = firebaseService;
-  },
-});
+Vue.use(PortalVue);
 
 const app = new Vue({
-  render: (h: any) => h(App),
+  render: (h) => h(App),
   router,
   store,
 });

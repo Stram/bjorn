@@ -12,7 +12,7 @@ const isTest = process.env.NODE_ENV === 'test';
 
 const config = merge(baseConfig, {
   entry: {
-    app: './src/index.ts',
+    app: './src/index.js',
   },
 
   devtool: 'source-map',
