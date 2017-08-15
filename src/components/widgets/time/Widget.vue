@@ -25,7 +25,7 @@
     },
 
     methods: {
-      formatNumber(number: number) {
+      formatNumber(number) {
         return Math.abs(number) < 10 ? `0${number}` : String(number);
       }
     },
