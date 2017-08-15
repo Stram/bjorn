@@ -1,22 +1,51 @@
 <template lang="html">
   <admin-layout>
-    <dashboard-preview
+    <div
+      ref="content"
+      :class="$style.content"
+    >
+      <dashboard-resizer
+        :size="dashboardSize"
+        :margins="dashboardMargins"
+      >
+        <dashboard-preview
+          :dashboard="dashboard"
+          :widgets="widgets"
+        />
+      </dashboard-resizer>
+    </div>
+
+    <action-footer
       :dashboard="dashboard"
-      :widgets="widgets"
-      :size="dashboardSize"
+      :widget="activeWidget"
     />
+
     <router-view></router-view>
   </admin-layout>
 </template>
 
 <script>
   import AdminLayout from 'components/layouts/Admin.vue';
+  import ActionFooter from 'components/admin/ActionFooter.vue';
   import DashboardPreview from 'components/admin/DashboardPreview.vue';
+  import DashboardResizer from 'components/admin/DashboardResizer.vue';
 
   export default {
     components: {
       AdminLayout,
-      DashboardPreview
+      ActionFooter,
+      DashboardPreview,
+      DashboardResizer
+    },
+
+    watch: {
+      '$store.state.ui.windowHeight'() {
+        this.setContentSizes();
+      },
+
+      '$store.state.ui.windowWidth'() {
+        this.setContentSizes();
+      }
     },
 
     computed: {
@@ -26,14 +55,18 @@
       },
 
       dashboardSize() {
-        const windowWidth = this.$store.state.ui.windowWidth;
-        const sideMargin = 64;
-        const width = windowWidth - 2 * sideMargin;
-        const aspectRation = 1024 / 1920;
-        const height = aspectRation * width;
+        const {width, height} = this;
         return {
-          width: Math.round(width),
-          height: Math.round(height),
+          width, height
+        };
+      },
+
+      dashboardMargins() {
+        return {
+          top: 48,
+          right: 64,
+          bottom: 48,
+          left: 64,
         };
       },
 
@@ -41,10 +74,39 @@
         const dashboardWidgets = this.dashboard.widgets;
         return dashboardWidgets.map((widgetId) => this.$store.state.admin.widgets.data[widgetId]);
       },
+
+      activeWidget() {
+        const widgetId = this.$route.params.widgetId;
+        return widgetId ? this.$store.state.admin.widgets.data[widgetId] : null;
+      }
     },
+
+    methods: {
+      setContentSizes() {
+        const {width, height} = this.$refs.content.getBoundingClientRect();
+        this.width = width;
+        this.height = height;
+      }
+    },
+
+    data() {
+      return {
+        width: 0,
+        height: 0,
+      };
+    },
+
+    mounted() {
+      this.setContentSizes();
+    }
   };
 </script>
 
 <style lang="scss" module>
-
+  .content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>

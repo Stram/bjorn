@@ -31,8 +31,8 @@ export function createStore({ firebaseService }: IStoreOptions) {
 
   function onResize() {
     store.commit(`ui/${mutationTypes.SET_WINDOW_SIZE}`, {
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height: window.document.body.clientHeight,
+      width: window.document.body.clientWidth,
     });
   }
 

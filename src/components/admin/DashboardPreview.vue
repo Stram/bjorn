@@ -56,11 +56,6 @@
       widgets: {
         type: Array,
         required: true,
-      },
-
-      size: {
-        type: Object,
-        required: true,
       }
     },
 
@@ -71,8 +66,6 @@
         return {
           gridTemplateColumns: `repeat(${dashboard.width}, 1fr)`,
           gridTemplateRows: `repeat(${dashboard.height}, 1fr)`,
-          width: `${this.size.width}px`,
-          height: `${this.size.height}px`,
         };
       },
 
@@ -148,9 +141,9 @@
     grid-gap: 24px;
     align-items: stretch;
     justify-content: stretch;
-    margin: 48px 64px;
     padding: 20px;
     border: 5px solid var(--color-secondary);
+    height: 100%;
   }
 
   .widget {
