@@ -16,26 +16,26 @@
           <div :class="$style.type">{{widget.type}}</div>
         </div>
         <div :class="$style.widgetActions">
-          <app-button
+          <util-button
             :theme="buttonThemes.OUTLINE"
             @click="onWidgetChangeOptionsClick"
           >
             Change options
-          </app-button>
+          </util-button>
 
-          <app-button
+          <util-button
             :theme="buttonThemes.OUTLINE"
             @click="onWidgetChangeDataClick"
           >
             Change data
-          </app-button>
+          </util-button>
 
-          <app-button
+          <util-button
             :theme="buttonThemes.OUTLINE"
             @click="onWidgetRemoveClick"
           >
             Remove
-          </app-button>
+          </util-button>
         </div>
         <div>
           <!-- TODO -->
@@ -49,13 +49,13 @@
 </template>
 
 <script>
-  import AppButton from 'components/utils/Button';
+  import UtilButton from 'components/utils/Button';
 
   import buttonThemes from 'enums/button-themes';
 
   export default {
     components: {
-      AppButton
+      UtilButton
     },
 
     props: {
