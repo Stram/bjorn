@@ -73,6 +73,7 @@
 }
 
 .outline {
+  border: 3px solid var(--color-light);
   background-color: transparent;
   color: var(--color-light);
 }
