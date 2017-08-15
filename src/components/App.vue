@@ -6,23 +6,22 @@
       />
       <router-view v-else></router-view>
     </transition>
+    <portal-target name="modal"></portal-target>
   </main>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-
+<script>
   import LoadingCurtain from 'components/utils/LoadingCurtain.vue';
 
-  @Component({
+  export default {
     components: {
       LoadingCurtain,
-    }
-  })
-  export default class App extends Vue {
-    get showLoadingCurtain() {
-      return this.$store.getters['isLoading'];
-    }
-  }
+    },
+
+    computed: {
+      showLoadingCurtain() {
+        return this.$store.getters.isLoading;
+      }
+    },
+  };
 </script>
