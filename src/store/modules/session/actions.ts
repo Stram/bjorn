@@ -41,7 +41,7 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
 
     check({ commit }: ActionContext<State, any>) {
       commit(mutationTypes.AUTHENTIFICATION_START);
-      firebaseService.checkSession().then((data) => {
+      return firebaseService.checkSession().then((data) => {
         const user = User.createFromResponse(data.user);
         commit(mutationTypes.SET_USER, user);
         commit(mutationTypes.AUTHENTIFICATION_SUCCESS);
