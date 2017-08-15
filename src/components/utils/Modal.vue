@@ -1,28 +1,29 @@
 <template>
-
-  <transition name="fade">
-    <div :class="$style.backdrop"
-      @click="onBackdropClick"
-    >
-      <div :class="$style.container"
-        @click.stop
+  <portal to="modal">
+    <transition name="fade">
+      <div :class="$style.backdrop"
+        @click="onBackdropClick"
       >
-        <div
-          v-if="title"
-          :class="$style.header"
+        <div :class="$style.container"
+          @click.stop
         >
-          {{title}}
+          <div
+            v-if="title"
+            :class="$style.header"
+          >
+            {{title}}
+          </div>
+          <button
+            :class="$style.closeButton"
+            @click="onCloseClick"
+          >
+            <inline-svg :src="icons.close" :class="$style.closeIcon"/>
+          </button>
+          <slot></slot>
         </div>
-        <button
-          :class="$style.closeButton"
-          @click="onCloseClick"
-        >
-          <inline-svg :src="icons.close" :class="$style.closeIcon"/>
-        </button>
-        <slot></slot>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </portal>
 </template>
 
 <script>
@@ -79,7 +80,7 @@ export default {
   @import 'mixins';
 
   .backdrop {
-    @include strech(fixed);
+    @include strech();
     display: grid;
     grid-template-columns: minmax(50px, 1fr) minmax(auto, 1142px) minmax(50px, 1fr);
     grid-template-rows: 1fr;
@@ -112,7 +113,7 @@ export default {
     padding: 8px;
     transition: background-color 150ms;
 
-    &:focus, 
+    &:focus,
     &:hover {
       background-color: var(--color-light);
       @include svg {

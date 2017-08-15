@@ -19,8 +19,6 @@
       :dashboard="dashboard"
       :widget="activeWidget"
     />
-
-    <router-view></router-view>
   </admin-layout>
 </template>
 
