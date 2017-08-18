@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import PortalVue from 'portal-vue';
+import VueForm from 'vue-form';
 
 import 'app/styles/index.scss';
 
@@ -15,6 +16,7 @@ const store = createStore({firebaseService});
 const router = createRouter({store});
 
 Vue.use(PortalVue);
+Vue.use(VueForm);
 
 const app = new Vue({
   render: (h) => h(App),
