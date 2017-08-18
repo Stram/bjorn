@@ -24,6 +24,8 @@
       :class="$style.input"
     />
 
+    <span :class="$style.sufix">{{sufix}}</span>
+
     <field-messages
       show="$touched || $submitted"
       :state="state"
@@ -75,6 +77,11 @@
       type: {
         type: String,
         defaults: 'text'
+      },
+
+      sufix: {
+        type: String,
+        default: ''
       }
     },
 
@@ -107,10 +114,18 @@
     padding: 10px 0;
   }
 
-  .label {
+  .label,
+  .sufix {
     font-size: 24px;
     color: var(--color-light);
+  }
+
+  .label {
     margin-right: 8px;
+  }
+
+  .sufix {
+    margin-left: 8px;
   }
 
   .input {
