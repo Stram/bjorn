@@ -35,11 +35,21 @@ button {
   cursor: pointer;
   user-select: none;
 
-  &:focus {
-    outline: 0;
-  }
-
   &[disabled] {
     cursor: default;
+  }
+}
+
+input {
+  font-family: 'Montserrat', sans-serif;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+}
+
+button,
+input {
+  &:focus {
+    outline: 0;
   }
 }
