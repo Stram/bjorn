@@ -3,38 +3,23 @@
     :state="timeWidgetForm"
     @submit.prevent="onFormSubmit"
   >
-    <validate
-      tag="label"
-      :class="$style.field"
-    >
-      <span :class="$style.label">
-        Location:
-      </span>
-      <input
-        v-model="options.location"
-        required
-        name="location"
-        :class="$style.input"
-      />
+    <input-field
+      v-model="options.location"
+      label="Location"
+      field-name="location"
+      :state="timeWidgetForm"
+      :required="true"
+    />
 
-      <field-messages
-        name="location"
-        show="$touched || $submitted"
-        :class="$style.messages"
-      >
-        <transition
-          slot="required"
-          name="error-label"
-          :appear="true"
-        >
-          <div
-            :class="$style.error"
-          >
-            Location is a required field
-          </div>
-        </transition>
-      </field-messages>
-    </validate>
+    <input-field
+      v-model="options.refreshRate"
+      label="Refresh rate"
+      field-name="refreshRate"
+      type="number"
+      :state="timeWidgetForm"
+      :required="true"
+      :number="true"
+    />
 
     <div :class="$style.actions">
       <util-button
@@ -57,13 +42,13 @@
 </template>
 
 <script>
-  import FormInput from 'components/forms/FormInput.vue';
+  import InputField from 'components/forms/InputField.vue';
   import UtilButton from 'components/utils/Button.vue';
   import buttonThemes from 'enums/button-themes';
 
   export default {
     components: {
-      FormInput,
+      InputField,
       UtilButton
     },
 
@@ -92,7 +77,8 @@
       return {
         timeWidgetForm: {},
         options: {
-          location: ''
+          location: '',
+          refreshRate: ''
         },
         buttonThemes
       };
@@ -101,33 +87,6 @@
 </script>
 
 <style lang="scss" module>
-  .label {
-    font-size: 24px;
-    color: var(--color-light);
-    margin-right: 8px;
-  }
-
-  .input {
-    border-bottom: 3px solid var(--color-light);
-    font-size: 24px;
-    color: var(--color-light);
-    width: 200px;
-  }
-
-  .messages {
-    overflow: hidden;
-    margin-top: 10px;
-  }
-
-  .error {
-    text-transform: uppercase;
-    display: inline-block;
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    font-weight: bold;
-    padding: 5px 10px;
-  }
-
   .actions {
     display: flex;
     align-items: center;
