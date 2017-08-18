@@ -1,6 +1,9 @@
 <template>
   <portal to="modal">
-    <transition name="fade">
+    <transition
+      name="fade"
+      :appear="true"
+    >
       <div :class="$style.backdrop"
         @click="onBackdropClick"
       >
