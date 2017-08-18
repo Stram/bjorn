@@ -2,48 +2,57 @@
   <button
     :class="[$style.button, themeClass]"
     :disabled="disabled"
-    type="button"
+    :type="type"
     @click="onClick"
   >
     <slot></slot>
   </button>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-
+<script>
   import ButtonThemes from 'enums/button-themes';
 
-  @Component({
-    props: {}
-  })
-  export default class UtilButton extends Vue {
-    @Prop({ type: Number, default: ButtonThemes.PRIMARY })
-    private theme: ButtonThemes;
+  export default {
+    props: {
+      theme: {
+        type: String,
+        default: ButtonThemes.PRIMARY
+      },
 
-    @Prop({ type: Boolean, default: false })
-    private disabled: boolean;
+      disabled: {
+        type: Boolean,
+        default: false
+      },
 
-    get themeClassMap() {
-      return {
-        [ButtonThemes.PRIMARY]: this.$style.primary,
-        [ButtonThemes.SECONDARY]: this.$style.secondary,
-        [ButtonThemes.LIGHT]: this.$style.light,
-        [ButtonThemes.OUTLINE]: this.$style.outline,
-      };
-    }
+      type: {
+        type: String,
+        default: 'button'
+      }
+    },
 
-    get themeClass() {
-      return this.themeClassMap[this.theme];
-    }
+    computed: {
+      themeClassMap() {
+        return {
+          [ButtonThemes.PRIMARY]: this.$style.primary,
+          [ButtonThemes.SECONDARY]: this.$style.secondary,
+          [ButtonThemes.LIGHT]: this.$style.light,
+          [ButtonThemes.OUTLINE]: this.$style.outline,
+        };
+      },
 
-    onClick() {
-      if (!this.disabled) {
-        this.$emit('click');
+      themeClass() {
+        return this.themeClassMap[this.theme];
+      }
+    },
+
+    methods: {
+      onClick() {
+        if (!this.disabled) {
+          this.$emit('click');
+        }
       }
     }
-  }
+  };
 </script>
 
 <style lang="scss" module>
@@ -73,6 +82,7 @@
 }
 
 .outline {
+  padding: 9px 21px;
   border: 3px solid var(--color-light);
   background-color: transparent;
   color: var(--color-light);
