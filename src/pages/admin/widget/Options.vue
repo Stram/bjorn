@@ -6,6 +6,7 @@
     <component
       :is="optionsComponent"
       :widgetOptions="widget.options || {}"
+      @cancel="onFormCancel"
       @widget:saveNewOptions="onSaveNewOptions"
     />
   </app-modal>
@@ -43,6 +44,10 @@
 
     methods: {
       onModalClose() {
+        this.close();
+      },
+
+      onFormCancel() {
         this.close();
       },
 
