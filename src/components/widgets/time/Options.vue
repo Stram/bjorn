@@ -15,10 +15,10 @@
       v-model="options.refreshRate"
       label="Refresh rate"
       field-name="refreshRate"
+      sufix="seconds"
       type="number"
       :state="timeWidgetForm"
       :required="true"
-      :number="true"
     />
 
     <div :class="$style.actions">
@@ -57,10 +57,6 @@
         type: Object,
         required: true,
       }
-    },
-
-    computed: {
-
     },
 
     methods: {
