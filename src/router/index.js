@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Admin from 'pages/Admin';
-import AdminDashboard from 'pages/admin/Dashboard';
-import AdminWidgetNew from 'pages/admin/widget/New';
-import AdminWidgetOptions from 'pages/admin/widget/Options';
-import Dashboard from 'pages/Dashboard';
-import Login from 'pages/Login';
+import Admin from 'pages/Admin.vue';
+import AdminDashboard from 'pages/admin/Dashboard.vue';
+import AdminWidgetNew from 'pages/admin/widget/New.vue';
+import AdminWidgetOptions from 'pages/admin/widget/Options.vue';
+import Dashboard from 'pages/Dashboard.vue';
+import Login from 'pages/Login.vue';
 
-import RouterViewProxy from 'pages/RouterViewProxy';
+import RouterViewProxy from 'pages/RouterViewProxy.vue';
 
 Vue.use(Router);
 
