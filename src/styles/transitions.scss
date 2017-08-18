@@ -1,9 +1,24 @@
+// FADE
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 300ms
+  transition: opacity 300ms;
 }
 
 .fade-enter,
 .fade-leave-to {
-  opacity: 0
+  opacity: 0;
+}
+
+// ERROR LABEL
+
+.error-label-enter-active,
+.error-label-leave-active {
+  transition: transform 150ms;
+  overflow: hidden;
+}
+
+.error-label-enter,
+.error-label-leave-to {
+  transform: translateY(-100%);
 }
