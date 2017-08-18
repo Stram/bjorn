@@ -2,35 +2,38 @@
   <section :class="$style.container">
     <h1 :class="$style.title">Sadly you don’t have any dashboard</h1>
     <h2 :class="$style.subtitle">Start by creating a new one</h2>
-    <app-button
+    <util-button
       :class="$style.button"
-      :theme="ButtonThemes.LIGHT"
+      :theme="buttonThemes.LIGHT"
       @click="onCreateClick"
     >
       Create
-    </app-button>
+    </util-button>
   </section>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+<script>
+  import UtilButton from 'components/utils/Button.vue';
 
-  import AppButton from 'components/utils/Button.vue';
-  import ButtonThemes from 'enums/button-themes';
+  import buttonThemes from 'enums/button-themes';
 
-  @Component({
+  export default {
     components: {
-      AppButton
-    }
-  })
-  export default class EmptyDashboard extends Vue {
-    ButtonThemes = ButtonThemes;
+      UtilButton
+    },
 
-    onCreateClick() {
-      this.$emit('dashboard:create');
+    methods: {
+      onCreateClick() {
+        this.$emit('dashboard:create');
+      }
+    },
+
+    data() {
+      return {
+        buttonThemes
+      };
     }
-  }
+  };
 </script>
 
 <style lang="scss" module>
