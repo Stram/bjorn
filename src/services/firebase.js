@@ -2,25 +2,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-export interface IFirebaseConfig {
-  apiKey: string;
-  projectId: string;
-  authDomain?: string;
-  databaseURL?: string;
-  storageBucket?: string;
-  messagingSenderId?: string;
-}
-
 export default class Firebase {
-  public database: firebase.database.Database;
-  public auth: firebase.auth.Auth;
-  public googleAuthProvider: firebase.auth.GoogleAuthProvider;
-
-  private config: IFirebaseConfig;
-  private app: firebase.app.App;
-  private authStatePromise: Promise<any>;
-
-  constructor(config: IFirebaseConfig) {
+  constructor(config) {
     this.config = config;
 
     this.initializeApplication();
@@ -35,11 +18,11 @@ export default class Firebase {
     }
   }
 
-  public checkSession() {
+  checkSession() {
     return this.authStatePromise;
   }
 
-  private initializeApplication() {
+  initializeApplication() {
     if (firebase.apps.length) {
       this.app = firebase.app();
     } else {
@@ -47,18 +30,18 @@ export default class Firebase {
     }
   }
 
-  private initializeDatabase() {
+  initializeDatabase() {
     this.database = this.app.database();
   }
 
-  private initializeAuth() {
+  initializeAuth() {
     this.auth = this.app.auth();
     this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
   }
 
-  private setAuthListeners() {
+  setAuthListeners() {
     this.authStatePromise = new Promise((resolve, reject) => {
-      this.auth.onAuthStateChanged((user: any) => {
+      this.auth.onAuthStateChanged((user) => {
         if (user) {
           resolve({user});
         } else {
