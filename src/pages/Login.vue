@@ -6,7 +6,7 @@
     >
       {{title}}
     </h1>
-    
+
     <div slot="footer">
       <app-button
         :theme="buttonThemes.SECONDARY"
@@ -19,15 +19,12 @@
   </simple-action-layout>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-
+<script>
   import AppButton from 'components/utils/Button.vue';
   import SimpleActionLayout from 'components/layouts/SimpleAction.vue';
-  
-  import ButtonThemes from 'enums/button-themes';
-  import { pages } from 'router';
+
+  import buttonThemes from 'enums/button-themes';
+  import {pages} from 'router';
 
   const titles = [
     'Who are you?',
@@ -35,24 +32,29 @@
     'Knock knock!'
   ];
 
-  @Component({
+  export default {
     components: {
       SimpleActionLayout,
       AppButton,
-    }
-  })
-  export default class LoginPage extends Vue {
-    buttonThemes = ButtonThemes
-    title = titles[Math.floor(Math.random() * titles.length)];
+    },
 
-    onLogin() {
-      this.$store.dispatch('session/login').then(() => {
-        this.$router.push({
-          name: pages.ADMIN,
-        })
-      });
+    methods: {
+      onLogin() {
+        this.$store.dispatch('session/login').then(() => {
+          this.$router.push({
+            name: pages.ADMIN,
+          });
+        });
+      }
+    },
+
+    data() {
+      return {
+        buttonThemes,
+        title: titles[Math.floor(Math.random() * titles.length)]
+      };
     }
-  }
+  };
 </script>
 
 <style lang="scss" module>
