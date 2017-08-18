@@ -61,7 +61,7 @@
 
     methods: {
       onFormSubmit() {
-        this.$emit('widget:saveNewOptions', this.options);
+        this.$emit('widget:save-new-options', this.options);
       },
 
       onFormCancel() {

@@ -5,9 +5,9 @@
   >
     <component
       :is="optionsComponent"
-      :widgetOptions="widget.options || {}"
+      :widget-options="widget.options || {}"
       @cancel="onFormCancel"
-      @widget:saveNewOptions="onSaveNewOptions"
+      @widget:save-new-options="onSaveNewOptions"
     />
   </app-modal>
 </template>
@@ -19,6 +19,7 @@
   import {pages} from 'router';
   import widgets from 'enums/widgets';
   import {error} from 'services/logger';
+  import * as mutationTypes from 'store/mutation-types';
 
   export default {
     components: {
@@ -58,7 +59,8 @@
       },
 
       onSaveNewOptions(options) {
-        console.log('new options', options);
+        this.$store.commit(mutationTypes.SET_WIDGET_OPTIONS, this.widget.id, options);
+        // TODO: Save widget
       }
     }
   };

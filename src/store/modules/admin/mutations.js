@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import {warn} from 'services/logger';
 
 import * as mutationTypes from 'store/mutation-types';
 
@@ -27,6 +28,14 @@ export default {
   [mutationTypes.WIDGETS_LOADED](state) {
     state.widgets.isLoaded = true;
     state.widgets.isLoading = false;
+  },
+
+  [mutationTypes.SET_WIDGET_OPTIONS](state, widgetId, options) {
+    if (state.widgets.data.widgetId) {
+      Vue.set(state.widgets.data.widgetId, 'options', options);
+    } else {
+      warn(`Widget with id ${widgetId} does not exist in the store. Cannot set widget options.`);
+    }
   },
 
 };
