@@ -23,7 +23,7 @@ export function createStore({ firebaseService }: IStoreOptions) {
     modules: {
       admin: createAdminStoreModule({ firebaseService }),
       session: new SessionStoreModule({ firebaseService }),
-      ui: new UIStoreModule(),
+      ui: UIStoreModule,
     },
     mutations: {},
     state: new State(),
