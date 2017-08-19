@@ -3,9 +3,12 @@
     title="Select widget type"
     @close="onModalClose"
   >
-    <div :class="$style.wrapper">
+    <div
+      v-if="!type"
+      :class="$style.wrapper"
+    >
       <button
-        v-for="widgetType in widgetTypes"
+        v-for="widgetType in widgetTypesList"
         :key="widgetType.id"
         :class="$style.button"
         @click="onWidgetTypeClick(widgetType.id)"
@@ -18,6 +21,13 @@
         </div>
       </button>
     </div>
+    <component
+      v-else
+      :is="widgetTypes[type].optionsFormComponent"
+      :widget-options="{}"
+      @cancel="onFormCancel"
+      @widget:save-new-options="onSaveNewOptions"
+    />
   </app-modal>
 </template>
 
@@ -37,12 +47,16 @@
     computed: {
       dashboard() {
         const dashboardId = this.$route.params.dashboardId;
-        return this.$store.state.admin.dashboards[dashboardId];
+        return this.$store.state.admin.dashboards.data[dashboardId];
       }
     },
 
     methods: {
       onModalClose() {
+        this.close();
+      },
+
+      onFormCancel() {
         this.close();
       },
 
@@ -53,6 +67,10 @@
       },
 
       onWidgetTypeClick(widgetTypeId) {
+        this.type = widgetTypeId;
+      },
+
+      onSaveNewOptions(options) {
         const queryParams = this.$route.query;
         const x = parseInt(queryParams.x, 10);
         const y = parseInt(queryParams.y, 10);
@@ -67,8 +85,9 @@
           x, y,
           width: 1,
           height: 1,
-          type: widgetTypeId,
-          dashboard: this.dashboard,
+          type: this.type,
+          options,
+          dashboard: this.dashboard
         }).then(() => {
           this.close();
         });
@@ -77,7 +96,9 @@
 
     data() {
       return {
-        widgetTypes: Object.values(widgetTypes),
+        type: '',
+        widgetTypesList: Object.values(widgetTypes),
+        widgetTypes,
       };
     }
   };
