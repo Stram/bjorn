@@ -10,7 +10,7 @@
         gridColumn: `${widget.x + 1} / span ${widget.width}`,
         gridRow: `${widget.y + 1} / span ${widget.height}`
       }"
-      :class="[$style.widget]"
+      :class="[$style.widget, {[$style.active]: widget && widget.id === activeWidgetId}]"
       @click="onWidgetClick(widget)"
     >
       <inline-svg :src="widgetTypes[widget.type].icon" :class="$style.icon" />
@@ -56,6 +56,10 @@
       widgets: {
         type: Array,
         required: true,
+      },
+
+      activeWidgetId: {
+        type: String
       }
     },
 
@@ -163,6 +167,20 @@
       .icon {
         @include svg {
           fill: var(--color-primary);
+        }
+      }
+    }
+
+    &.active {
+      background-color: var(--color-secondary);
+
+      &:hover {
+        border-color: var(--color-secondary);
+      }
+
+      .icon {
+        @include svg {
+          fill: var(--color-light);
         }
       }
     }

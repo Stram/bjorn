@@ -11,6 +11,7 @@
         <dashboard-preview
           :dashboard="dashboard"
           :widgets="widgets"
+          :active-widget-id="activeWidget && activeWidget.id"
         />
       </dashboard-resizer>
     </div>
