@@ -4,9 +4,9 @@
     @submit.prevent="onFormSubmit"
   >
     <input-field
-      v-model="options.location"
-      label="Location"
-      field-name="location"
+      v-model="options.timeZone"
+      label="Time zone"
+      field-name="timeZone"
       :state="clockWidgetForm"
       :required="true"
     />
@@ -73,7 +73,7 @@
       return {
         clockWidgetForm: {},
         options: {
-          location: this.widgetOptions.location || '',
+          timeZone: this.widgetOptions.timeZone || '',
           refreshRate: parseFloat(this.widgetOptions.refreshRate) || ''
         },
         buttonThemes
