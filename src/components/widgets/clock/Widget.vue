@@ -1,10 +1,15 @@
 <template>
   <div :class="$style.wrapper">
-    {{formattedTime}}
+    <div :class="$style.zone">{{timeZone}}</div>
+    <div :class="$style.date">{{time | formatDate('DD-MM-YY')}}</div>
+    <div :class="$style.spacer"></div>
+    <div :class="$style.time">{{time | formatDate('HH:mm')}}</div>
   </div>
 </template>
 
 <script>
+  import moment from 'moment-timezone';
+
   export default {
     props: {
       widget: {
@@ -14,17 +19,9 @@
     },
 
     computed: {
-      formattedTime() {
-        const hours = this.formatNumber(this.time.getHours());
-        const minute = this.formatNumber(this.time.getMinutes());
-        const seconds = this.formatNumber(this.time.getSeconds());
-        return `${hours}:${minute}:${seconds}`;
-      },
-    },
-
-    methods: {
-      formatNumber(number) {
-        return Math.abs(number) < 10 ? `0${number}` : String(number);
+      timeZone() {
+        const timeZone = this.widget.options.timeZone || moment.tz.guess();
+        return timeZone.split('/')[1];
       }
     },
 
@@ -45,12 +42,43 @@
       if (this.interval) {
         window.clearInterval(this.interval);
       }
+    },
+
+    filters: {
+      formatDate(date, format) {
+        return moment(date).format(format);
+      }
     }
   };
 </script>
 
 <style lang="scss" module>
   .wrapper {
-    border: 5px solid var(--color-secondary);
+    border: 10px solid var(--color-secondary);
+    padding: 24px 32px;
+    color: var(--color-secondary);
+    background-color: var(--color-light);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .zone {
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .date {
+    font-size: 48px;
+    font-weight: bold;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .time {
+    font-size: 96px;
+    font-weight: bold;
   }
 </style>

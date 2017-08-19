@@ -50,18 +50,15 @@
 </script>
 
 <style lang="scss" module>
-  $vertical-spacing: 32px;
-  $horizontal-spacing: 24px;
-
   .grid {
     display: grid;
     grid-gap: 24px;
     align-items: stretch;
     justify-content: stretch;
 
-    height: calc(100vh - #{2 * $vertical-spacing});
-    width: calc(100vw - #{2 * $horizontal-spacing});
-    padding: 20px;
-    margin: 32px 24px;
+    height: 100vh;
+    width: 100vw;
+    padding: 32px 24px;
+    background-color: var(--color-primary);
   }
 </style>
