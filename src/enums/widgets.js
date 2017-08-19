@@ -1,13 +1,12 @@
 import clockIcon from 'images/clock.svg';
-import {TimeWidget, TimeWidgetOptionsForm} from 'components/widgets/time';
+import ClockWidgetOptionsForm from 'components/widgets/clock/Options.vue';
 
 const widgetTypes = {
   clock: {
     icon: clockIcon,
     id: 'clock',
     name: 'Clock',
-    widgetComponent: TimeWidget,
-    optionsFormComponent: TimeWidgetOptionsForm,
+    optionsFormComponent: ClockWidgetOptionsForm,
   },
 };
 

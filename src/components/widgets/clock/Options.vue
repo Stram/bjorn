@@ -1,13 +1,13 @@
 <template lang="html">
   <vue-form
-    :state="timeWidgetForm"
+    :state="clockWidgetForm"
     @submit.prevent="onFormSubmit"
   >
     <input-field
       v-model="options.location"
       label="Location"
       field-name="location"
-      :state="timeWidgetForm"
+      :state="clockWidgetForm"
       :required="true"
     />
 
@@ -17,7 +17,7 @@
       field-name="refreshRate"
       sufix="seconds"
       type="number"
-      :state="timeWidgetForm"
+      :state="clockWidgetForm"
       :required="true"
     />
 
@@ -71,7 +71,7 @@
 
     data() {
       return {
-        timeWidgetForm: {},
+        clockWidgetForm: {},
         options: {
           location: this.widgetOptions.location || '',
           refreshRate: parseFloat(this.widgetOptions.refreshRate) || ''

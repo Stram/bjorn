@@ -1,16 +1,14 @@
-<template lang="html">
-  <section>
+<template>
+  <div :class="$style.wrapper">
     {{formattedTime}}
-  </section>
+  </div>
 </template>
 
 <script>
-  import TimeWidgetModel from 'models/widgets/Time';
-
   export default {
     props: {
       widget: {
-        type: TimeWidgetModel,
+        type: Object,
         required: true,
       }
     },
@@ -40,7 +38,7 @@
     mounted() {
       this.interval = window.setInterval(() => {
         this.time = new Date();
-      }, this.widget.refreshInterval);
+      }, this.widget.options.refreshRate);
     },
 
     beforeDestroy() {
@@ -52,5 +50,7 @@
 </script>
 
 <style lang="scss" module>
-
+  .wrapper {
+    border: 5px solid var(--color-secondary);
+  }
 </style>
