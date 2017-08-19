@@ -60,7 +60,9 @@
 
       onSaveNewOptions(options) {
         this.$store.commit(`admin/${mutationTypes.SET_WIDGET_OPTIONS}`, {widgetId: this.widget.id, options});
-        this.$store.dispatch('admin/saveWidget', this.widget);
+        this.$store.dispatch('admin/saveWidget', this.widget).then(() => {
+          this.close();
+        });
       }
     }
   };
