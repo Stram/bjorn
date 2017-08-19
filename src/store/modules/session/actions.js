@@ -1,19 +1,10 @@
-import {ActionContext} from 'vuex';
-
 import User from 'models/User';
-import FirebaseService from 'services/firebase';
 import {warn} from 'services/logger';
 import * as mutationTypes from 'store/mutation-types';
 
-import State from './state';
-
-interface ISessionModuleActionOptions {
-  firebaseService: FirebaseService;
-}
-
-export default function createActions({firebaseService}: ISessionModuleActionOptions) {
+export default function createActions({firebaseService}) {
   return {
-    async login({ commit }: ActionContext<State, any>) {
+    async login({commit}) {
       commit(mutationTypes.AUTHENTIFICATION_START);
 
       let result;
@@ -34,12 +25,12 @@ export default function createActions({firebaseService}: ISessionModuleActionOpt
       commit(mutationTypes.AUTHENTIFICATION_SUCCESS);
     },
 
-    async logout({ commit }: ActionContext<State, any>) {
+    async logout({commit}) {
       await firebaseService.auth.signOut();
       commit(mutationTypes.RESET_SESSION);
     },
 
-    check({ commit }: ActionContext<State, any>) {
+    check({commit}) {
       commit(mutationTypes.AUTHENTIFICATION_START);
       return firebaseService.checkSession().then((data) => {
         const user = User.createFromResponse(data.user);
