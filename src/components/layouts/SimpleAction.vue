@@ -5,14 +5,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+<script>
+  export default {
 
-@Component({})
-export default class SimpleActionLayout extends Vue {
-  
-}
+  };
 </script>
 
 <style lang="scss" module>

@@ -12,27 +12,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+<script>
+  import AppHeader from 'components/utils/Header.vue';
 
-import AppHeader from 'components/utils/Header.vue';
+  export default {
+    components: {
+      AppHeader,
+    },
 
-@Component({
-  components: {
-    AppHeader,
-  }
-})
-export default class AdminLayout extends Vue {
+    computed: {
+      currentUser() {
+        return this.$store.getters['session/currentUser'];
+      }
+    },
 
-  get currentUser() {
-    return this.$store.getters['session/currentUser'];
-  }
-
-  onLogout() {
-    this.$store.dispatch('session/logout');
-  }
-}
+    methods: {
+      onLogout() {
+        this.$store.dispatch('session/logout');
+      }
+    }
+  };
 </script>
 
 <style lang="scss" module>
