@@ -9,6 +9,10 @@
         :key="widget.id"
         :is="widgetComponents[widget.type]"
         :widget="widget"
+        :style="{
+          gridColumn: `${widget.x + 1} / span ${widget.width}`,
+          gridRow: `${widget.y + 1} / span ${widget.height}`
+        }"
       />
     </div>
   </section>
