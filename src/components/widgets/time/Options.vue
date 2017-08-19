@@ -73,8 +73,8 @@
       return {
         timeWidgetForm: {},
         options: {
-          location: '',
-          refreshRate: ''
+          location: this.widgetOptions.location || '',
+          refreshRate: parseFloat(this.widgetOptions.refreshRate) || ''
         },
         buttonThemes
       };

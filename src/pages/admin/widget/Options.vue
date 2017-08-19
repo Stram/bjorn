@@ -59,8 +59,8 @@
       },
 
       onSaveNewOptions(options) {
-        this.$store.commit(mutationTypes.SET_WIDGET_OPTIONS, this.widget.id, options);
-        // TODO: Save widget
+        this.$store.commit(`admin/${mutationTypes.SET_WIDGET_OPTIONS}`, {widgetId: this.widget.id, options});
+        this.$store.dispatch('admin/saveWidget', this.widget);
       }
     }
   };
