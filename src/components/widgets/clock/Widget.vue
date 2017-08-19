@@ -1,9 +1,9 @@
 <template>
   <div :class="$style.wrapper">
-    <div :class="$style.zone">{{timeZone}}</div>
-    <div :class="$style.date">{{time | formatDate('DD-MM-YY')}}</div>
+    <div :class="$style.zone">{{location}}</div>
+    <div :class="$style.date">{{now | formatDate('DD-MM-YY')}}</div>
     <div :class="$style.spacer"></div>
-    <div :class="$style.time">{{time | formatDate('HH:mm')}}</div>
+    <div :class="$style.time">{{now | formatDate('HH:mm')}}</div>
   </div>
 </template>
 
@@ -20,22 +20,33 @@
 
     computed: {
       timeZone() {
-        const timeZone = this.widget.options.timeZone || moment.tz.guess();
-        return timeZone.split('/')[1];
+        return this.widget.options.timeZone || moment.tz.guess();
+      },
+
+      location() {
+        return this.timeZone.split('/')[1].replace('_', ' ');
+      }
+    },
+
+    methods: {
+      getCurrentDate() {
+        return this.timeZone ? moment.tz(this.timeZone) : moment();
       }
     },
 
     data() {
       return {
-        time: new Date(),
+        now: this.getCurrentDate(),
         interval: null,
       };
     },
 
     mounted() {
+      const refreshRate = Math.round(parseFloat(this.widget.options.refreshRate) * 1000);
+      this.now = this.getCurrentDate();
       this.interval = window.setInterval(() => {
-        this.time = new Date();
-      }, this.widget.options.refreshRate);
+        this.now = this.getCurrentDate();
+      }, refreshRate);
     },
 
     beforeDestroy() {
@@ -46,7 +57,7 @@
 
     filters: {
       formatDate(date, format) {
-        return moment(date).format(format);
+        return date.format(format);
       }
     }
   };
