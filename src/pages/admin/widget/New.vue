@@ -58,6 +58,7 @@
         const y = parseInt(queryParams.y, 10);
 
         if (Number.isNaN(x) || Number.isNaN(y)) {
+          // TODO: Redirect
           alert('WRONG QUERY PARAMS');
           return;
         }
