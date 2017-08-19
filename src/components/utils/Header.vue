@@ -27,34 +27,38 @@
   </header>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+<script>
+  import InlineSVG from 'components/utils/InlineSVG.vue';
 
-import InlineSVG from 'components/utils/InlineSVG.vue';
-import { pages } from 'router';
+  import {pages} from 'router';
 
-import * as logoutIcon from 'images/sign-out.svg';
+  import * as logoutIcon from 'images/sign-out.svg';
 
-@Component({
-  components: {
-    'inline-svg': InlineSVG,
-  },
-  props: {
-    user: {
-      type: Object,
-      required: true,
+  export default {
+    components: {
+      'inline-svg': InlineSVG,
+    },
+
+    props: {
+      user: {
+        type: Object,
+        required: true,
+      }
+    },
+
+    methods: {
+      onLogout() {
+        this.$emit('logout');
+      }
+    },
+
+    data() {
+      return {
+        logoutIcon,
+        pages
+      };
     }
-  }
-})
-export default class AdminHeader extends Vue {
-  logoutIcon = logoutIcon
-  pages = pages
-
-  onLogout() {
-    this.$emit('logout');
-  }
-}
+  };
 </script>
 
 <style lang="scss" module>
@@ -74,7 +78,7 @@ export default class AdminHeader extends Vue {
     align-items: center;
     height: 100%;
   }
-  
+
   .link {
     height: 100%;
     background-color: var(--color-secondary);
