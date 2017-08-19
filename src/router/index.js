@@ -87,6 +87,13 @@ export function createRouter({store}) {
       name: pages.DASHBOARD,
       component: Dashboard,
       meta: {authenticatedRoute: true},
+      beforeEnter(to, from, next) {
+        const startDashboardsSync = store.dispatch('startDashboardsSync');
+        const startWidgetsSync = store.dispatch('startWidgetsSync');
+        Promise.all([startDashboardsSync, startWidgetsSync]).then(() => {
+          next();
+        });
+      }
     }, {
       path: '/login',
       name: pages.LOGIN,
