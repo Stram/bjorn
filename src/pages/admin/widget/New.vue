@@ -75,12 +75,6 @@
         const x = parseInt(queryParams.x, 10);
         const y = parseInt(queryParams.y, 10);
 
-        if (Number.isNaN(x) || Number.isNaN(y)) {
-          // TODO: Redirect
-          alert('WRONG QUERY PARAMS');
-          return;
-        }
-
         this.$store.dispatch('admin/createNewWidget', {
           x, y,
           width: 1,
@@ -100,6 +94,21 @@
         widgetTypesList: Object.values(widgetTypes),
         widgetTypes,
       };
+    },
+
+    beforeRouteEnter(to, from, next) {
+      const x = parseInt(to.query.x, 10);
+      const y = parseInt(to.query.y, 10);
+      if (Number.isNaN(x) || Number.isNaN(y) || x < 0 || y < 0) {
+        next({
+          name: pages.ADMIN_DASHBOARD_INDEX,
+          params: {
+            dashboardId: to.params.dashboardId
+          }
+        });
+      } else {
+        next();
+      }
     }
   };
 </script>
