@@ -1,7 +1,14 @@
 <template>
   <section
+    ref="container"
     :class="$style.container"
-    :style="gridStyle"
+    :style="{
+      gridTemplateColumns: `repeat(${dashboard.width}, 1fr)`,
+      gridTemplateRows: `repeat(${dashboard.height}, 1fr)`,
+      gridGap: `${gridGapSize}px`,
+      borderSize: `${containerBorderSize}px`,
+      padding: `${containerPaddingSize}px`,
+    }"
   >
     <button
       v-for="widget in widgets"
@@ -13,6 +20,13 @@
       :class="[$style.widget, {[$style.active]: widget && widget.id === activeWidgetId}]"
       @click="onWidgetClick(widget)"
     >
+      <div
+        v-for="direction in directions"
+        :key="direction"
+        :class="[$style.handle, $style[direction]]"
+        :draggable="true"
+        @drag="onHandleDrag(widget, direction, $event)"
+      ></div>
       <inline-svg :src="widgetTypes[widget.type].icon" :class="$style.icon" />
     </button>
 
@@ -42,6 +56,8 @@
     return Array.from({length: n});
   }
 
+  const EMPTY_TYPE = 'empty';
+
   export default {
     components: {
       'inline-svg': InlineSVG,
@@ -64,20 +80,8 @@
     },
 
     computed: {
-      gridStyle() {
-        const dashboard = this.dashboard;
-
-        return {
-          gridTemplateColumns: `repeat(${dashboard.width}, 1fr)`,
-          gridTemplateRows: `repeat(${dashboard.height}, 1fr)`,
-        };
-      },
-
-      emptyWidgets() {
-        const EMPTY_TYPE = 'empty';
-        const dashboard = this.dashboard;
-        const {height, width} = dashboard;
-
+      widgetSlots() {
+        const {height, width} = this.dashboard;
         const slots = createArray(width).reduce((accumulatorX, currentX, x) => {
           accumulatorX[x] = createArray(height).reduce((accumulatorY, currentY, y) => {
             accumulatorY[y] = EMPTY_TYPE;
@@ -95,10 +99,17 @@
           });
         });
 
+        return slots;
+      },
+
+      emptyWidgets() {
+        const dashboard = this.dashboard;
+        const {height, width} = dashboard;
+
         return createArray(width * height).reduce((accumulator, current, index) => {
           const x = index % width;
           const y = Math.floor(index / width);
-          if (slots[x][y] === EMPTY_TYPE) {
+          if (this.widgetSlots[x][y] === EMPTY_TYPE) {
             accumulator.push({x, y, id: `empty-${y * width + height}`});
           }
           return accumulator;
@@ -124,6 +135,72 @@
             y: widget.y.toString(),
           }
         });
+      },
+
+      onHandleDrag(widget, direction, event) {
+        const {width, height} = this.getWidgetSize();
+        const {offsetX, offsetY} = event;
+        const isVerticalExpand = direction === this.directions.NORTH || direction === this.directions.SOUTH;
+        const offset = isVerticalExpand ? offsetY : offsetX;
+        const widgetSize = isVerticalExpand ? height : width;
+        const amount = Math.floor(Math.abs(offset) / (this.gridGapSize + widgetSize / 2));
+        this.expandWidget(widget, direction, amount);
+      },
+
+      onHandleDragEnd(widget, direction, event) {
+        // TODO: Persist widget in DB
+      },
+
+      getWidgetSize() {
+        const containerElem = this.$refs.container;
+        const {width: gridWidth, height: gridHeight} = containerElem.getBoundingClientRect();
+        const gridTotalGapWidth = (this.dashboard.width - 1) * this.gridGapSize;
+        const gridTotalGapHeight = (this.dashboard.height - 1) * this.gridGapSize;
+        const outsideSpace = 2 * this.containerBorderSize + 2 * this.containerPaddingSize;
+
+        return {
+          width: (gridWidth - outsideSpace - gridTotalGapWidth) / this.dashboard.width,
+          height: (gridHeight - outsideSpace - gridTotalGapHeight) / this.dashboard.height
+        };
+      },
+
+      canExpand(widget, direction, amount) {
+        const {x, y, width, height} = widget;
+        const verticalExpansion = direction === this.directions.NORTH || direction === this.directions.SOUTH;
+        const arrayX = verticalExpansion ? createArray(width) : createArray(amount);
+        const arrayY = verticalExpansion ? createArray(amount) : createArray(height);
+        return arrayX.reduce((accumulatorX, valueX, offsetX) => {
+          return accumulatorX && arrayY.reduce((accumulatorY, valueY, offsetY) => {
+            if (direction === this.directions.NORTH) {
+              return accumulatorY &&
+              this.widgetSlots[x + offsetX] &&
+              this.widgetSlots[x + offsetX][y - offsetY - 1] === EMPTY_TYPE;
+            } else if (direction === this.directions.SOUTH) {
+              return accumulatorY &&
+              this.widgetSlots[x + offsetX] &&
+              this.widgetSlots[x + offsetX][y + offsetY + height] === EMPTY_TYPE;
+            } else if (direction === this.directions.EAST) {
+              return accumulatorY &&
+              this.widgetSlots[x + offsetX + width] &&
+              this.widgetSlots[x + offsetX + width][y + offsetY] === EMPTY_TYPE;
+            } else if (direction === this.directions.WEST) {
+              return accumulatorY &&
+              this.widgetSlots[x - offsetX - 1] &&
+              this.widgetSlots[x - offsetX - 1][y + offsetY] === EMPTY_TYPE;
+            }
+            return false;
+          }, true);
+        }, true);
+      },
+
+      expandWidget(widget, direction, amount) {
+        const canExpand = this.canExpand(widget, direction, amount);
+        if (canExpand) {
+          // TODO change widget x, y, width, height...
+          console.log('expanding', amount);
+        } else {
+          console.log('cannot expand');
+        }
       }
     },
 
@@ -131,6 +208,15 @@
       return {
         plusIcon,
         widgetTypes,
+        directions: {
+          NORTH: 'north',
+          EAST: 'east',
+          SOUTH: 'south',
+          WEST: 'west'
+        },
+        containerBorderSize: 5,
+        containerPaddingSize: 20,
+        gridGapSize: 24,
       };
     }
   };
@@ -142,11 +228,10 @@
 
   .container {
     display: grid;
-    grid-gap: 24px;
     align-items: stretch;
     justify-content: stretch;
-    padding: 20px;
-    border: 5px solid var(--color-secondary);
+    border-style: solid;
+    border-color: var(--color-secondary);
     height: 100%;
   }
 
@@ -156,6 +241,7 @@
     justify-content: center;
     border: 5px solid var(--color-secondary);
     transition: border-color $transition-speed;
+    position: relative;
 
     &.empty {
       border-style: dashed;
@@ -183,6 +269,38 @@
           fill: var(--color-light);
         }
       }
+    }
+  }
+
+  .handle {
+    position: absolute;
+
+    &.north,
+    &.south {
+      height: 5px;
+      cursor: ns-resize;
+    }
+
+    &.east,
+    &.west {
+      width: 5px;
+      cursor: ew-resize;
+    }
+
+    &.north {
+      @include strech(absolute, -5, 0, auto, 0);
+    }
+
+    &.east {
+      @include strech(absolute, 0, -5, 0, auto);
+    }
+
+    &.south {
+      @include strech(absolute, auto, 0, -5, 0);
+    }
+
+    &.west {
+      @include strech(absolute, 0, auto, 0, -5);
     }
   }
 
