@@ -38,4 +38,17 @@ export default {
     }
   },
 
+  [mutationTypes.SET_WIDGET_SIZE](state, {widgetId, size}) {
+    const widget = state.widgets.data[widgetId];
+    if (widget) {
+      ['x', 'y', 'width', 'height'].forEach((propertyName) => {
+        if (size[propertyName] !== undefined) {
+          widget[propertyName] = size[propertyName];
+        }
+      });
+    } else {
+      warn(`Widget with id ${widgetId} does not exist in the store. Cannot set widget size.`);
+    }
+  },
+
 };
