@@ -50,6 +50,7 @@
 
   import {pages} from 'router';
   import widgetTypes from 'enums/widgets';
+  import {uuid} from 'utils';
   import * as plusIcon from 'images/plus.svg';
 
   function createArray(n) {
@@ -110,7 +111,7 @@
           const x = index % width;
           const y = Math.floor(index / width);
           if (this.widgetSlots[x][y] === EMPTY_TYPE) {
-            accumulator.push({x, y, id: `empty-${y * width + height}`});
+            accumulator.push({x, y, id: `empty-${uuid()}`});
           }
           return accumulator;
         }, []);
