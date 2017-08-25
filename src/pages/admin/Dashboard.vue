@@ -12,6 +12,7 @@
           :dashboard="dashboard"
           :widgets="widgets"
           :active-widget-id="activeWidget && activeWidget.id"
+          @widget:update-size="onWidgetUpdateSize"
         />
       </dashboard-resizer>
     </div>
@@ -30,6 +31,7 @@
   import ActionFooter from 'components/admin/ActionFooter.vue';
   import DashboardPreview from 'components/admin/DashboardPreview.vue';
   import DashboardResizer from 'components/admin/DashboardResizer.vue';
+  import * as mutationTypes from 'store/mutation-types';
 
   import {pages} from 'router';
 
@@ -95,6 +97,10 @@
         this.$router.push({
           name: pages.ADMIN_DASHBOARD_WIDGET_OPTIONS
         });
+      },
+
+      onWidgetUpdateSize(payload) {
+        this.$store.commit(`admin/${mutationTypes.SET_WIDGET_SIZE}`, payload);
       }
     },
 

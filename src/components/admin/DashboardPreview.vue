@@ -144,8 +144,13 @@
         const isVerticalExpand = direction === this.directions.NORTH || direction === this.directions.SOUTH;
         const offset = isVerticalExpand ? offsetY : offsetX;
         const widgetSize = isVerticalExpand ? height : width;
-        const amount = Math.floor(Math.abs(offset) / (this.gridGapSize + widgetSize / 2));
-        this.expandWidget(widget, direction, amount);
+        const invertedOffset = direction === this.directions.NORTH || direction === this.directions.WEST;
+        const totalOffset = invertedOffset ? -offset : offset;
+        const mathFunction = totalOffset > 0 ? 'floor' : 'ceil';
+        const amount = Math[mathFunction](totalOffset / (this.gridGapSize + widgetSize / 2));
+        if (amount !== 0) {
+          this.expandWidget(widget, direction, amount);
+        }
       },
 
       onHandleDragEnd(widget, direction, event) {
@@ -197,10 +202,24 @@
       expandWidget(widget, direction, amount) {
         const canExpand = this.canExpand(widget, direction, amount);
         if (canExpand) {
-          // TODO change widget x, y, width, height...
-          console.log('expanding', amount);
-        } else {
-          console.log('cannot expand');
+          const size = {};
+          switch (direction) {
+            case this.directions.NORTH:
+              size.y = widget.y - amount;
+            case this.directions.SOUTH:
+              size.height = widget.height + amount;
+              break;
+            case this.directions.WEST:
+              size.x = widget.x - amount;
+            case this.directions.EAST:
+              size.width = widget.width + amount;
+              break;
+          }
+
+          this.$emit('widget:update-size', {
+            widgetId: widget.id,
+            size
+          });
         }
       }
     },
