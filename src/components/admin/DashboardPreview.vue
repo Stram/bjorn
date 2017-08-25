@@ -26,6 +26,7 @@
         :class="[$style.handle, $style[direction]]"
         :draggable="true"
         @drag="onHandleDrag(widget, direction, $event)"
+        @dragEnd="onHandleDragEnd(widget, direction, $event)"
       ></div>
       <inline-svg :src="widgetTypes[widget.type].icon" :class="$style.icon" />
     </button>
@@ -153,8 +154,8 @@
         }
       },
 
-      onHandleDragEnd(widget, direction, event) {
-        // TODO: Persist widget in DB
+      onHandleDragEnd(widget) {
+        this.$emit('widget:save', widget);
       },
 
       getWidgetSize() {
@@ -173,12 +174,13 @@
       canExpand(widget, direction, amount) {
         const {x, y, width, height} = widget;
         const isVerticalExpansion = direction === this.directions.NORTH || direction === this.directions.SOUTH;
-        const arrayX = isVerticalExpansion ? createArray(width) : createArray(amount);
-        const arrayY = isVerticalExpansion ? createArray(amount) : createArray(height);
 
         if (amount < 0) {
           return isVerticalExpansion ? -amount < widget.height : -amount < widget.width;
         }
+
+        const arrayX = isVerticalExpansion ? createArray(width) : createArray(amount);
+        const arrayY = isVerticalExpansion ? createArray(amount) : createArray(height);
 
         return arrayX.reduce((accumulatorX, valueX, offsetX) => {
           return accumulatorX && arrayY.reduce((accumulatorY, valueY, offsetY) => {

@@ -13,6 +13,7 @@
           :widgets="widgets"
           :active-widget-id="activeWidget && activeWidget.id"
           @widget:update-size="onWidgetUpdateSize"
+          @widget:save="onWidgetSave"
         />
       </dashboard-resizer>
     </div>
@@ -101,6 +102,10 @@
 
       onWidgetUpdateSize(payload) {
         this.$store.commit(`admin/${mutationTypes.SET_WIDGET_SIZE}`, payload);
+      },
+
+      onWidgetSave(widget) {
+        this.$store.dispatch('admin/saveWidget', widget);
       }
     },
 
