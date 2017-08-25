@@ -172,9 +172,14 @@
 
       canExpand(widget, direction, amount) {
         const {x, y, width, height} = widget;
-        const verticalExpansion = direction === this.directions.NORTH || direction === this.directions.SOUTH;
-        const arrayX = verticalExpansion ? createArray(width) : createArray(amount);
-        const arrayY = verticalExpansion ? createArray(amount) : createArray(height);
+        const isVerticalExpansion = direction === this.directions.NORTH || direction === this.directions.SOUTH;
+        const arrayX = isVerticalExpansion ? createArray(width) : createArray(amount);
+        const arrayY = isVerticalExpansion ? createArray(amount) : createArray(height);
+
+        if (amount < 0) {
+          return isVerticalExpansion ? -amount < widget.height : -amount < widget.width;
+        }
+
         return arrayX.reduce((accumulatorX, valueX, offsetX) => {
           return accumulatorX && arrayY.reduce((accumulatorY, valueY, offsetY) => {
             if (direction === this.directions.NORTH) {
