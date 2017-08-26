@@ -1,13 +1,13 @@
 <template lang="html">
   <vue-form
-    :state="clockWidgetForm"
+    :state="form"
     @submit.prevent="onFormSubmit"
   >
     <input-field
       v-model="options.timeZone"
       label="Time zone"
       field-name="timeZone"
-      :state="clockWidgetForm"
+      :state="form"
       :required="true"
     />
 
@@ -17,81 +17,30 @@
       field-name="refreshRate"
       sufix="seconds"
       type="number"
-      :state="clockWidgetForm"
+      :state="form"
       :required="true"
     />
 
-    <div :class="$style.actions">
-      <util-button
-        :theme="buttonThemes.OUTLINE"
-        :class="$style.action"
-        @click="onFormCancel"
-      >
-        Cancel
-      </util-button>
-
-      <util-button
-        type="submit"
-        :theme="buttonThemes.SECONDARY"
-        :class="$style.action"
-      >
-        Save
-      </util-button>
-    </div>
+    <options-actions
+      :disabled="form.$invalid"
+      @cancel="onFormCancel"
+    />
   </vue-form>
 </template>
 
 <script>
-  import InputField from 'components/forms/InputField.vue';
-  import UtilButton from 'components/utils/Button.vue';
-  import buttonThemes from 'enums/button-themes';
+  import optionsMixin from 'mixins/options-form';
 
   export default {
-    components: {
-      InputField,
-      UtilButton
-    },
-
-    props: {
-      widgetOptions: {
-        type: Object,
-        required: true,
-      }
-    },
-
-    methods: {
-      onFormSubmit() {
-        this.$emit('widget:save-new-options', this.options);
-      },
-
-      onFormCancel() {
-        this.$emit('cancel');
-      }
-    },
+    mixins: [optionsMixin],
 
     data() {
       return {
-        clockWidgetForm: {},
         options: {
           timeZone: this.widgetOptions.timeZone || '',
           refreshRate: parseFloat(this.widgetOptions.refreshRate) || ''
-        },
-        buttonThemes
+        }
       };
     }
   };
 </script>
-
-<style lang="scss" module>
-  .actions {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-
-  .action {
-    &:not(:first-child) {
-      margin-left: 40px;
-    }
-  }
-</style>
