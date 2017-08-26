@@ -20,6 +20,7 @@
 
 <script>
   import ClockWidget from 'components/widgets/clock/Widget.vue';
+  import NewsletterWidget from 'components/widgets/newsletter/Widget.vue';
 
   export default {
     props: {
@@ -46,7 +47,8 @@
 
       widgetComponents() {
         return {
-          clock: ClockWidget
+          clock: ClockWidget,
+          newsletter: NewsletterWidget,
         };
       }
     }

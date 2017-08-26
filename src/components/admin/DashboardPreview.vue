@@ -243,7 +243,7 @@
         },
         containerBorderSize: 5,
         containerPaddingSize: 20,
-        gridGapSize: 24,
+        gridGapSize: 24
       };
     }
   };

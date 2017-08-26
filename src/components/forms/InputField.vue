@@ -17,6 +17,15 @@
 
     <input
       v-model="modelValue"
+      v-else-if="type === 'date'"
+      type="date"
+      :required="required"
+      :name="fieldName"
+      :class="$style.input"
+    />
+
+    <input
+      v-model="modelValue"
       v-else
       type="text"
       :required="required"
