@@ -6,7 +6,7 @@
       gridTemplateColumns: `repeat(${dashboard.width}, 1fr)`,
       gridTemplateRows: `repeat(${dashboard.height}, 1fr)`,
       gridGap: `${gridGapSize}px`,
-      borderSize: `${containerBorderSize}px`,
+      borderWidth: `${containerBorderSize}px`,
       padding: `${containerPaddingSize}px`,
     }"
   >
