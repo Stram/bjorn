@@ -5,18 +5,16 @@
         <h1 :class="$style.title">Dashboard</h1>
         <div :class="$style.name">{{dashboard.id}}</div>
       </div>
-      <div v-if="dashboard">
-        ACTIONS
-      </div>
     </section>
     <section :class="[$style.section, $style.widget]">
       <template v-if="widget">
-        <div>
+        <div :class="$style.widgetInfo">
           <h1 :class="$style.title">Widget</h1>
           <div :class="$style.type">{{widget.type}}</div>
         </div>
         <div :class="$style.widgetActions">
           <util-button
+            :class="$style.widgetAction"
             :theme="buttonThemes.OUTLINE"
             @click="onWidgetChangeOptionsClick"
           >
@@ -24,24 +22,12 @@
           </util-button>
 
           <util-button
-            :theme="buttonThemes.OUTLINE"
-            @click="onWidgetChangeDataClick"
-          >
-            Change data
-          </util-button>
-
-          <util-button
+            :class="$style.widgetAction"
             :theme="buttonThemes.OUTLINE"
             @click="onWidgetRemoveClick"
           >
             Remove
           </util-button>
-        </div>
-        <div>
-          <!-- TODO -->
-        </div>
-        <div>
-          <!-- TODO -->
         </div>
       </template>
     </section>
@@ -70,10 +56,6 @@
     methods: {
       onWidgetChangeOptionsClick() {
         this.$emit('widget:showOptions');
-      },
-
-      onWidgetChangeDataClick() {
-
       },
 
       onWidgetRemoveClick() {
@@ -119,6 +101,10 @@
     }
   }
 
+  .widget-info {
+    margin-right: 16px;
+  }
+
   .title {
     font-size: 36px;
     font-weight: bold;
@@ -137,7 +123,13 @@
   .widget-actions {
     flex: 1;
     display: flex;
-    flex-direction: column;
     align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .widget-action {
+    &:not(:last-child) {
+      margin-right: 40px;
+    }
   }
 </style>
