@@ -64,6 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 150ms, background-color 150ms;
 }
 
 .primary {
