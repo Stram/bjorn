@@ -64,6 +64,8 @@
 
     height: 100vh;
     width: 100vw;
+    min-width: 0;
+    min-height: 0;
     padding: 32px 24px;
     background-color: var(--color-primary);
   }

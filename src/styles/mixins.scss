@@ -13,3 +13,9 @@
   bottom: $bottom;
   left: $left;
 }
+
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

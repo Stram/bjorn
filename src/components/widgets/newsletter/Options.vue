@@ -50,6 +50,8 @@
 </template>
 
 <script>
+  import moment from 'moment';
+
   import InputField from 'components/forms/InputField.vue';
   import UtilButton from 'components/utils/Button.vue';
   import buttonThemes from 'enums/button-themes';
@@ -82,8 +84,8 @@
         newsletterWidgetForm: {},
         options: {
           subscribersNumber: this.widgetOptions.subscribersNumber || 0,
-          nextIssueDate: this.widgetOptions.nextIssueDate || new Date(),
-          featuredArticleTitle: this.featuredArticleTitle || ''
+          nextIssueDate: this.widgetOptions.nextIssueDate || moment().format('YYYY-MM-DD'),
+          featuredArticleTitle: this.widgetOptions.featuredArticleTitle || ''
         },
         buttonThemes
       };
