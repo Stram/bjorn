@@ -315,19 +315,19 @@
     }
 
     &.north {
-      @include strech(absolute, -5, 0, auto, 0);
+      @include stretch(absolute, -5, 0, auto, 0);
     }
 
     &.east {
-      @include strech(absolute, 0, -5, 0, auto);
+      @include stretch(absolute, 0, -5, 0, auto);
     }
 
     &.south {
-      @include strech(absolute, auto, 0, -5, 0);
+      @include stretch(absolute, auto, 0, -5, 0);
     }
 
     &.west {
-      @include strech(absolute, 0, auto, 0, -5);
+      @include stretch(absolute, 0, auto, 0, -5);
     }
   }
 

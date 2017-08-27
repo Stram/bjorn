@@ -1,89 +1,85 @@
 <template>
   <portal to="modal">
-    <transition
-      name="fade"
-      :appear="true"
-    >
-      <div :class="$style.backdrop"
-        @click="onBackdropClick"
+    <util-backdrop @click="onBackdropClick">
+      <div :class="$style.container"
+        @click.stop
       >
-        <div :class="$style.container"
-          @click.stop
+        <div
+          v-if="title"
+          :class="$style.header"
         >
-          <div
-            v-if="title"
-            :class="$style.header"
-          >
-            {{title}}
-          </div>
-          <button
-            :class="$style.closeButton"
-            @click="onCloseClick"
-          >
-            <inline-svg :src="icons.close" :class="$style.closeIcon"/>
-          </button>
-          <slot></slot>
+          {{title}}
         </div>
+        <button
+          :class="$style.closeButton"
+          @click="onCloseClick"
+        >
+          <inline-svg :src="icons.close" :class="$style.closeIcon"/>
+        </button>
+        <slot></slot>
       </div>
-    </transition>
+    </util-backdrop>
   </portal>
 </template>
 
 <script>
-import InlineSVG from 'components/utils/InlineSVG.vue';
-import closeIcon from 'images/close.svg';
+  import UtilBackdrop from 'components/utils/Backdrop.vue';
+  import InlineSVG from 'components/utils/InlineSVG.vue';
 
-export default {
-  components: {
-    'inline-svg': InlineSVG,
-  },
+  import closeIcon from 'images/close.svg';
 
-  props: {
-    title: {
-      type: String,
-      default: '',
-    }
-  },
-
-  methods: {
-    sendCloseSignal() {
-      this.$emit('close');
+  export default {
+    components: {
+      'inline-svg': InlineSVG,
+      UtilBackdrop
     },
 
-    onBackdropClick() {
-      this.sendCloseSignal();
-    },
-
-    onCloseClick() {
-      this.sendCloseSignal();
-    }
-  },
-
-  data() {
-    return {
-      icons: {
-        close: closeIcon,
+    props: {
+      title: {
+        type: String,
+        default: '',
       }
+    },
+
+    methods: {
+      sendCloseSignal() {
+        this.$emit('close');
+      },
+
+      onBackdropClick() {
+        this.sendCloseSignal();
+      },
+
+      onCloseClick() {
+        this.sendCloseSignal();
+      }
+    },
+
+    data() {
+      return {
+        icons: {
+          close: closeIcon,
+        }
+      };
+    },
+
+    created() {
+      // TODO Esc press
+      document.body.classList.add('disable-scroll');
+    },
+
+    beforeDestroy() {
+      // TODO Esc press
+      document.body.classList.remove('disable-scroll');
     }
-  },
-
-  created() {
-    // TODO Esc press
-    document.body.classList.add('disable-scroll');
-  },
-
-  beforeDestroy() {
-    // TODO Esc press
-    document.body.classList.remove('disable-scroll');
-  }
-}
+  };
 </script>
 
 <style lang="scss" module>
   @import 'mixins';
 
   .backdrop {
-    @include strech();
+    @include stretch();
     display: grid;
     grid-template-columns: minmax(50px, 1fr) minmax(auto, 1142px) minmax(50px, 1fr);
     grid-template-rows: 1fr;

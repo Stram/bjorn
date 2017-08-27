@@ -18,7 +18,7 @@
   @import 'mixins';
 
   .curtain {
-    @include strech();
+    @include stretch();
     display: flex;
     align-items: center;
     justify-content: center;
