@@ -37,6 +37,7 @@
           [ButtonThemes.SECONDARY]: this.$style.secondary,
           [ButtonThemes.LIGHT]: this.$style.light,
           [ButtonThemes.OUTLINE]: this.$style.outline,
+          [ButtonThemes.SECONDARY_OUTLINE]: this.$style.secondaryOutline,
         };
       },
 
@@ -87,5 +88,12 @@
   border: 3px solid var(--color-light);
   background-color: transparent;
   color: var(--color-light);
+}
+
+.secondary-outline {
+  padding: 9px 21px;
+  border: 3px solid var(--color-secondary);
+  background-color: transparent;
+  color: var(--color-secondary);
 }
 </style>

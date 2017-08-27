@@ -7,6 +7,7 @@
       <router-view v-else></router-view>
     </transition>
     <portal-target name="modal"></portal-target>
+    <portal-target name="alert"></portal-target>
   </main>
 </template>
 

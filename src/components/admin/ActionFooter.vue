@@ -55,11 +55,11 @@
 
     methods: {
       onWidgetChangeOptionsClick() {
-        this.$emit('widget:showOptions');
+        this.$emit('widget:show-options');
       },
 
       onWidgetRemoveClick() {
-
+        this.$emit('widget:remove');
       }
     },
 

@@ -21,7 +21,17 @@
     <action-footer
       :dashboard="dashboard"
       :widget="activeWidget"
-      @widget:showOptions="onWidgetShowOptions"
+      @widget:show-options="onWidgetShowOptions"
+      @widget:remove="onWidgetRemove"
+    />
+
+    <util-alert
+      v-if="showRemoveAlert"
+      message="Are you sure you want to remove this widget?"
+      primary-action-label="Yes, remove it"
+      secondary-action-label="No"
+      @action:primary="onRemoveAlertPrimaryAction"
+      @action:secondary="onRemoveAlertSecondaryAction"
     />
     <router-view></router-view>
   </admin-layout>
@@ -32,8 +42,9 @@
   import ActionFooter from 'components/admin/ActionFooter.vue';
   import DashboardPreview from 'components/admin/DashboardPreview.vue';
   import DashboardResizer from 'components/admin/DashboardResizer.vue';
-  import * as mutationTypes from 'store/mutation-types';
+  import UtilAlert from 'components/utils/Alert.vue';
 
+  import * as mutationTypes from 'store/mutation-types';
   import {pages} from 'router';
 
   export default {
@@ -41,7 +52,8 @@
       AdminLayout,
       ActionFooter,
       DashboardPreview,
-      DashboardResizer
+      DashboardResizer,
+      UtilAlert
     },
 
     watch: {
@@ -106,6 +118,23 @@
 
       onWidgetSave(widget) {
         this.$store.dispatch('admin/saveWidget', widget);
+      },
+
+      onWidgetRemove() {
+        this.showRemoveAlert = true;
+      },
+
+      onRemoveAlertPrimaryAction() {
+        this.removeWidget();
+        this.showRemoveAlert = false;
+      },
+
+      onRemoveAlertSecondaryAction() {
+        this.showRemoveAlert = false;
+      },
+
+      removeWidget() {
+        // TODO: Remove widget;
       }
     },
 
@@ -113,6 +142,7 @@
       return {
         width: 0,
         height: 0,
+        showRemoveAlert: false,
       };
     },
 
