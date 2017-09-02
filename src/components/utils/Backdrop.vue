@@ -16,6 +16,8 @@
 </template>
 
 <script>
+  import keyCodes from 'enums/key-codes';
+
   export default {
     props: {
       transparent: {
@@ -31,16 +33,26 @@
     methods: {
       onBackdropClick() {
         this.$emit('click');
+      },
+
+      onEscPress() {
+        this.$emit('click');
+      },
+
+      onKeyPress(event) {
+        if (event.keyCode === keyCodes.ESC) {
+          this.onEscPress();
+        }
       }
     },
 
     created() {
-      // TODO Esc press
+      document.body.addEventListener('keyup', this.onKeyPress);
       document.body.classList.add('disable-scroll');
     },
 
     beforeDestroy() {
-      // TODO Esc press
+      document.body.removeEventListener('keyup', this.onKeyPress);
       document.body.classList.remove('disable-scroll');
     }
   };
