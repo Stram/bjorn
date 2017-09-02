@@ -9,8 +9,11 @@
 
 <script>
   import moment from 'moment-timezone';
+  import refreshableMixin from 'mixins/refreshable';
 
   export default {
+    mixins: [refreshableMixin],
+
     props: {
       widget: {
         type: Object,
@@ -25,33 +28,6 @@
 
       location() {
         return this.timeZone.split('/')[1].replace('_', ' ');
-      }
-    },
-
-    methods: {
-      getCurrentDate() {
-        return this.timeZone ? moment.tz(this.timeZone) : moment();
-      }
-    },
-
-    data() {
-      return {
-        now: this.getCurrentDate(),
-        interval: null,
-      };
-    },
-
-    mounted() {
-      const refreshRate = Math.round(parseFloat(this.widget.options.refreshRate) * 1000);
-      this.now = this.getCurrentDate();
-      this.interval = window.setInterval(() => {
-        this.now = this.getCurrentDate();
-      }, refreshRate);
-    },
-
-    beforeDestroy() {
-      if (this.interval) {
-        window.clearInterval(this.interval);
       }
     },
 
