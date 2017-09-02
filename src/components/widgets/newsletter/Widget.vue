@@ -19,8 +19,11 @@
 
 <script>
   import moment from 'moment';
+  import refreshableMixin from 'mixins/refreshable';
 
   export default {
+    mixins: [refreshableMixin],
+
     props: {
       widget: {
         type: Object,
@@ -30,17 +33,16 @@
 
     computed: {
       subscribersNumber() {
-        return this.widget.options.subscribersNumber;
+        return parseInt(this.widget.options.subscribersNumber, 10);
       },
 
       subscribersLabel() {
-        return this.subscribersNumber === '1' ? 'subscriber' : 'subscribers';
+        return this.subscribersNumber === 1 ? 'subscriber' : 'subscribers';
       },
 
       timeToNextIssue() {
-        // TODO: refresh rate
         const noonNextIssueDate = moment(this.widget.options.nextIssueDate).add({hours: 12});
-        return moment().to(noonNextIssueDate, true);
+        return this.now.to(noonNextIssueDate, true);
       },
 
       featuredArticle() {
@@ -48,8 +50,7 @@
       },
 
       nextIssueDateIsInFuture() {
-        // TODO: after now
-        return moment(this.widget.options.nextIssueDate).isAfter();
+        return moment(this.widget.options.nextIssueDate).isAfter(this.now);
       }
     }
   };

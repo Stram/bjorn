@@ -29,6 +29,17 @@
       :required="true"
     />
 
+    <input-field
+      v-model="options.refreshRate"
+      label="Refresh rate"
+      field-name="refreshRate"
+      sufix="seconds"
+      type="number"
+      :state="form"
+      :required="true"
+    />
+
+
     <options-actions
       :disabled="form.$invalid"
       @cancel="onFormCancel"
@@ -49,7 +60,8 @@
         options: {
           subscribersNumber: this.widgetOptions.subscribersNumber || 0,
           nextIssueDate: this.widgetOptions.nextIssueDate || moment().format('YYYY-MM-DD'),
-          featuredArticleTitle: this.widgetOptions.featuredArticleTitle || ''
+          featuredArticleTitle: this.widgetOptions.featuredArticleTitle || '',
+          refreshRate: this.widgetOptions.refreshRate || '',
         }
       };
     }
