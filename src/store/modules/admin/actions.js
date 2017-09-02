@@ -2,6 +2,12 @@ import Dashboard from 'models/Dashboard';
 import Widget from 'models/Widget';
 import * as mutationTypes from 'store/mutation-types';
 
+function firebasePromiseWrapper(firebaseExpression) {
+  return new Promise((resolve, reject) => {
+    firebaseExpression.then(resolve).catch(reject);
+  });
+}
+
 export default function createActions({firebaseService}) {
   function saveResource(resourceName, resource) {
     return new Promise((resolve, reject) => {
@@ -14,9 +20,7 @@ export default function createActions({firebaseService}) {
   }
 
   function fetchResource(resourceName, resourceId) {
-    return new Promise((resolve, reject) => {
-      firebaseService.database.ref(`${resourceName}/${resourceId}`).once('value').then(resolve).catch(reject);
-    });
+    return firebasePromiseWrapper(firebaseService.database.ref(`${resourceName}/${resourceId}`).once('value'));
   }
 
   return {
@@ -105,8 +109,18 @@ export default function createActions({firebaseService}) {
         });
     },
 
-    getWidget({state}, widgetId) {
-      return state.widgets.data[widgetId];
+    async removeWidget({dispatch, getters}, widget) {
+      const dashboards = getters.dashboards;
+      const updatedDashboards = dashboards.map((dashboard) => {
+        const initialWidgetsLength = dashboard.widgets.length;
+        dashboard.widgets = dashboard.widgets.filter((widgetId) => widgetId !== widget.id);
+        if (dashboard.widgets.length !== initialWidgetsLength) {
+          return dispatch('saveDashboard', dashboard);
+        }
+        return Promise.resolve();
+      });
+      await Promise.all(updatedDashboards);
+      await firebasePromiseWrapper(firebaseService.database.ref(`widgets/${widget.id}`).set(null));
     }
   };
 }
