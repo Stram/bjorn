@@ -27,7 +27,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 button {
-  font-family: 'Montserrat', sans-serif;
   padding: 0;
   border: 0;
   background-color: transparent;
@@ -41,14 +40,23 @@ button {
 }
 
 input {
-  font-family: 'Montserrat', sans-serif;
   background-color: transparent;
   border: 0;
   padding: 0;
 }
 
+select {
+  -webkit-appearance: none;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
 button,
-input {
+input,
+select {
+  font-family: 'Montserrat', sans-serif;
+
   &:focus {
     outline: 0;
   }

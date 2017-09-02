@@ -29,6 +29,14 @@
       :required="true"
     />
 
+    <select-field
+      v-model="options.dayOfRelease"
+      label="Day of release"
+      field-name="dayOfRelease"
+      :state="form"
+      :options="weekDays"
+    />
+
     <input-field
       v-model="options.refreshRate"
       label="Refresh rate"
@@ -54,6 +62,15 @@
   export default {
     mixins: [optionsMixin],
 
+    computed: {
+      weekDays() {
+        return moment.weekdays(true).map((day) => ({
+          label: day,
+          value: day.toLowerCase()
+        }));
+      }
+    },
+
     data() {
       return {
         options: {
@@ -61,6 +78,7 @@
           nextIssueDate: this.widgetOptions.nextIssueDate || moment().format('YYYY-MM-DD'),
           featuredArticleTitle: this.widgetOptions.featuredArticleTitle || '',
           refreshRate: this.widgetOptions.refreshRate || '',
+          dayOfRelease: this.widgetOptions.dayOfRelease || '',
         }
       };
     }

@@ -1,9 +1,11 @@
 import InputField from 'components/forms/InputField.vue';
+import SelectField from 'components/forms/SelectField.vue';
 import OptionsActions from 'components/widgets/OptionsActions.vue';
 
 export default {
   components: {
     InputField,
+    SelectField,
     OptionsActions
   },
 
