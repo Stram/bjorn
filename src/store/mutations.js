@@ -29,6 +29,14 @@ export default {
   [mutationTypes.WIDGETS_LOADED](state) {
     state.widgets.isLoaded = true;
     state.widgets.isLoading = false;
-  }
+  },
 
+
+  [mutationTypes.START_LOADING](state) {
+    state.isLoading = true;
+  },
+
+  [mutationTypes.END_LOADING](state) {
+    state.isLoading = false;
+  }
 };

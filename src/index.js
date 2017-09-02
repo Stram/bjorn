@@ -24,6 +24,4 @@ const app = new Vue({
   store,
 });
 
-router.onReady(() => {
-  app.$mount('#app');
-});
+app.$mount('#app');

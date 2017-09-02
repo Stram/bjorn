@@ -9,6 +9,7 @@ import Dashboard from 'pages/Dashboard.vue';
 import Login from 'pages/Login.vue';
 
 import RouterViewProxy from 'pages/RouterViewProxy.vue';
+import {START_LOADING, END_LOADING} from 'store/mutation-types';
 
 Vue.use(Router);
 
@@ -106,6 +107,7 @@ export function createRouter({store}) {
   });
 
   router.beforeEach((to, from, next) => {
+    store.commit(START_LOADING);
     if (to.meta.authenticatedRoute && !store.getters['session/isAuthenticated']) {
       store.dispatch('session/check').then(() => {
         next();
@@ -121,6 +123,10 @@ export function createRouter({store}) {
     } else {
       next();
     }
+  });
+
+  router.afterEach(() => {
+    store.commit(END_LOADING);
   });
 
   return router;

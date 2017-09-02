@@ -21,7 +21,7 @@
 
     computed: {
       showLoadingCurtain() {
-        return this.$store.getters.isLoading;
+        return this.$store.state.isLoading;
       }
     },
   };

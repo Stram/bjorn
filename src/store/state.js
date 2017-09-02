@@ -7,6 +7,7 @@ function setInitialData() {
 }
 
 export default {
+  isLoading: false,
   dashboards: setInitialData(),
   widgets: setInitialData(),
 };
