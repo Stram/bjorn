@@ -5,10 +5,7 @@
     <div :class="$style.text">
       <span :class="$style.textBold">{{subscribersNumber}}</span> {{subscribersLabel}}
     </div>
-    <div
-      v-if="nextIssueDateIsInFuture"
-      :class="$style.text"
-    >
+    <div :class="$style.text">
       next issue in <span :class="$style.textBold">{{timeToNextIssue}}</span>
     </div>
     <div :class="$style.spacer"></div>
@@ -18,7 +15,6 @@
 </template>
 
 <script>
-  import moment from 'moment';
   import refreshableMixin from 'mixins/refreshable';
 
   export default {
@@ -41,17 +37,15 @@
       },
 
       timeToNextIssue() {
-        const noonNextIssueDate = moment(this.widget.options.nextIssueDate).add({hours: 12});
-        return this.now.to(noonNextIssueDate, true);
+        const dayOfRelease = parseInt(this.widget.options.dayOfRelease, 10);
+        const isThisWeek = this.now.isoWeekday() <= dayOfRelease;
+        const releaseDate = this.now.clone().add(isThisWeek ? 0 : 1, 'weeks').isoWeekday(dayOfRelease);
+        return this.now.to(releaseDate, true);
       },
 
       featuredArticle() {
         return this.widget.options.featuredArticleTitle;
       },
-
-      nextIssueDateIsInFuture() {
-        return moment(this.widget.options.nextIssueDate).isAfter(this.now);
-      }
     }
   };
 </script>

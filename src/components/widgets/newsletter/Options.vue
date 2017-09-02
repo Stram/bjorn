@@ -20,15 +20,6 @@
       :required="true"
     />
 
-    <input-field
-      v-model="options.nextIssueDate"
-      label="Date of next issue"
-      field-name="nextIssueDate"
-      type="date"
-      :state="form"
-      :required="true"
-    />
-
     <select-field
       v-model="options.dayOfRelease"
       label="Day of release"
@@ -64,9 +55,9 @@
 
     computed: {
       weekDays() {
-        return moment.weekdays(true).map((day) => ({
+        return moment.weekdays().map((day, index) => ({
           label: day,
-          value: day.toLowerCase()
+          value: index
         }));
       }
     },
@@ -75,7 +66,6 @@
       return {
         options: {
           subscribersNumber: this.widgetOptions.subscribersNumber || 0,
-          nextIssueDate: this.widgetOptions.nextIssueDate || moment().format('YYYY-MM-DD'),
           featuredArticleTitle: this.widgetOptions.featuredArticleTitle || '',
           refreshRate: this.widgetOptions.refreshRate || '',
           dayOfRelease: this.widgetOptions.dayOfRelease || '',
