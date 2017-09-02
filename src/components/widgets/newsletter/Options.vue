@@ -13,18 +13,18 @@
     />
 
     <input-field
-      v-model="options.nextIssueDate"
-      label="Date of next issue"
-      field-name="nextIssueDate"
-      type="date"
+      v-model="options.featuredArticleTitle"
+      label="Featured article title"
+      field-name="featuredArticleTitle"
       :state="form"
       :required="true"
     />
 
     <input-field
-      v-model="options.featuredArticleTitle"
-      label="Featured article title"
-      field-name="featuredArticleTitle"
+      v-model="options.nextIssueDate"
+      label="Date of next issue"
+      field-name="nextIssueDate"
+      type="date"
       :state="form"
       :required="true"
     />
@@ -38,7 +38,6 @@
       :state="form"
       :required="true"
     />
-
 
     <options-actions
       :disabled="form.$invalid"
