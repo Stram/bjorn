@@ -15,6 +15,8 @@
 <script>
   import AppHeader from 'components/utils/Header.vue';
 
+  import {pages} from 'router';
+
   export default {
     components: {
       AppHeader,
@@ -28,7 +30,11 @@
 
     methods: {
       onLogout() {
-        this.$store.dispatch('session/logout');
+        this.$store.dispatch('session/logout').then(() => {
+          this.$router.push({
+            name: pages.LOGIN
+          });
+        });
       }
     }
   };
