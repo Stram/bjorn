@@ -6,9 +6,6 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 const resolve = (pathName) => path.resolve(__dirname, pathName);
 
-const srcFolder = resolve('../src');
-const bundlesFolder = resolve('../bundles');
-
 const styleLoader = {
   use: [{
     loader: 'css-loader'
@@ -30,8 +27,7 @@ module.exports = {
       loader: 'vue-loader',
       options: {
         loaders: {
-          scss: ExtractTextPlugin.extract(styleLoader),
-          ts: 'ts-loader',
+          scss: ExtractTextPlugin.extract(styleLoader)
         },
         cssModules: {
           camelCase: true
@@ -59,13 +55,13 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.ts', '.vue'],
+    extensions: ['.js', '.vue'],
     modules: [
       resolve('../src'),
       'node_modules'
     ],
     alias: {
-      'app': resolve('../src')
+      app: resolve('../src')
     }
   },
 
@@ -75,5 +71,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
+    new webpack.NamedModulesPlugin()
   ]
 }

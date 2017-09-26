@@ -6,8 +6,6 @@ const baseConfig = require('./webpack.base.config.js');
 
 const resolve = (pathName) => path.resolve(__dirname, pathName);
 
-const srcFolder = resolve('../src');
-
 const isTest = process.env.NODE_ENV === 'test';
 
 const config = merge(baseConfig, {
@@ -31,6 +29,9 @@ const config = merge(baseConfig, {
       warnings: true,
       errors: true,
     },
+    stats: {
+      children: false
+    }
   }
 });
 
