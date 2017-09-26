@@ -12,7 +12,7 @@ export default {
   [mutationTypes.AUTHENTIFICATION_FAIL](state, error) {
     state.isLoading = false;
     state.isLoaded = true;
-    state.errorMessage = error;
+    state.error = error;
   },
 
   [mutationTypes.AUTHENTIFICATION_SUCCESS](state) {
@@ -22,13 +22,13 @@ export default {
 
   [mutationTypes.AUTHENTIFICATION_START](state) {
     state.isLoading = true;
-    state.errorMessage = null;
+    state.error = null;
   },
 
   [mutationTypes.RESET_SESSION](state) {
     state.isLoading = false;
     state.isLoaded = true;
-    state.errorMessage = null;
+    state.error = null;
     state.user = null;
     state.token = null;
   },

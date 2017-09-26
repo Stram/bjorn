@@ -3,5 +3,5 @@ export default {
   isLoading: false,
   isLoaded: false,
   token: '',
-  errorMessage: null,
+  error: null,
 };

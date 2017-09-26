@@ -1,72 +1,159 @@
-<template lang="html">
-  <simple-action-layout>
-    <h1
-      slot="header"
-      :class="$style.title"
-    >
-      {{title}}
-    </h1>
-
-    <div slot="footer">
-      <app-button
-        :theme="buttonThemes.SECONDARY"
-        :class="$style.loginButton"
-        @click="onLogin"
+<template>
+  <div :class="$style.container">
+    <div :class="$style.wrapper">
+      <button
+        :class="$style.button"
+        :disabled="isLoginInProgress"
+        @click="onLoginButtonClick"
       >
-        Login
-      </app-button>
+        <span
+          :class="$style.buttonText"
+        >
+          Login
+        </span>
+
+        <div
+          ref="loader"
+          :class="$style.loader"
+        ></div>
+      </button>
+
+      <transition name="fade" appear>
+        <div
+          v-if="loginErrorMessage"
+          :class="$style.error"
+        >
+          {{loginErrorMessage}}
+        </div>
+      </transition>
     </div>
-  </simple-action-layout>
+  </div>
 </template>
 
 <script>
-  import AppButton from 'components/utils/Button.vue';
-  import SimpleActionLayout from 'components/layouts/SimpleAction.vue';
-
-  import buttonThemes from 'enums/button-themes';
   import {pages} from 'router';
-
-  const titles = [
-    'Who are you?',
-    'Do I know you?',
-    'Knock knock!'
-  ];
+  import {mapGetters} from 'vuex';
 
   export default {
-    components: {
-      SimpleActionLayout,
-      AppButton,
-    },
+    computed: {
+      isLoginInProgress() {
+        return this.$store.getters['session/isLoading'];
+      },
 
-    methods: {
-      onLogin() {
-        this.$store.dispatch('session/login').then(() => {
-          this.$router.push({
-            name: pages.ADMIN,
-          });
-        });
+      loginErrorMessage() {
+        return this.$store.getters['session/errorMessage'];
       }
     },
 
-    data() {
-      return {
-        buttonThemes,
-        title: titles[Math.floor(Math.random() * titles.length)]
-      };
+    methods: {
+      onLoginButtonClick() {
+        this.$store.dispatch('session/login').then(() => {
+          if (this.$store.getters['session/isAuthenticated']) {
+            this.$router.push({
+              name: pages.ADMIN,
+            });
+          }
+        });
+      }
     }
   };
 </script>
 
 <style lang="scss" module>
-  .title {
-    color: var(--color-secondary);
+  @import 'mixins';
+
+  @keyframes login-loader {
+    from {
+      transform: translateX(-100%);
+    }
+
+    to {
+      transform: translateX(100%);
+    }
   }
 
-  .login-button {
-    border: 5px solid var(--color-secondary);
-    font-size: 130px;
-    line-height: 150px;
+  .container {
+    @include flex();
+    height: 100vh;
+    background-color: var(--color-primary);
+  }
+
+  .wrapper {
+    position: relative;
+  }
+
+  .button {
     padding: 20px 120px;
+    background-color: var(--color-light);
+    color: var(--color-primary);
+    line-height: 160px;
+    font-size: 130px;
+    font-weight: 900;
+    text-transform: uppercase;
+    position: relative;
+
+    transition: transform 300ms ease;
+
+    &:disabled {
+      .button-text {
+        opacity: 0;
+      }
+
+      .loader {
+        transform: scale(1);
+
+        &::before {
+          animation-name: login-loader;
+          animation-iteration-count: infinite;
+          animation-timing-function: ease-in-out;
+          animation-duration: 2s;
+          animation-delay: 1s;
+          opacity: 1;
+        }
+      }
+    }
+
+    &:hover {
+      &:not(:disabled) {
+        transform: scale(1.1);
+      }
+    }
   }
 
+  .button-text {
+    transition: opacity 700ms ease;
+  }
+
+  .loader {
+    position: absolute;
+    background-color: var(--color-primary);
+    overflow: hidden;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    transform: scale(0);
+    transition: transform 1000ms ease;
+
+    &::before {
+      @include stretch();
+      content: '';
+      transform: translateX(-100%);
+      background-color: var(--color-secondary);
+      will-change: transform;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+  }
+
+  .error {
+    @include stretch(absolute, auto, 0, auto, 0);
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+    transform: translateY(34px);
+    padding: 16px;
+    text-align: center;
+  }
 </style>
