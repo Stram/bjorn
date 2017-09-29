@@ -1,32 +1,35 @@
-<template lang="html">
-  <admin-layout>
-    <empty-dashboard
-      @dashboard:create="createNewDashboard"
+<template>
+  <div :class="$style.container">
+    <app-header
+      :user="currentUser"
+      @logout="onLogout"
     />
-  </admin-layout>
+
+    <router-view />
+  </div>
 </template>
 
 <script>
-  import AdminLayout from 'components/layouts/Admin.vue';
-  import EmptyDashboard from 'components/admin/EmptyDashboard.vue';
+  import AppHeader from 'components/utils/Header.vue';
 
-  import Dashboard from 'models/Dashboard';
   import {pages} from 'router';
 
   export default {
     components: {
-      AdminLayout,
-      EmptyDashboard,
+      AppHeader,
+    },
+
+    computed: {
+      currentUser() {
+        return this.$store.getters['session/currentUser'];
+      }
     },
 
     methods: {
-      createNewDashboard() {
-        this.$store.dispatch('admin/createNewDashboard', Dashboard.createEmpty()).then((dashboard) => {
+      onLogout() {
+        this.$store.dispatch('session/logout').then(() => {
           this.$router.push({
-            name: pages.ADMIN_DASHBOARD_INDEX,
-            params: {
-              dashboardId: dashboard.id
-            }
+            name: pages.LOGIN
           });
         });
       }
@@ -35,5 +38,10 @@
 </script>
 
 <style lang="scss" module>
-
+  .container {
+    background-color: var(--color-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 </style>

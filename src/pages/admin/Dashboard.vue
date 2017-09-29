@@ -136,7 +136,7 @@
       removeWidget() {
         this.$store.dispatch('admin/removeWidget', this.activeWidget);
         this.$router.replace({
-          name: pages.ADMIN_DASHBOARD_INDEX
+          name: pages.DASHBOARD
         });
       }
     },

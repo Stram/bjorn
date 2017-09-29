@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import Index from 'pages/Index.vue';
+import Login from 'pages/Login.vue';
 import Admin from 'pages/Admin.vue';
+import Dashboards from 'pages/Dashboards.vue';
+
 import AdminDashboard from 'pages/admin/Dashboard.vue';
 import AdminWidgetNew from 'pages/admin/widget/New.vue';
 import AdminWidgetOptions from 'pages/admin/widget/Options.vue';
-import Dashboard from 'pages/Dashboard.vue';
-import Login from 'pages/Login.vue';
 
 import RouterViewProxy from 'pages/RouterViewProxy.vue';
 import {START_LOADING, END_LOADING} from 'store/mutation-types';
@@ -14,48 +16,38 @@ import {START_LOADING, END_LOADING} from 'store/mutation-types';
 Vue.use(Router);
 
 export const pages = {
+  INDEX: 'index',
   LOGIN: 'login',
+  ADMIN: 'admin',
+  DASHBOARDS: 'dashboards',
   DASHBOARD: 'dashboard',
-  ADMIN_DASHBOARD_INDEX: 'dashboardIndex',
   ADMIN_DASHBOARD_WIDGET_INDEX: 'dashboardWidgetIndex',
   ADMIN_DASHBOARD_WIDGET_OPTIONS: 'dashboardWidgetOptions',
-  ADMIN: 'admin',
   ADMIN_WIDGET_NEW: 'adminWidgetNew',
   NOT_FOUND: 'notFound',
 };
 
 export function createRouter({store}) {
-
   const router = new Router({
     mode: 'history',
     routes: [{
       path: '/admin',
-      alias: '/',
+      redirect: {name: pages.DASHBOARDS},
       name: pages.ADMIN,
       component: Admin,
       meta: {authenticatedRoute: true},
-      beforeEnter(to, from, next) {
-        if (!store.state.admin.dashboards.isLoaded) {
-          store.dispatch('admin/fetchDashboards').then(() => {
-            const dashboards = store.getters['admin/dashboards'];
-            if (dashboards.length) {
-              next({
-                name: pages.ADMIN_DASHBOARD_INDEX,
-                params: {
-                  dashboardId: dashboards[0].id,
-                },
-              });
-            } else {
-              next();
-            }
-          });
-        } else {
-          next();
+      children: [{
+        path: 'dashboards',
+        name: pages.DASHBOARDS,
+        component: Dashboards,
+        beforeEnter(to, from, next) {
+          store.dispatch('fetchDashboards').then(next, next);
         }
-      },
+      }]
+
     }, {
       path: '/admin/dashboard/:dashboardId',
-      name: pages.ADMIN_DASHBOARD_INDEX,
+      name: pages.DASHBOARD,
       component: AdminDashboard,
       meta: {authenticatedRoute: true},
       beforeEnter(to, from, next) {
@@ -85,8 +77,8 @@ export function createRouter({store}) {
       }],
     }, {
       path: '/dashboard',
-      name: pages.DASHBOARD,
-      component: Dashboard,
+      name: pages.INDEX,
+      component: Index,
       meta: {authenticatedRoute: true},
       beforeEnter(to, from, next) {
         const startDashboardsSync = store.dispatch('startDashboardsSync');
@@ -102,7 +94,7 @@ export function createRouter({store}) {
     }, {
       path: '*',
       name: pages.NOT_FOUND,
-      component: Dashboard,
+      component: Index,
     }],
   });
 

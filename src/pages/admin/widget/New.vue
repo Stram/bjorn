@@ -62,7 +62,7 @@
 
       close() {
         this.$router.push({
-          name: pages.ADMIN_DASHBOARD_INDEX
+          name: pages.DASHBOARD
         });
       },
 
@@ -101,7 +101,7 @@
       const y = parseInt(to.query.y, 10);
       if (Number.isNaN(x) || Number.isNaN(y) || x < 0 || y < 0) {
         next({
-          name: pages.ADMIN_DASHBOARD_INDEX,
+          name: pages.DASHBOARD,
           params: {
             dashboardId: to.params.dashboardId
           }

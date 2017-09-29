@@ -3,7 +3,7 @@
     <div :class="$style.left">
       <router-link
         :class="$style.link"
-        :to="{name: pages.DASHBOARD}"
+        :to="{name: pages.INDEX}"
       >
         Open
       </router-link>
