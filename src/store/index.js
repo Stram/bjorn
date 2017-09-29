@@ -14,14 +14,14 @@ import state from './state';
 
 Vue.use(Vuex);
 
-export function createStore({firebaseService}) {
+export function createStore({firebaseService, queriesService}) {
   const store = new Vuex.Store({
     modules: {
       admin: createAdminStoreModule({firebaseService}),
       session: createSessionModule({firebaseService}),
       ui: UIStoreModule,
     },
-    actions: createActions({firebaseService}),
+    actions: createActions({firebaseService, queriesService}),
     getters,
     mutations,
     state,

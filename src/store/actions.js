@@ -2,7 +2,7 @@ import Dashboard from 'models/Dashboard';
 import Widget from 'models/Widget';
 import * as mutationTypes from 'store/mutation-types';
 
-export default function createActions({firebaseService}) {
+export default function createActions({firebaseService, queriesService}) {
   return {
     startDashboardsSync({commit}) {
       commit(mutationTypes.DASHBOARDS_START_LOADING);
@@ -33,6 +33,14 @@ export default function createActions({firebaseService}) {
           commit(mutationTypes.WIDGETS_LOADED);
           resolve();
         }, reject);
+      });
+    },
+
+    fetchDashboards({commit}) {
+      commit(mutationTypes.DASHBOARDS_START_LOADING);
+      return queriesService.dashboards().then((dashboards) => {
+        dashboards.forEach((dashboard) => commit(mutationTypes.SET_DASHBAORD, dashboard));
+        commit(mutationTypes.DASHBOARDS_LOADED);
       });
     }
   };
