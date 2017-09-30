@@ -2,7 +2,7 @@
   <div :class="$style.container">
     <app-header
       :user="currentUser"
-      @logout="onLogout"
+      @user:logout="onLogout"
       @theme:set="onThemeSet"
     />
 
@@ -20,6 +20,16 @@
       AppHeader,
     },
 
+    watch: {
+      currentUser() {
+        if (!this.currentUser) {
+          this.$router.push({
+            name: pages.LOGIN
+          });
+        }
+      }
+    },
+
     computed: {
       currentUser() {
         return this.$store.getters['session/currentUser'];
@@ -28,11 +38,7 @@
 
     methods: {
       onLogout() {
-        this.$store.dispatch('session/logout').then(() => {
-          this.$router.push({
-            name: pages.LOGIN
-          });
-        });
+        this.$store.dispatch('session/logout');
       },
 
       onThemeSet(themeId) {

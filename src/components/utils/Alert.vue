@@ -34,7 +34,7 @@
 
 <script>
   import UtilBackdrop from 'components/utils/Backdrop.vue';
-  import UtilButton from 'components/utils/Button.vue';
+  import UtilButton from 'components/utils/button.vue';
 
   import buttonThemes from 'enums/button-themes';
 

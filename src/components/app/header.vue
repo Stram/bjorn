@@ -22,6 +22,8 @@
       <settings
         v-if="isMenuOpen"
         :class="$style.menu"
+        :user="user"
+        @user:logout="onLogout"
         @theme:set="onThemeSet"
       />
     </transition>
@@ -55,7 +57,7 @@
       },
 
       onLogout() {
-        this.$emit('logout');
+        this.$emit('user:logout');
       },
 
       onThemeSet(themeId) {

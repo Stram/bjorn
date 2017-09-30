@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import UtilButton from 'components/utils/Button';
+  import UtilButton from 'components/utils/button';
 
   import buttonThemes from 'enums/button-themes';
 

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import UtilButton from 'components/utils/Button.vue';
+  import UtilButton from 'components/utils/button.vue';
   import buttonThemes from 'enums/button-themes';
 
   export default {
