@@ -22,6 +22,7 @@
       <settings
         v-if="isMenuOpen"
         :class="$style.menu"
+        @theme:set="onThemeSet"
       />
     </transition>
   </div>
@@ -55,6 +56,10 @@
 
       onLogout() {
         this.$emit('logout');
+      },
+
+      onThemeSet(themeId) {
+        this.$emit('theme:set', themeId);
       },
 
       toggleSettingsPreview() {

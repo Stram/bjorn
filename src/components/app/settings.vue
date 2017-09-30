@@ -1,13 +1,25 @@
 <template>
-  <h1>
-    THEME HERE
-  </h1>
+  <div>
+    <theme-picker
+      @theme:set="onThemeSet"
+    />
+  </div>
 </template>
 
 <script>
-  export default {
+  import themePicker from 'components/settings/theme-picker';
 
-  }
+  export default {
+    components: {
+      themePicker
+    },
+
+    methods: {
+      onThemeSet(themeId) {
+        this.$emit('theme:set', themeId);
+      }
+    }
+  };
 </script>
 
 <style lang="scss" module>
