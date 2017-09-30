@@ -9,12 +9,13 @@ import {firebaseConfig} from 'config';
 import {createRouter} from 'router';
 import FirebaseService from 'services/firebase';
 import QueriesService from 'services/queries';
+import * as localStorageService from 'services/localStorage';
 import {createStore} from 'store';
 
 const firebaseService = new FirebaseService(firebaseConfig);
 const queriesService = new QueriesService(firebaseService);
 
-const store = createStore({firebaseService, queriesService});
+const store = createStore({firebaseService, queriesService, localStorageService});
 const router = createRouter({store});
 
 Vue.use(PortalVue);

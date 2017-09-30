@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 
 import createAdminStoreModule from 'store/modules/admin';
 import createSessionModule from 'store/modules/session';
-import UIStoreModule from 'store/modules/ui';
+import createUIStoreModule from 'store/modules/ui';
 
 import * as mutationTypes from 'store/mutation-types';
 
@@ -14,18 +14,20 @@ import state from './state';
 
 Vue.use(Vuex);
 
-export function createStore({firebaseService, queriesService}) {
+export function createStore({firebaseService, queriesService, localStorageService}) {
   const store = new Vuex.Store({
     modules: {
       admin: createAdminStoreModule({firebaseService}),
       session: createSessionModule({firebaseService}),
-      ui: UIStoreModule,
+      ui: createUIStoreModule({localStorageService}),
     },
     actions: createActions({firebaseService, queriesService}),
     getters,
     mutations,
     state,
   });
+
+  store.dispatch('ui/setTheme');
 
   function onResize() {
     store.commit(`ui/${mutationTypes.SET_WINDOW_SIZE}`, {

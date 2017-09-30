@@ -21,6 +21,7 @@ export const SET_WIDGET_SIZE = 'SET_WIDGET_SIZE';
 
 // UI MODULE
 export const SET_WINDOW_SIZE = 'SET_WINDOW_SIZE';
+export const SET_THEME = 'SET_THEME';
 
 // GLOBAL LOADING STATE
 export const START_LOADING = 'START_LOADING';

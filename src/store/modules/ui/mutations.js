@@ -5,4 +5,8 @@ export default {
     state.windowWidth = windowSize.width;
     state.windowHeight = windowSize.height;
   },
+
+  [mutationTypes.SET_THEME](state, themeId) {
+    state.theme = themeId;
+  },
 };
