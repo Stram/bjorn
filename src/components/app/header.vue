@@ -32,16 +32,12 @@
 </template>
 
 <script>
-  import InlineSVG from 'components/utils/inline-svg.vue';
   import settings from 'components/app/settings';
 
   import {pages} from 'router';
 
-  import * as logoutIcon from 'images/sign-out.svg';
-
   export default {
     components: {
-      'inline-svg': InlineSVG,
       settings
     },
 
@@ -78,7 +74,6 @@
     data() {
       return {
         isMenuOpen: false,
-        logoutIcon,
         pages
       };
     }
