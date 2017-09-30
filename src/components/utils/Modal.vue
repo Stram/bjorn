@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import UtilBackdrop from 'components/utils/Backdrop.vue';
+  import UtilBackdrop from 'components/utils/backdrop.vue';
   import InlineSVG from 'components/utils/inline-svg.vue';
 
   import closeIcon from 'images/close.svg';

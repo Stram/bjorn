@@ -18,7 +18,7 @@
       </button>
     </header>
 
-    <transition name="slide" appear>
+    <transition name="slide">
       <settings
         v-if="isMenuOpen"
         :class="$style.menu"
@@ -28,17 +28,27 @@
         @theme:set="onThemeSet"
       />
     </transition>
+
+    <transition name="fade">
+      <backdrop
+        v-if="isMenuOpen"
+        :class="$style.backdrop"
+        @click="onBackdropClick"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
   import settings from 'components/app/settings';
+  import backdrop from 'components/utils/backdrop';
 
   import {pages} from 'router';
 
   export default {
     components: {
-      settings
+      settings,
+      backdrop
     },
 
     props: {
@@ -55,6 +65,10 @@
 
     methods: {
       onSettingsLinkClick() {
+        this.toggleSettingsPreview();
+      },
+
+      onBackdropClick() {
         this.toggleSettingsPreview();
       },
 
@@ -130,5 +144,10 @@
     background-color: var(--color-light);
     z-index: $header-menu-z-index;
     border-top: 4px solid var(--color-primary);
+  }
+
+  .backdrop {
+    background-color: var(--color-light);
+    opacity: 0.3;
   }
 </style>

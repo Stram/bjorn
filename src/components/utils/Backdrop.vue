@@ -69,19 +69,5 @@
     grid-template-areas: '. container .';
     justify-items: stretch;
     align-items: center;
-
-    &.fill {
-      &::after {
-        @include stretch(fixed);
-        content: "";
-        background-color: var(--color-secondary);
-      }
-    }
-
-    &.opacity {
-      &::after {
-        opacity: 0.8;
-      }
-    }
   }
 </style>

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import UtilBackdrop from 'components/utils/Backdrop.vue';
+  import UtilBackdrop from 'components/utils/backdrop.vue';
   import UtilButton from 'components/utils/button.vue';
 
   import buttonThemes from 'enums/button-themes';
