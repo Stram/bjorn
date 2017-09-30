@@ -54,9 +54,9 @@
   @import 'mixins';
 
   .wrapper {
-    border: 10px solid var(--color-secondary);
+    border: 10px solid var(--color-primary);
     padding: 24px 32px;
-    color: var(--color-secondary);
+    color: var(--color-primary);
     background-color: var(--color-light);
     display: flex;
     flex-direction: column;

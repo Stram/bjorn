@@ -67,6 +67,6 @@
     min-width: 0;
     min-height: 0;
     padding: 32px 24px;
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary);
   }
 </style>
