@@ -3,6 +3,7 @@
     <app-header
       :user="currentUser"
       @logout="onLogout"
+      @theme:set="onThemeSet"
     />
 
     <router-view />
@@ -32,6 +33,10 @@
             name: pages.LOGIN
           });
         });
+      },
+
+      onThemeSet(themeId) {
+        this.$store.dispatch('ui/setTheme', themeId);
       }
     }
   };
