@@ -62,7 +62,7 @@
   .content {
     height: 100%;
     width: 100%;
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary);
     animation-name: spinner-fill;
   }
 
