@@ -33,7 +33,7 @@
 
 <script>
   import AppModal from 'components/utils/Modal.vue';
-  import InlineSVG from 'components/utils/InlineSVG.vue';
+  import InlineSVG from 'components/utils/inline-svg.vue';
 
   import widgetTypes from 'enums/widgets';
   import {pages} from 'router';

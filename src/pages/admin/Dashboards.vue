@@ -1,9 +1,26 @@
 <template>
-  <h1>dashboards</h1>
+  <dashboards-list
+    :dashboards="dashboards"
+  />
 </template>
 
 <script>
+  import DashboardsList from 'components/dashboards/list';
+
+  import Dashboard from 'models/Dashboard';
+  import {pages} from 'router';
+
   export default {
+    components: {
+      DashboardsList
+    },
+
+    computed: {
+      dashboards() {
+        return this.$store.getters.dashboards;
+      }
+    },
+
     methods: {
       createNewDashboard() {
         this.$store.dispatch('admin/createNewDashboard', Dashboard.createEmpty()).then((dashboard) => {
@@ -16,5 +33,5 @@
         });
       }
     }
-  }
+  };
 </script>

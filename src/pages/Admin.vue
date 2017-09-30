@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import AppHeader from 'components/utils/Header.vue';
+  import AppHeader from 'components/app/header.vue';
 
   import {pages} from 'router';
 
@@ -39,7 +39,7 @@
 
 <style lang="scss" module>
   .container {
-    background-color: var(--color-light);
+    background-color: var(--color-primary);
     min-height: 100vh;
     display: flex;
     flex-direction: column;

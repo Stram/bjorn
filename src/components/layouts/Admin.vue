@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import AppHeader from 'components/utils/Header.vue';
+  import AppHeader from 'components/app/header.vue';
 
   import {pages} from 'router';
 

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import InlineSVG from 'components/utils/InlineSVG.vue';
+  import InlineSVG from 'components/utils/inline-svg.vue';
 
   import {pages} from 'router';
   import widgetTypes from 'enums/widgets';

@@ -22,3 +22,15 @@
 .error-label-leave-to {
   transform: translateY(-100%);
 }
+
+// SLIDE
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 300ms;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-100%);
+}

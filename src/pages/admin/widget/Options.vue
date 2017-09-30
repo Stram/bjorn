@@ -14,7 +14,7 @@
 
 <script>
   import AppModal from 'components/utils/Modal.vue';
-  import InlineSVG from 'components/utils/InlineSVG.vue';
+  import InlineSVG from 'components/utils/inline-svg.vue';
 
   import {pages} from 'router';
   import widgets from 'enums/widgets';

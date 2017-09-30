@@ -4,7 +4,7 @@ import Router from 'vue-router';
 import Index from 'pages/Index.vue';
 import Login from 'pages/Login.vue';
 import Admin from 'pages/Admin.vue';
-import Dashboards from 'pages/Dashboards.vue';
+import Dashboards from 'pages/admin/Dashboards.vue';
 
 import AdminDashboard from 'pages/admin/Dashboard.vue';
 import AdminWidgetNew from 'pages/admin/widget/New.vue';
@@ -40,6 +40,7 @@ export function createRouter({store}) {
         path: 'dashboards',
         name: pages.DASHBOARDS,
         component: Dashboards,
+        meta: {authenticatedRoute: true},
         beforeEnter(to, from, next) {
           store.dispatch('fetchDashboards').then(next, next);
         }
