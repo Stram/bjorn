@@ -23,6 +23,7 @@
         v-if="isMenuOpen"
         :class="$style.menu"
         :user="user"
+        :activeTheme="activeTheme"
         @user:logout="onLogout"
         @theme:set="onThemeSet"
       />
@@ -47,7 +48,12 @@
     props: {
       user: {
         type: Object,
-        required: true,
+        required: true
+      },
+
+      activeTheme: {
+        type: String,
+        required: true
       }
     },
 
@@ -112,7 +118,7 @@
     font-weight: bold;
     padding: 0 20px;
     border: 3px solid var(--color-primary);
-    transition: color, background-color, transform 300ms;
+    transition: color, background-color, transform 150ms;
 
     &:hover {
       transform: scale(1.1);

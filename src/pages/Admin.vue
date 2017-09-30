@@ -2,6 +2,7 @@
   <div :class="$style.container">
     <app-header
       :user="currentUser"
+      :activeTheme="activeTheme"
       @user:logout="onLogout"
       @theme:set="onThemeSet"
     />
@@ -33,6 +34,10 @@
     computed: {
       currentUser() {
         return this.$store.getters['session/currentUser'];
+      },
+
+      activeTheme() {
+        return this.$store.state.ui.theme;
       }
     },
 

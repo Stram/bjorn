@@ -1,6 +1,7 @@
 <template>
   <div>
     <theme-picker
+      :activeTheme="activeTheme"
       @theme:set="onThemeSet"
     />
 
@@ -24,6 +25,11 @@
     props: {
       user: {
         type: Object,
+        required: true
+      },
+
+      activeTheme: {
+        type: String,
         required: true
       }
     },

@@ -66,7 +66,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color, background-color 150ms, transform 300ms;
+    transition: color, background-color, transform 150ms;
 
     &:hover {
       transform: scale(1.1);
