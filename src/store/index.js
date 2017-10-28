@@ -28,6 +28,7 @@ export function createStore({firebaseService, queriesService, localStorageServic
   });
 
   store.dispatch('ui/setTheme');
+  store.dispatch('ui/setDashboardsLayout');
 
   function onResize() {
     store.commit(`ui/${mutationTypes.SET_WINDOW_SIZE}`, {
