@@ -1,11 +1,16 @@
 <template>
   <div :class="$style.container">
-    <app-header
-      :user="currentUser"
-      :activeTheme="activeTheme"
-      @user:logout="onLogout"
-      @theme:set="onThemeSet"
-    />
+    <transition
+      name="slide"
+      appear
+    >
+      <app-header
+        :user="currentUser"
+        :activeTheme="activeTheme"
+        @user:logout="onLogout"
+        @theme:set="onThemeSet"
+      />
+    </transition>
 
     <router-view />
   </div>
@@ -18,7 +23,7 @@
 
   export default {
     components: {
-      AppHeader,
+      AppHeader
     },
 
     watch: {
