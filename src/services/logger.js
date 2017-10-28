@@ -11,5 +11,5 @@ export function warn(...args) {
 }
 
 export function error(...args) {
-  consoleAction('warn', ...args);
+  consoleAction('error', ...args);
 }
