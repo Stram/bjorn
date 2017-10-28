@@ -1,6 +1,6 @@
 <template>
   <div>
-    <dashboards-list-item
+    <dashboards-grid-item
       v-for="dashboard in dashboards"
       :key="dashboard.id"
       :dashboard="dashboard"
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-  import dashboardsListItem from 'components/dashboards/list-item';
+  import dashboardsGridItem from 'components/dashboards/grid-item';
 
   export default {
     components: {
-      dashboardsListItem
+      dashboardsGridItem
     },
 
     props: {
