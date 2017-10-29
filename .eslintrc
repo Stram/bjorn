@@ -1,11 +1,9 @@
 {
   "plugins": [
-    "html",
-    "vue"
+    "html"
   ],
   "extends": [
-    "eslint:recommended",
-    "plugin:vue/recommended"
+    "eslint:recommended"
   ],
   "settings": {
     "html/html-extensions": [".vue"],
@@ -260,7 +258,6 @@
     "prefer-template": 1,
     "require-yield": 1,
     "template-curly-spacing": [1, "never"],
-    "yield-star-spacing": [1, "before"],
-    "vue/order-in-components": 2
+    "yield-star-spacing": [1, "before"]
   }
 }
