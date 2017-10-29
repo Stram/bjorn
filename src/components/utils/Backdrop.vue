@@ -69,5 +69,13 @@
     grid-template-areas: '. container .';
     justify-items: stretch;
     align-items: center;
+    z-index: var(--backdrop-z-index);
+
+    &::before {
+      @include stretch();
+      content: '';
+      opacity: 0.8;
+      background-color: var(--color-primary);
+    }
   }
 </style>

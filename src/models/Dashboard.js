@@ -7,18 +7,20 @@ export default class Dashboard extends Model {
       width: 4,
       height: 3,
       widgets: [],
+      name: ''
     };
   }
 
   static createFromResponse(response) {
-    const {id, createdAt, width, height, widgets} = response;
+    const {id, name, createdAt, width, height, widgets} = response;
     return new Dashboard({
-      id, createdAt, width, height, widgets
+      id, name, createdAt, width, height, widgets
     });
   }
 
-  constructor({id, createdAt, width, height, widgets}) {
+  constructor({id, name, createdAt, width, height, widgets}) {
     super({id});
+    this.name = name;
     this.createdAt = createdAt;
     this.width = width;
     this.height = height;

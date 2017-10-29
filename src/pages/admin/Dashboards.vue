@@ -1,13 +1,17 @@
 <template>
-  <dashboards-list
-    v-if="isListLayout"
-    :dashboards="dashboards"
-  />
+  <div :class="$style.wrapper">
+    <dashboards-list
+      v-if="isListLayout"
+      :dashboards="dashboards"
+    />
 
-  <dashboards-grid
-    v-else
-    :dashboards="dashboards"
-  >
+    <dashboards-grid
+      v-else
+      :dashboards="dashboards"
+    />
+
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -27,7 +31,7 @@
     computed: {
       dashboards() {
         return this.$store.getters.dashboards;
-      }
+      },
 
       dashboardsLayout() {
         return this.$store.state.ui.dashboardsLayout;
@@ -52,3 +56,9 @@
     }
   };
 </script>
+
+<style lang="scss" module>
+  .wrapper {
+    margin-top: 80px;
+  }
+</style>

@@ -1,2 +1,6 @@
-$header-z-index: 10;
-$header-menu-z-index: 5;
+$header-z-index: 2;
+$header-menu-z-index: 1;
+
+:root {
+  --backdrop-z-index: 3;
+}

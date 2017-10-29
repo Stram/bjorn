@@ -4,17 +4,13 @@
       <div :class="$style.container"
         @click.stop
       >
-        <div
-          v-if="title"
-          :class="$style.header"
-        >
-          {{title}}
-        </div>
+        <div :class="$style.header"> {{title}} </div>
+
         <button
           :class="$style.closeButton"
           @click="onCloseClick"
         >
-          <inline-svg :src="icons.close" :class="$style.closeIcon"/>
+          <inline-svg :src="icons.close" :class="$style.closeIcon" />
         </button>
         <slot></slot>
       </div>
@@ -37,7 +33,7 @@
     props: {
       title: {
         type: String,
-        default: '',
+        required: true,
       }
     },
 
@@ -68,21 +64,11 @@
 <style lang="scss" module>
   @import 'mixins';
 
-  .backdrop {
-    @include stretch();
-    display: grid;
-    grid-template-columns: minmax(50px, 1fr) minmax(auto, 1142px) minmax(50px, 1fr);
-    grid-template-rows: 1fr;
-    grid-template-areas: '. container .';
-    justify-items: stretch;
-    align-items: center;
-  }
-
   .container {
     grid-area: container;
     padding: 0 48px 48px;
-    background-color: var(--color-secondary);
-    border: 5px solid var(--color-light);
+    background-color: var(--color-light);
+    // border: 5px solid var(--color-primary);
     position: relative;
   }
 
@@ -91,7 +77,7 @@
     font-size: 36px;
     font-weight: bold;
     text-align: center;
-    color: var(--color-light);
+    color: var(--color-primary);
   }
 
   .close-button {
@@ -104,16 +90,16 @@
 
     &:focus,
     &:hover {
-      background-color: var(--color-light);
+      background-color: var(--color-primary);
       @include svg {
-        fill: var(--color-secondary);
+        fill: var(--color-light);
       }
     }
   }
 
   .close-icon {
     @include svg {
-      fill: var(--color-light);
+      fill: var(--color-primary);
       transition: fill 150ms;
     }
   }

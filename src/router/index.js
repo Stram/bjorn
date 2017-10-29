@@ -4,7 +4,8 @@ import Router from 'vue-router';
 import Index from 'pages/Index.vue';
 import Login from 'pages/Login.vue';
 import Admin from 'pages/Admin.vue';
-import Dashboards from 'pages/admin/Dashboards.vue';
+import AdminDashboards from 'pages/admin/Dashboards.vue';
+import AdminDashboardsNew from 'pages/admin/dashboards/new.vue';
 
 import AdminDashboard from 'pages/admin/Dashboard.vue';
 import AdminWidgetNew from 'pages/admin/widget/New.vue';
@@ -19,8 +20,8 @@ export const pages = {
   INDEX: 'index',
   LOGIN: 'login',
   ADMIN: 'admin',
-  DASHBOARDS: 'dashboards',
-  DASHBOARD: 'dashboard',
+  DASHBOARDS: 'admin.dashboards',
+  DASHBOARD: 'admin.dashboards.index',
   ADMIN_DASHBOARD_WIDGET_INDEX: 'dashboardWidgetIndex',
   ADMIN_DASHBOARD_WIDGET_OPTIONS: 'dashboardWidgetOptions',
   ADMIN_WIDGET_NEW: 'adminWidgetNew',
@@ -39,15 +40,20 @@ export function createRouter({store}) {
       children: [{
         path: 'dashboards',
         name: pages.DASHBOARDS,
-        component: Dashboards,
+        component: AdminDashboards,
         meta: {authenticatedRoute: true},
         beforeEnter(to, from, next) {
           store.dispatch('fetchDashboards').then(next, next);
-        }
+        },
+        children: [{
+          path: 'new',
+          name: 'admin.dashboards.new',
+          component: AdminDashboardsNew,
+          meta: {authenticatedRoute: true}
+        }]
       }]
-
     }, {
-      path: '/admin/dashboard/:dashboardId',
+      path: '/admin/dashboards/:dashboardId',
       name: pages.DASHBOARD,
       component: AdminDashboard,
       meta: {authenticatedRoute: true},

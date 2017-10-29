@@ -27,7 +27,7 @@
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 300ms;
+  transition: transform 300ms ease-out;
 }
 
 .slide-enter,
